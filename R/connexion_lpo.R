@@ -33,7 +33,7 @@ lapply(dbListConnections(drv = dbDriver("PostgreSQL")),
 drv <- dbDriver("PostgreSQL")
 name = "partenaires"
 addresse = "bdd.lpo-aura.org"
-uti = "orb_indicateurs"
+uti = "orb_indicateur"
 mdp = read_file("C:/Users/afourneyron/Documents/orb_indicateurs/mdp.txt")
 # gestion des carctères \\ \ 
 mdp <- gsub("[\\]", "", mdp)
