@@ -31,11 +31,11 @@ rm(pkgs)
 
 ## Connexion a la base de donnee LPO AURA
 getwd() %>% ## prise du chemin de dossier actuelle 
-  paste0("/connexion_lpo.R") %>% ## indication du nom du fichier 
+  paste0("/R/connexion_lpo.R") %>% ## indication du nom du fichier 
   source() ## lecture du fichier 
 
 ## autres options similaires : 
-source("C:/Users/afourneyron/Documents/dashboard_indicateur/connexion_lpo.R")
+# source("C:/Users/afourneyron/Documents/dashboard_indicateur/connexion_lpo.R")
 
 
 # . -------------------------------------------------------------------------- =============
