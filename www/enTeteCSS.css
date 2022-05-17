@@ -1,9 +1,36 @@
 /* CSS de toute l'en-tête */
+:root {
+  --color_violet: #8031A7;
+  --color_violet100: #A56AC2;
+  --color_violet75: #C39AD6;
+  --color_violet50: #DDC8E9;
+  --color_violet25: #ECE0F3;
+  
+  --color_vert: #6AB023;
+  --color_vert100: #399E69;
+  --color_vert75: #8AC154;
+  --color_vert50: #C5CF39;
+  --color_vert25: #CED760;
+  
+  --color_bleu: #0099D0;
+  --color_bleu100: #398CB7;
+  --color_bleu75: #39AFDA;
+  --color_bleu50: #6CCAEB;
+  --color_bleu25: #8BD6F0;
+  --color_bleuLPO: #0276BD;
+  --color_bleuLPO_ombre: #01385B;
+  
+  --color_orange: #EA7200;
+  --color_orange100: #CC7B57;
+  --color_orange75: #EE9039;
+  --color_orange50: #F9BA39;
+  --color_orange25: #F8C04F;
+}
 
 
 /* Logo de la LPO */
 #logoLPO {
-  background-color: #A56AC2;
+  background-color: var(--color_violet);
   display: flex;
   padding: 20px;
 }
@@ -37,10 +64,12 @@
   color: #FFFFFF;
   text-shadow: 1px 1px 10px black;
   font-weight: 650;
+  font-size: 300%;
 }
 
 #logoTitre {
   display: flex;
+  align-items: center;
 }
 
 /* Boutons de navigation */
@@ -48,15 +77,42 @@
   display: flex;
   align-items: flex-end;
   margin: 0;
+  margin-right: 20px;
   padding: 0;
 }
 
 #navigation>button {
-  background-color: #ECE0F3;
+  width: 85px;
+  height: 50%;
+  margin-right: 3px;
+  margin-left: 3px;
+  color: #FFFFFF;
+  font-weight: 650;
+}
+
+#accueilButton {
+  background-color: var(--color_violet50);
+}
+#globalButton {
+  background-color: var(--color_violet50);
+}
+#expertButton {
+  background-color: var(--color_violet50);
+}
+#adminButton {
+  background-color: var(--color_violet50);
+}
+
+#passiveButton {
+  background-color: var(--color_bleuLPO);
+  border-bottom: 2px solid var(--color_bleuLPO_ombre);
+  border-right: 2px solid var(--color_bleuLPO_ombre);
+  border-top: none;
+  border-left: none;
 }
 
 #logoHeader {
-  background-color: #A56AC2;
+  background-color: var(--color_violet);
   display: flex;
   justify-content: space-between;
   height: 130px;
@@ -64,7 +120,7 @@
 
 /* Bandeau des settings */
 #settings {
-  background-color: #0276BD;
+  background-color: var(--color_bleuLPO);
 }
 
 /* Bandeau vide */

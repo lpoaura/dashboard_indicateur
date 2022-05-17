@@ -35,7 +35,7 @@ divLogo1 <- div(id = "logo1",
 
 # Titre du Dashboard
 header <- titlePanel(title = "TITRE DU DASHBOARD",
-                     windowTitle = "TITRE WINDOW"
+                     windowTitle = "Page globale"
 )
 
 divLogoTitre <- div(id = "logoTitre",
@@ -45,15 +45,25 @@ rm(divLogo1, header)
 
 
 # Boutons de navigation
+# ulNavigation <- tabsetPanel(id = "navigation",
+#                             tabPanel(title = "PanelAccueil", value = "panelAccueil",
+#                                      numericInput(inputId = "compteur", label =  "compteur", value = 1)),
+#                             tabPanel(title = "PanelGlobal", value = "panelGlobal",
+#                                      numericInput(inputId = "compteur", label =  "compteur", value = 2)),
+#                             tabPanel(title = "PanelExpert", value = "panelExpert",
+#                                      numericInput(inputId = "compteur", label =  "compteur", value = 3)),
+#                             tabPanel(title = "PanelAdmin", value = "panelAdmin",
+#                                      numericInput(inputId = "compteur", label =  "compteur", value = 4)))
+
+
 ulNavigation <- tags$ul(id = "navigation",
-                        tabPanel(title = "Panel1", value = "panel1",
-                                 actionButton(inputId = "accueilBouton",
-                                              label = "ACCUEIL")),
-                        actionButton(inputId = "globalBouton",
+                        actionButton(inputId = "accueilButton",
+                                     label = "ACCUEIL"),
+                        actionButton(inputId = "passiveButton",
                                      label = "GLOBAL"),
-                        actionButton(inputId = "expertBouton",
+                        actionButton(inputId = "expertButton",
                                      label = "EXPERT"),
-                        actionButton(inputId = "adminBouton",
+                        actionButton(inputId = "adminButton",
                                      label = "ADMIN"))
 
 divLogoHeader <- div(id = "logoHeader",
@@ -62,6 +72,10 @@ divLogoHeader <- div(id = "logoHeader",
 rm(divLogoTitre, ulNavigation)
 
 
+# Bandeau de settings
+divSettings <- div(id = "settings",
+                   "SETTINGS")
+
 # Bandeau vide
 divBlankHeader <- div(id = "blankHeader")
 
@@ -69,12 +83,13 @@ divBlankHeader <- div(id = "blankHeader")
 # Partie droite du bandeau
 divHeadBand <- div(id = "headBand",
                    divLogoHeader,
+                   divSettings,
                    divBlankHeader)
-rm(divLogoHeader, divBlankHeader)
+rm(divLogoHeader, divSettings, divBlankHeader)
 
 
 # En tête générale
-divEnTeteAccueil <- div(id = "enTete",
+divEnTeteGlobal <- div(id = "enTete",
                  divLogo,
                  divHeadBand)
 

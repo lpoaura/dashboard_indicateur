@@ -14,28 +14,10 @@ divLogo1 <- div(id = "logo1",
                     width = 70,
                     height = 70))
 
-# Autres logos
-# divSousLogos <- div(id = "autresLogos",
-#                     img(src = "logo_region.png",
-#                         width = 40,
-#                         height = 40),
-#                     img(src = "logo_ofb.png",
-#                         width = 40,
-#                         height = 40),
-#                     img(src = "logo_Flavia.png",
-#                         width = 40,
-#                         height = 40),
-#                     img(src = "logo_cbn.png",
-#                         width = 40,
-#                         height = 40))
-
-# divTitreSousLogos <- div(id = "titreSousLogos",
-#                          header,
-#                          divSousLogos)
 
 # Titre du Dashboard
 header <- titlePanel(title = "TITRE DU DASHBOARD",
-                     windowTitle = "TITRE WINDOW"
+                     windowTitle = "Page admin"
 )
 
 divLogoTitre <- div(id = "logoTitre",
@@ -44,15 +26,14 @@ divLogoTitre <- div(id = "logoTitre",
 rm(divLogo1, header)
 
 
-# Boutons de navigation
 ulNavigation <- tags$ul(id = "navigation",
-                        actionButton(inputId = "accueilBouton",
+                        actionButton(inputId = "accueilButton",
                                      label = "ACCUEIL"),
-                        actionButton(inputId = "globalBouton",
+                        actionButton(inputId = "globalButton",
                                      label = "GLOBAL"),
-                        actionButton(inputId = "expertBouton",
+                        actionButton(inputId = "expertButton",
                                      label = "EXPERT"),
-                        actionButton(inputId = "adminBouton",
+                        actionButton(inputId = "passiveButton",
                                      label = "ADMIN"))
 
 divLogoHeader <- div(id = "logoHeader",
@@ -78,7 +59,7 @@ rm(divLogoHeader, divSettings, divBlankHeader)
 
 
 # En tête générale
-divEnTete <- div(id = "enTete",
+divEnTeteAdmin <- div(id = "enTete",
                  divLogo,
                  divHeadBand)
 

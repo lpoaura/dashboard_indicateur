@@ -1,10 +1,38 @@
 /* CSS du bandeau de gauche */
+:root {
+  --color_violet: #8031A7;
+  --color_violet100: #A56AC2;
+  --color_violet75: #C39AD6;
+  --color_violet50: #DDC8E9;
+  --color_violet25: #ECE0F3;
+  
+  --color_vert: #6AB023;
+  --color_vert100: #399E69;
+  --color_vert75: #8AC154;
+  --color_vert50: #C5CF39;
+  --color_vert25: #CED760;
+  
+  --color_bleu: #0099D0;
+  --color_bleu100: #398CB7;
+  --color_bleu75: #39AFDA;
+  --color_bleu50: #6CCAEB;
+  --color_bleu25: #8BD6F0;
+  --color_bleuLPO: #0276BD;
+  --color_bleuLPO_ombre: #01385B;
+  
+  --color_orange: #EA7200;
+  --color_orange100: #CC7B57;
+  --color_orange75: #EE9039;
+  --color_orange50: #F9BA39;
+  --color_orange25: #F8C04F;
+}
+
 
 /* Bandeau de gauche */
 #bandeau {
   height: 100%;
   width: 20%;
-  background-color: #0276BD;
+  background-color: var(--color_bleuLPO);
 }
 
 /* Zone de la carte */

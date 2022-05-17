@@ -18,61 +18,148 @@ library(shinydashboard)
 
 
 getwd() %>% ## prise du chemin de dossier actuelle
-  paste0("/R/createEnTete.R") %>%
-  source() 
+  paste0("/R/accueil/createEnTete.R") %>%
+  source()
 
 getwd() %>% ## prise du chemin de dossier actuelle
-  paste0("/R/createLeftBandeau.R") %>%
-  source() 
+  paste0("/R/accueil/createLeftBandeau.R") %>%
+  source()
+
+getwd() %>% ## prise du chemin de dossier actuelle
+  paste0("/R/global/createEnTete.R") %>%
+  source()
+
+getwd() %>% ## prise du chemin de dossier actuelle
+  paste0("/R/global/createLeftBandeau.R") %>%
+  source()
+
+getwd() %>% ## prise du chemin de dossier actuelle
+  paste0("/R/expert/createEnTete.R") %>%
+  source()
+
+getwd() %>% ## prise du chemin de dossier actuelle
+  paste0("/R/expert/createLeftBandeau.R") %>%
+  source()
+
+getwd() %>% ## prise du chemin de dossier actuelle
+  paste0("/R/admin/createEnTete.R") %>%
+  source()
+
+getwd() %>% ## prise du chemin de dossier actuelle
+  paste0("/R/admin/createLeftBandeau.R") %>%
+  source()
 
 
 # Carte en background
 divCarteBack <- div(id = "carteBack",
                    "TEST CARTE")
 
-# Page entière
-divTotal <- div(id = "total",
-               divCarteBack,
-               divEnTete,
-               divBandeauCarte)
-
-# Page entière
+# Page entière d'accueil
 divTotalAccueil <- div(id = "total",
                        divCarteBack,
                        divEnTeteAccueil,
                        divBandeauCarte)
 
-ui <- fluidPage(
+# Page entière globale
+divTotalGlobal <- div(id = "total",
+                      divCarteBack,
+                      divEnTeteGlobal,
+                      divBandeauCarte)
+
+# Page entière globale
+divTotalExpert <- div(id = "total",
+                      divCarteBack,
+                      divEnTeteExpert,
+                      divBandeauCarte)
+
+# Page entière globale
+divTotalAdmin <- div(id = "total",
+                      divCarteBack,
+                      divEnTeteAdmin,
+                      divBandeauCarte)
+
+
+uiAccueil <- fluidPage(
   
   includeCSS("www/enTeteCSS.css"),
   includeCSS("www/leftBandeauCSS.css"),
   includeCSS("www/generalCSS.css"),
   
-  # numericInput(inputId = "compteur", label =  "compteur", value = 2),
+  divTotalAccueil
+)
+
+uiGlobal <- fluidPage(
   
-  # if (input$compteur == 1) {
-  #   divTotalAccueil
-  # } else if (input$compteur == 2) {
-  #   divTotal
-  # }
-  divTotal
+  includeCSS("www/enTeteCSS.css"),
+  includeCSS("www/leftBandeauCSS.css"),
+  includeCSS("www/generalCSS.css"),
   
+  divTotalGlobal
+)
+
+uiExpert <- fluidPage(
+  
+  includeCSS("www/enTeteCSS.css"),
+  includeCSS("www/leftBandeauCSS.css"),
+  includeCSS("www/generalCSS.css"),
+  
+  divTotalExpert
+)
+
+uiAdmin <- fluidPage(
+  
+  includeCSS("www/enTeteCSS.css"),
+  includeCSS("www/leftBandeauCSS.css"),
+  includeCSS("www/generalCSS.css"),
+  
+  divTotalAdmin
 )
 
 
+ui <- uiGlobal
+
 server <- function(input, output, session) {
   
-  # counter <- reactiveValues(countervalue = 2)
-  # 
-  # observeEvent(input$accueilBouton, {
-  #   counter$countervalue <- 1
-  #   updateNumericInput(session = session, inputId = "compteur", label = "compteur", value = 1)
-  # })
-  # 
-  # observeEvent(input$globalBouton, {
-  #   counter$countervalue <- 2
-  #   updateNumericInput(session = session, inputId = "compteur", label = "compteur", value = 2)
-  # })
+  observeEvent(input$accueilButton, {
+    print("accueil pressed");
+    removeUI(
+      selector = '#total'
+    )
+    insertUI(
+      selector = '.container-fluid',
+      ui = uiAccueil)
+  })
+  
+  observeEvent(input$globalButton, {
+    print("global pressed");
+    removeUI(
+      selector = '#total'
+    )
+    insertUI(
+      selector = '.container-fluid',
+      ui = uiGlobal)
+  })
+  
+  observeEvent(input$expertButton, {
+    print("expert pressed");
+    removeUI(
+      selector = '#total'
+    )
+    insertUI(
+      selector = '.container-fluid',
+      ui = uiExpert)
+  })
+  
+  observeEvent(input$adminButton, {
+    print("admin pressed");
+    removeUI(
+      selector = '#total'
+    )
+    insertUI(
+      selector = '.container-fluid',
+      ui = uiAdmin)
+    
+  })
 }
 
 
