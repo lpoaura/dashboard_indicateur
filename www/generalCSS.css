@@ -1,0 +1,32 @@
+/* Carte du fond */
+#carteBack {
+  background-color: #E1E1E1;
+  position: absolute;
+  top: 15%;
+  left: 0%;
+  width: 100%;
+  height: 90%;
+  z-index: -1;
+}
+
+/* Total des zones */
+#total {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+}
+
+/* Container créé par shiny */
+.container-fluid {
+  padding: 0px;
+}
+
+/*
+div {
+  border: 1px solid;
+}*/
+
+
+
+
+

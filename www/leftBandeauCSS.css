@@ -1,0 +1,24 @@
+/* CSS du bandeau de gauche */
+
+/* Bandeau de gauche */
+#bandeau {
+  height: 100%;
+  width: 20%;
+  background-color: #0276BD;
+}
+
+/* Zone de la carte */
+#carte {
+  width: 80%;
+  background-color: #E1E1A100;
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+#bandeauCarte {
+  height: 500px;
+  /*height: 100%;*/
+  width: 100%;
+  display: flex;
+}

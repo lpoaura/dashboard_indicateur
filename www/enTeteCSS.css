@@ -1,0 +1,90 @@
+/* CSS de toute l'en-tête */
+
+
+/* Logo de la LPO */
+#logoLPO {
+  background-color: #A56AC2;
+  display: flex;
+  padding: 20px;
+}
+
+/* Logo du laboratoire */
+#logo1 {
+  display: flex;
+  align-self: center;
+  padding: 10px;
+}
+
+/* Autres logos */
+/*#titreSousLogos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#titreSousLogos>h2 {
+  font-size: 18px;
+  
+}
+
+#autresLogos {
+  display: flex;
+  justify-content: space-evenly;
+}*/
+
+/* Titre du dashboard */
+#logoTitre>h2 {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 10px black;
+  font-weight: 650;
+}
+
+#logoTitre {
+  display: flex;
+}
+
+/* Boutons de navigation */
+#navigation {
+  display: flex;
+  align-items: flex-end;
+  margin: 0;
+  padding: 0;
+}
+
+#navigation>button {
+  background-color: #ECE0F3;
+}
+
+#logoHeader {
+  background-color: #A56AC2;
+  display: flex;
+  justify-content: space-between;
+  height: 130px;
+}
+
+/* Bandeau des settings */
+#settings {
+  background-color: #0276BD;
+}
+
+/* Bandeau vide */
+#blankHeader {
+  background-color: #000000;
+  height: 100%;
+  opacity: 0;
+  flex-shrink: 3;
+}
+
+/* Partie droite du bandeau */
+#headBand {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* En tête générale */
+#enTete {
+  height:190px;
+  display: flex;
+  flex-direction: row;
+}
