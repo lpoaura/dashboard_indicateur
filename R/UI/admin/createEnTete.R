@@ -3,39 +3,21 @@
 
 # Logo de la LPO
 divLogo <- div(id = "logoLPO",
-               img(src = "logo_lpo.png",
+               img(src = "Resources/logos/logo_lpo.png",
                    width = 150,
                    height = 150))
 
 
 # Logo du laboratoire
 divLogo1 <- div(id = "logo1",
-                img(src = "Logo-observatoire.png",
+                img(src = "Resources/logos/Logo-observatoire.png",
                     width = 70,
                     height = 70))
 
-# Autres logos
-# divSousLogos <- div(id = "autresLogos",
-#                     img(src = "logo_region.png",
-#                         width = 40,
-#                         height = 40),
-#                     img(src = "logo_ofb.png",
-#                         width = 40,
-#                         height = 40),
-#                     img(src = "logo_Flavia.png",
-#                         width = 40,
-#                         height = 40),
-#                     img(src = "logo_cbn.png",
-#                         width = 40,
-#                         height = 40))
-
-# divTitreSousLogos <- div(id = "titreSousLogos",
-#                          header,
-#                          divSousLogos)
 
 # Titre du Dashboard
 header <- titlePanel(title = "TITRE DU DASHBOARD",
-                     windowTitle = "Page expert"
+                     windowTitle = "Page admin"
 )
 
 divLogoTitre <- div(id = "logoTitre",
@@ -49,9 +31,9 @@ ulNavigation <- tags$ul(id = "navigation",
                                      label = "ACCUEIL"),
                         actionButton(inputId = "globalButton",
                                      label = "GLOBAL"),
-                        actionButton(inputId = "passiveButton",
+                        actionButton(inputId = "expertButton",
                                      label = "EXPERT"),
-                        actionButton(inputId = "adminButton",
+                        actionButton(inputId = "passiveButton",
                                      label = "ADMIN"))
 
 divLogoHeader <- div(id = "logoHeader",
@@ -77,7 +59,7 @@ rm(divLogoHeader, divSettings, divBlankHeader)
 
 
 # En tête générale
-divEnTeteExpert <- div(id = "enTete",
+divEnTeteAdmin <- div(id = "enTete",
                  divLogo,
                  divHeadBand)
 

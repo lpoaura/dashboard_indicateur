@@ -6,7 +6,7 @@ divBandeau <- div(id = "bandeau",
 
 # Zone de la carte
 divCarte <- div(id = "carte",
-                img(src="Logo_DREAL.png",
+                img(src="Resources/logos/Logo_DREAL.png",
                     width = 70,
                     height = 70))
 

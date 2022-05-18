@@ -27,7 +27,6 @@
   --color_orange25: #F8C04F;
 }
 
-
 /* Logo de la LPO */
 #logoLPO {
   background-color: var(--color_violet);
@@ -92,15 +91,23 @@
 
 #accueilButton {
   background-color: var(--color_violet50);
+  outline: none;
+  box-shadow: none;
 }
 #globalButton {
   background-color: var(--color_violet50);
+  outline: none;
+  box-shadow: none;
 }
 #expertButton {
   background-color: var(--color_violet50);
+  outline: none;
+  box-shadow: none;
 }
 #adminButton {
   background-color: var(--color_violet50);
+  outline: none;
+  box-shadow: none;
 }
 
 #passiveButton {
@@ -109,6 +116,8 @@
   border-right: 2px solid var(--color_bleuLPO_ombre);
   border-top: none;
   border-left: none;
+  outline: none;
+  box-shadow: none;
 }
 
 #logoHeader {
@@ -118,9 +127,96 @@
   height: 130px;
 }
 
+#objSettings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 3%;
+}
+
+#yearSettings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 70%;
+}
+
+#yearLabel {
+  display: flex;
+  align-self: center;
+  color: #FFFFFF;
+  font-size: 130%;
+  margin: 0px;
+}
+
+/*ScrollBar*/
+span.irs-min {
+  opacity: 0;
+}
+span.irs-max {
+  opacity: 0;
+}
+span.irs--shiny .irs-single{
+  background-color: #FFFFFF00;
+}
+span.irs--shiny .irs-line{
+  border: none;
+  background-color: #FFFFFF;
+  background: linear-gradient(to bottom, #ffffff -50%, #ffffff 150%);
+}
+span.irs--shiny .irs-bar{
+  border: none;
+  background-color: #FFFFFF;
+}
+span.irs--shiny .irs-handle{
+  border: none;
+  background-color: var(--color_violet75);
+}
+span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
+  border: none;
+  background-color: var(--color_violet50);
+}
+.shiny-input-container:not(.shiny-input-container-inline) {
+  margin: 0px;
+  align-items: center;
+}
+
+#polesSettings {
+  margin: 0px;
+}
+
+#actionButtonFlower {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+#actionButtonBee {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+#actionButtonPaw {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
 /* Bandeau des settings */
 #settings {
+  display: flex;
   background-color: var(--color_bleuLPO);
+  flex-direction: column;
+  width:95%;
+  border-radius: 0 0 20px 0;
+  
 }
 
 /* Bandeau vide */
