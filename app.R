@@ -1,8 +1,10 @@
 # app.R
+rm(list = ls())
+
 
 library(shiny)
 
-shinyApp(ui = uiGlobal, server = server)
+shinyApp(ui = ui, server = server)
 
 # rm(list = ls())
 

@@ -1,0 +1,132 @@
+/* CSS des settings */
+
+/* Bandeau de settings */
+/* Boutons de settings des pôles */
+
+/*#actionButtonFlower {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+#actionButtonBee {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+#actionButtonPaw {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}*/
+#polesSettings>button {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+/* div qui contient les poles */
+#polesSettings {
+  margin: 0px;
+}
+
+/* Setting de l'année */
+#yearSettings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 70%;
+}
+
+#yearLabel {
+  display: flex;
+  align-self: center;
+  color: #FFFFFF;
+  font-size: 130%;
+  margin: 0px;
+}
+
+/*ScrollBar*/
+span.irs-min {
+  opacity: 0;
+}
+span.irs-max {
+  opacity: 0;
+}
+span.irs--shiny .irs-single{
+  background-color: #FFFFFF00;
+}
+span.irs--shiny .irs-line{
+  border: none;
+  background-color: #FFFFFF;
+  background: linear-gradient(to bottom, #ffffff -50%, #ffffff 150%);
+}
+span.irs--shiny .irs-bar{
+  border: none;
+  background-color: #FFFFFF;
+}
+span.irs--shiny .irs-handle{
+  border: none;
+  background-color: var(--color_violet75);
+}
+span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
+  border: none;
+  background-color: var(--color_violet50);
+}
+.shiny-input-container:not(.shiny-input-container-inline) {
+  margin: 0px;
+  align-items: center;
+}
+
+/* Objets de settings (poles et années) */
+#objSettings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-right: 3%;
+}
+
+/* Bandeau des settings total */
+#settings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#settingsUncollapsed>button {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+#settingsCollapsed {
+  min-height: 20px;
+  width: 100%;
+}
+
+#settingsCollapsed>button {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+}
+
+#settingsTotal {
+  background-color: var(--color_bleuLPO);
+  padding-left: 1%;
+  border-radius: 0 0 20px 20px;
+  width:95%;
+  min-width: 855px;
+}

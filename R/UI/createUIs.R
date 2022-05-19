@@ -1,37 +1,57 @@
 #Ce fichier crée toutes les interfaces UI nécessaires au bon fonctionnement de l'application web.
 
-uiAccueil <- fluidPage(
-  
-  includeCSS("www/CSS/enTeteCSS.css"),
-  includeCSS("www/CSS/leftBandeauCSS.css"),
-  includeCSS("www/CSS/generalCSS.css"),
-  
-  divTotalAccueil
-)
+# uiAccueil <- fluidPage(
+#   
+#   includeCSS("www/CSS/enTeteCSS.css"),
+#   includeCSS("www/CSS/leftBandeauCSS.css"),
+#   includeCSS("www/CSS/generalCSS.css"),
+#   
+#   divTotalAccueil
+# )
+# 
+# divTotalGlobal <- div(id = "total",
+#                       divCarteBack,
+#                       divEnTete,
+#                       divBandeauCarte)
+# uiGlobal <- fluidPage(
+#   
+#   includeCSS("www/CSS/enTeteCSS.css"),
+#   includeCSS("www/CSS/leftBandeauCSS.css"),
+#   includeCSS("www/CSS/generalCSS.css"),
+#   
+#   divTotalGlobal
+# )
+# 
+# uiExpert <- fluidPage(
+#   
+#   includeCSS("www/CSS/enTeteCSS.css"),
+#   includeCSS("www/CSS/leftBandeauCSS.css"),
+#   includeCSS("www/CSS/generalCSS.css"),
+#   
+#   divTotalExpert
+# )
+# 
+# uiAdmin <- fluidPage(
+#   
+#   includeCSS("www/CSS/enTeteCSS.css"),
+#   includeCSS("www/CSS/leftBandeauCSS.css"),
+#   includeCSS("www/CSS/generalCSS.css"),
+#   
+#   divTotalAdmin
+# )
 
-uiGlobal <- fluidPage(
-  
-  includeCSS("www/CSS/enTeteCSS.css"),
-  includeCSS("www/CSS/leftBandeauCSS.css"),
-  includeCSS("www/CSS/generalCSS.css"),
-  
-  divTotalGlobal
-)
+# Page entière globale
+divTotal <- div(id = "total",
+                divCarteBack,
+                divEnTete,
+                divBandeauCarte)
 
-uiExpert <- fluidPage(
+ui <- fluidPage(
   
   includeCSS("www/CSS/enTeteCSS.css"),
+  includeCSS("www/CSS/settingsCSS.css"),
   includeCSS("www/CSS/leftBandeauCSS.css"),
   includeCSS("www/CSS/generalCSS.css"),
   
-  divTotalExpert
-)
-
-uiAdmin <- fluidPage(
-  
-  includeCSS("www/CSS/enTeteCSS.css"),
-  includeCSS("www/CSS/leftBandeauCSS.css"),
-  includeCSS("www/CSS/generalCSS.css"),
-  
-  divTotalAdmin
+  divTotal
 )

@@ -4,26 +4,26 @@
 divCarteBack <- div(id = "carteBack",
                     "TEST CARTE")
 
-# Page entière d'accueil
-divTotalAccueil <- div(id = "total",
-                       divCarteBack,
-                       divEnTeteAccueil,
-                       divBandeauCarte)
-
-# Page entière globale
-divTotalGlobal <- div(id = "total",
-                      divCarteBack,
-                      divEnTeteGlobal,
-                      divBandeauCarteGlobal)
-
-# Page entière globale
-divTotalExpert <- div(id = "total",
-                      divCarteBack,
-                      divEnTeteExpert,
-                      divBandeauCarte)
-
-# Page entière globale
-divTotalAdmin <- div(id = "total",
-                     divCarteBack,
-                     divEnTeteAdmin,
-                     divBandeauCarte)
+# # Page entière d'accueil
+# divTotalAccueil <- div(id = "total",
+#                        divCarteBack,
+#                        divEnTeteAccueil,
+#                        divBandeauCarte)
+# 
+# # Page entière globale
+# divTotalGlobal <- div(id = "total",
+#                       divCarteBack,
+#                       divEnTeteGlobal,
+#                       divBandeauCarte)
+# 
+# # Page entière globale
+# divTotalExpert <- div(id = "total",
+#                       divCarteBack,
+#                       divEnTeteExpert,
+#                       divBandeauCarte)
+# 
+# # Page entière globale
+# divTotalAdmin <- div(id = "total",
+#                      divCarteBack,
+#                      divEnTeteAdmin,
+#                      divBandeauCarte)

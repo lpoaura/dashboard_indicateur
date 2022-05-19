@@ -63,38 +63,47 @@ divDataSumUp <- div(id = "dataSumUp",
 # Zone des data viz
 divDataViz <- div(id = "dataViz",
                   divDataSumUp,
-                  "DATA VIZ")
+                  "DATA VIZ",
+                  img(src = "Resources/fleches/fleche_gauche.png",
+                      width = 300,
+                      height = 300))
 
 # Zone des indicateurs et data viz
 divData <- div(id = "data",
                selectIndicator,
                divDataViz)
 # Bandeau déplié 
+divBandeauUtil <- div(id = "bandeauUtil",
+                      divChiff,
+                      divData)
+
+# Bandeau déplié
 divBandeauUncollapsed <- div(id = "bandeauUncollapsed",
-                             divChiff,
-                             divData)
+                           actionButton(inputId = "collapaseBandeauButton",
+                                         img(src = "Resources/fleches/fleche_gauche.png",
+                                             width = 10,
+                                             height = 10)))
 
 # Bandeau replié
 divBandeauCollapsed <- div(id = "bandeauCollapsed",
-                           img(src="Resources/fleches/fleche_gauche.png",
-                               width = 10,
-                               height = 10))
-# Zone utile du bandeau
-divBandeauUtil <- div(id = "bandeauUtil",
-                      divBandeauUncollapsed,
-                      divBandeauCollapsed)
+                           actionButton(inputId = "uncollapaseBandeauButton",
+                                         img(src = "Resources/fleches/fleche_droite.png",
+                                             width = 10,
+                                             height = 10)))
+divBandeau <- div(id = "bandeau",
+                  divBandeauUtil,
+                  divBandeauUncollapsed)
+rm(divBandeauUtil, divBandeauUncollapsed)
+
 
 # Bandeau de gauche
-divBandeau <- div(id = "bandeau",
-                  divBandeauUtil)
+divBandeauTotal <- div(id = "bandeauTotal",
+                       divBandeau)
 
 # Zone de la carte
-divCarte <- div(id = "carte",
-                img(src="Resources/logos/Logo_DREAL.png",
-                    width = 70,
-                    height = 70))
+divCarte <- div(id = "carte")
 
-divBandeauCarteGlobal <- div(id = "bandeauCarte",
-                       divBandeau,
+divBandeauCarte <- div(id = "bandeauCarte",
+                       divBandeauTotal,
                        divCarte)
-rm(divBandeau, divCarte)
+rm(divBandeauTotal, divCarte)

@@ -19,6 +19,7 @@
   --color_bleu25: #8BD6F0;
   --color_bleuLPO: #0276BD;
   --color_bleuLPO_ombre: #01385B;
+  --color_bleuLPO_light: #81BADE;
   
   --color_orange: #EA7200;
   --color_orange100: #CC7B57;
@@ -27,62 +28,30 @@
   --color_orange25: #F8C04F;
 }
 
-/* Logo de la LPO */
-#logoLPO {
+/* Logo du laboratoire */
+#logo {
   background-color: var(--color_violet);
   display: flex;
   padding: 20px;
+  border-radius: 0 0 50% 0;
 }
-
-/* Logo du laboratoire */
-#logo1 {
-  display: flex;
-  align-self: center;
-  padding: 10px;
-}
-
-/* Autres logos */
-/*#titreSousLogos {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#titreSousLogos>h2 {
-  font-size: 18px;
-  
-}
-
-#autresLogos {
-  display: flex;
-  justify-content: space-evenly;
-}*/
 
 /* Titre du dashboard */
-#logoTitre>h2 {
+#logoTitleNav>h2 {
   color: #FFFFFF;
   text-shadow: 1px 1px 10px black;
   font-weight: 650;
   font-size: 300%;
 }
 
-#logoTitre {
-  display: flex;
-  align-items: center;
-}
-
 /* Boutons de navigation */
-#navigation {
-  display: flex;
-  align-items: flex-end;
-  margin: 0;
-  margin-right: 20px;
-  padding: 0;
+#navigation>div {
+  height: 75%;
 }
 
-#navigation>button {
+#navigation button {
   width: 85px;
-  height: 50%;
+  height: 100%;
   margin-right: 3px;
   margin-left: 3px;
   color: #FFFFFF;
@@ -112,122 +81,46 @@
 
 #passiveButton {
   background-color: var(--color_bleuLPO);
-  border-bottom: 2px solid var(--color_bleuLPO_ombre);
-  border-right: 2px solid var(--color_bleuLPO_ombre);
+  border-bottom: none;
+  border-right: none;
   border-top: none;
   border-left: none;
+  /*border-top: 2px solid var(--color_bleuLPO_ombre);
+  border-left: 2px solid var(--color_bleuLPO_ombre);*/
+  box-shadow: inset 3px 3px 5px 1px var(--color_bleuLPO_ombre);
   outline: none;
-  box-shadow: none;
 }
 
-#logoHeader {
+/* Ensemble des boutons de navigation */
+#navigation {
+  display: flex;
+  align-items: flex-end;
+  margin: 0;
+  margin-right: 20px;
+  padding: 0;
+  height: 100%;
+}
+
+/* div du titre et de la navigation */
+#logoTitleNav {
+  display: flex;
+  align-items: center;
   background-color: var(--color_violet);
   display: flex;
   justify-content: space-between;
-  height: 130px;
-}
-
-#objSettings {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-right: 3%;
-}
-
-#yearSettings {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 70%;
-}
-
-#yearLabel {
-  display: flex;
-  align-self: center;
-  color: #FFFFFF;
-  font-size: 130%;
-  margin: 0px;
-}
-
-/*ScrollBar*/
-span.irs-min {
-  opacity: 0;
-}
-span.irs-max {
-  opacity: 0;
-}
-span.irs--shiny .irs-single{
-  background-color: #FFFFFF00;
-}
-span.irs--shiny .irs-line{
-  border: none;
-  background-color: #FFFFFF;
-  background: linear-gradient(to bottom, #ffffff -50%, #ffffff 150%);
-}
-span.irs--shiny .irs-bar{
-  border: none;
-  background-color: #FFFFFF;
-}
-span.irs--shiny .irs-handle{
-  border: none;
-  background-color: var(--color_violet75);
-}
-span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
-  border: none;
-  background-color: var(--color_violet50);
-}
-.shiny-input-container:not(.shiny-input-container-inline) {
-  margin: 0px;
-  align-items: center;
-}
-
-#polesSettings {
-  margin: 0px;
-}
-
-#actionButtonFlower {
-  border: none;
-  background-color: #FFFFFF00;
-  outline: none;
-  box-shadow: none;
-  padding: 0px;
-}
-
-#actionButtonBee {
-  border: none;
-  background-color: #FFFFFF00;
-  outline: none;
-  box-shadow: none;
-  padding: 0px;
-}
-
-#actionButtonPaw {
-  border: none;
-  background-color: #FFFFFF00;
-  outline: none;
-  box-shadow: none;
-  padding: 0px;
-}
-
-/* Bandeau des settings */
-#settings {
-  display: flex;
-  background-color: var(--color_bleuLPO);
-  flex-direction: column;
-  width:95%;
-  border-radius: 0 0 20px 0;
-  
+  height: 90px;
+  min-width: 900px;
 }
 
 /* Bandeau vide */
 #blankHeader {
-  background-color: #000000;
+  background-color: #FFFFFF00;
   height: 100%;
   opacity: 0;
   flex-shrink: 3;
 }
 
-/* Partie droite du bandeau */
+/* Regroupement de la partie droite du bandeau */
 #headBand {
   width: 100%;
   display: flex;
@@ -236,7 +129,7 @@ span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
 
 /* En tête générale */
 #enTete {
-  height:190px;
+  /*height: 240px;*/
   display: flex;
   flex-direction: row;
 }
