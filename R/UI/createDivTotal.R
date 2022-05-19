@@ -14,7 +14,7 @@ divTotalAccueil <- div(id = "total",
 divTotalGlobal <- div(id = "total",
                       divCarteBack,
                       divEnTeteGlobal,
-                      divBandeauCarte)
+                      divBandeauCarteGlobal)
 
 # Page entière globale
 divTotalExpert <- div(id = "total",
