@@ -40,8 +40,8 @@ server <- function(input, output, session) {
     }
     
     removeUI(selector = "#bandeauCarte")
-    insertUI(selector = "#total",
-             ui = divBandeauCarte)
+    insertUI(selector = "#corps",
+             ui = divBandeauAccueil)
     
     data_page$page <- "accueil";
   })
@@ -77,9 +77,11 @@ server <- function(input, output, session) {
                ui = divSettings)
     }
     
-    removeUI(selector = '#bandeauCarte')
-    insertUI(selector = '#total',
-             ui = divBandeauCarte)
+    if(data_page$page == "accueil") {
+      removeUI(selector = '#bandeauAccueil')
+      insertUI(selector = '#corps',
+               ui = divBandeauCarte)
+    }
     
     data_page$page <- "global";
   })
@@ -115,9 +117,11 @@ server <- function(input, output, session) {
                ui = divSettings)
     }
 
-    removeUI(selector = '#bandeauCarte')
-    insertUI(selector = '#total',
-             ui = divBandeauCarte)
+    if(data_page$page == "accueil") {
+      removeUI(selector = '#bandeauAccueil')
+      insertUI(selector = '#corps',
+               ui = divBandeauCarte)
+    }
     
     data_page$page <- "expert";
   })
@@ -153,9 +157,11 @@ server <- function(input, output, session) {
       removeUI(selector = "#settingsCollapsed")
     }
     
-    removeUI(selector = '#bandeauCarte')
-    insertUI(selector = '#total',
-             ui = divBandeauCarte)
+    if(data_page$page == "accueil") {
+      removeUI(selector = '#bandeauAccueil')
+      insertUI(selector = '#corps',
+               ui = divBandeauCarte)
+    }
     
     data_page$page <- "admin";
   })
