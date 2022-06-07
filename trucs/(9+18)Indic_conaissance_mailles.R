@@ -1,5 +1,6 @@
 library(plotly)
 library(shiny)
+
 qualite_labels = c('Faible', 'Moyenne', 'Bonne','Elevee')
 
 f1 <- dbGetQuery(con_gn, "SELECT count(*) FROM orb_indicateurs.ind_connaissance_pole  WHERE ind_tot_group ='Faible'")
@@ -104,8 +105,8 @@ server <- function(input, output) {
     })
   })
   
-
+  
 }
 
-shinyApp(ui,server)
+shinyApp(ui=ui,server=server)
 

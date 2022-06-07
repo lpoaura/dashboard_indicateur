@@ -31,7 +31,7 @@ rm(pkgs)
 
 ## Connexion a la base de donnee LPO AURA
 getwd() %>% ## prise du chemin de dossier actuelle 
-  paste0("/R/connexion_lpo.R") %>% ## indication du nom du fichier 
+  paste0("/connexion_lpo.R") %>% ## indication du nom du fichier 
   source() ## lecture du fichier 
 
 ## autres options similaires : 
@@ -59,4 +59,6 @@ TAB_Info <- dbGetQuery(con_gn, "select * from orb_indicateurs.mv_sraddet_ind_pol
 ## elle marche de la meme manieres mais la variable ne seras pas un tableau mais un tableau d'entites spatiales.
 GEOM_Info <- st_read(con_gn, query = "select * from orb_indicateurs.mv_sraddet_ind_pole_geom" ) 
 
-# plot(GEOM_Info$geom[1])
+#plot(GEOM_Info$geom[1])
+Connaissance <- dbGetQuery(con_gn, "select * from orb_indicateurs.ind_connaissance_pole") 
+

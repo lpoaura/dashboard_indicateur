@@ -51,3 +51,4 @@ con_gn <- DBI::dbConnect(RPostgres::Postgres(),
 # lists des tables dans la BDD 
 dbListTables(con_gn) ## permet de voir toutes les tables de la BDD, si rien ne ressors c'est que la connexion a un soucis
 rm(name,addresse,uti,mdp) ## suppression des informations
+
