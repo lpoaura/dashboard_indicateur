@@ -1,63 +1,78 @@
 #Ce fichier crée le serveur nécessaire au bon fonctionnement de l'application web.
 
-
 server <- function(input, output, session) {
+  # reactiveValues permettant de se rappeler de la page précédente.
+  data_page <- reactiveValues(
+    page = "global"
+  );
   
+  # -------------------- BOUTONS DE NAVIGATION -------------------- #
+  # Bouton "Accueil"
   observeEvent(input$accueilButton, {
-    print("accueil pressed");
+    print("accueil pressed from");
+    print(data_page$page);
     
     # Changement des boutons de navigation
+    removeUI(selector = "#passiveButton")
     removeUI(selector = "#divAccueilButton>.btn")
     insertUI(selector = "#divAccueilButton",
-             ui = passiveAccueilButton)
+               ui = passiveAccueilButton)
     
-    removeUI(selector = "#divGlobalButton>.btn")
-    insertUI(selector = "#divGlobalButton",
-             ui = globalButton)
+    if(data_page$page == "global") {
+      insertUI(selector = "#divGlobalButton",
+               ui = globalButton)
+    }
     
-    removeUI(selector = "#divExpertButton>.btn")
-    insertUI(selector = "#divExpertButton",
-             ui = expertButton)
+    if(data_page$page == "expert") {
+      insertUI(selector = "#divExpertButton",
+               ui = expertButton)
+    }
     
-    removeUI(selector = "#divAdminButton>.btn")
-    insertUI(selector = "#divAdminButton",
-             ui = adminButton)
-    
+    if(data_page$page == "admin") {
+      insertUI(selector = "#divAdminButton",
+               ui = adminButton)
+    }
     
     # Changement de la page à faire
-    removeUI(selector = "#settings")
-    removeUI(selector = "#settingsCollapsed")
+    if(data_page$page == "global" || data_page$page == "expert") {
+      removeUI(selector = "#settings")
+      removeUI(selector = "#settingsCollapsed")
+    }
     
     removeUI(selector = "#bandeauCarte")
     insertUI(selector = "#total",
              ui = divBandeauCarte)
+    
+    data_page$page <- "accueil";
   })
   
+  # Bouton "Global"
   observeEvent(input$globalButton, {
     print("global pressed");
     
     # Changement des boutons de navigation
-    removeUI(selector = "#divAccueilButton>.btn")
-    insertUI(selector = "#divAccueilButton",
-             ui = accueilButton)
-    
+    removeUI(selector = "#passiveButton")
     removeUI(selector = "#divGlobalButton>.btn")
     insertUI(selector = "#divGlobalButton",
              ui = passiveGlobalButton)
     
-    removeUI(selector = "#divExpertButton>.btn")
-    insertUI(selector = "#divExpertButton",
-             ui = expertButton)
+    if(data_page$page == "accueil") {
+      insertUI(selector = "#divAccueilButton",
+               ui = accueilButton)
+    }
     
-    removeUI(selector = "#divAdminButton>.btn")
-    insertUI(selector = "#divAdminButton",
-             ui = adminButton)
+    if(data_page$page == "expert") {
+      insertUI(selector = "#divExpertButton",
+               ui = expertButton)
+    }
     
+    if(data_page$page == "admin") {
+      insertUI(selector = "#divAdminButton",
+               ui = adminButton)
+    }
     
     # Changement de la page à faire
-    if(as.numeric(input$expertButton) == 0) {
-      # removeUI(selector = "#settings")
-      # removeUI(selector = "#settingsCollapsed")
+    if(data_page$page != "expert") {
       insertUI(selector = '#settingsTotal',
                ui = divSettings)
     }
@@ -65,73 +80,87 @@ server <- function(input, output, session) {
     removeUI(selector = '#bandeauCarte')
     insertUI(selector = '#total',
              ui = divBandeauCarte)
+    
+    data_page$page <- "global";
   })
   
+  # Bouton "Expert"
   observeEvent(input$expertButton, {
     print("expert pressed");
     
     # Changement des boutons de navigation
-    removeUI(selector = "#divAccueilButton>.btn")
-    insertUI(selector = "#divAccueilButton",
-             ui = accueilButton)
-    
-    removeUI(selector = "#divGlobalButton>.btn")
-    insertUI(selector = "#divGlobalButton",
-             ui = globalButton)
-    
+    removeUI(selector = "#passiveButton")
     removeUI(selector = "#divExpertButton>.btn")
     insertUI(selector = "#divExpertButton",
              ui = passiveExpertButton)
     
-    removeUI(selector = "#divAdminButton>.btn")
-    insertUI(selector = "#divAdminButton",
-             ui = adminButton)
+    if(data_page$page == "accueil") {
+      insertUI(selector = "#divAccueilButton",
+               ui = accueilButton)
+    }
     
+    if(data_page$page == "global") {
+      insertUI(selector = "#divGlobalButton",
+               ui = globalButton)
+    }
+    
+    if(data_page$page == "admin") {
+      insertUI(selector = "#divAdminButton",
+               ui = adminButton)
+    }
     
     # Changement de la page à faire
-    if(as.numeric(input$globalButton) == 0) {
-      # removeUI(selector = "#settings")
-      # removeUI(selector = "#settingsCollapsed")
-      
+    if(data_page$page != "global") {
       insertUI(selector = '#settingsTotal',
                ui = divSettings)
+    }
+
+    removeUI(selector = '#bandeauCarte')
+    insertUI(selector = '#total',
+             ui = divBandeauCarte)
+    
+    data_page$page <- "expert";
+  })
+  
+  # Bouton "Admin"
+  observeEvent(input$adminButton, {
+    print("admin pressed");
+    
+    # Changement des boutons de navigation
+    removeUI(selector = "#passiveButton")
+    removeUI(selector = "#divAdminButton>.btn")
+    insertUI(selector = "#divAdminButton",
+             ui = passiveAdminButton)
+    
+    if(data_page$page == "accueil") {
+      insertUI(selector = "#divAccueilButton",
+               ui = accueilButton)
+    }
+    
+    if(data_page$page == "global") {
+      insertUI(selector = "#divGlobalButton",
+               ui = globalButton)
+    }
+    
+    if(data_page$page == "expert") {
+      insertUI(selector = "#divExpertButton",
+               ui = expertButton)
+    }
+    
+    # Changement de la page à faire
+    if(data_page$page == "global" || data_page$page == "expert") {
+      removeUI(selector = "#settings")
+      removeUI(selector = "#settingsCollapsed")
     }
     
     removeUI(selector = '#bandeauCarte')
     insertUI(selector = '#total',
              ui = divBandeauCarte)
+    
+    data_page$page <- "admin";
   })
   
-  observeEvent(input$adminButton, {
-    print("admin pressed");
-    
-    # Changement des boutons de navigation
-    removeUI(selector = "#divAccueilButton>.btn")
-    insertUI(selector = "#divAccueilButton",
-             ui = accueilButton)
-    
-    removeUI(selector = "#divGlobalButton>.btn")
-    insertUI(selector = "#divGlobalButton",
-             ui = globalButton)
-    
-    removeUI(selector = "#divExpertButton>.btn")
-    insertUI(selector = "#divExpertButton",
-             ui = expertButton)
-    
-    removeUI(selector = "#divAdminButton>.btn")
-    insertUI(selector = "#divAdminButton",
-             ui = passiveAdminButton)
-    
-    
-    # Changement de la page à faire
-    removeUI(selector = "#settings")
-    removeUI(selector = "#settingsCollapsed")
-    
-    removeUI(selector = '#bandeauCarte')
-    insertUI(selector = '#total',
-             ui = divBandeauCarte)
-  })
-  
+  # -------------------- BOUTONS DE COLLAPSE/UNCOLLAPSE -------------------- #
   observeEvent(input$collapaseSettingsButton, {
     print("collapseButton settings pressed");
     removeUI(selector = '#settings')
@@ -160,6 +189,7 @@ server <- function(input, output, session) {
              ui = divBandeau)
   })
   
+  # -------------------- BOUTONS DE CHOIX DE CATEGORIE -------------------- #
   observeEvent(input$actionButtonFlower, {
     print("Flower button pressed");
     var<-as.numeric(input$actionButtonFlower)%%2+as.numeric(input$actionButtonBee)%%2+as.numeric(input$actionButtonPaw)%%2;
@@ -386,6 +416,7 @@ server <- function(input, output, session) {
     print(as.numeric(input$actionButtonPaw));
   })
   
+  # -------------------- BOUTONS DE CATEGORIE DANS LE BANDEAU -------------------- #
   observeEvent(input$feuFlore, {
     print("Feu flore pressed");
     var<-as.numeric(input$feuFlore)%%2+as.numeric(input$feuInvertebre)%%2+as.numeric(input$feuVertebre)%%2;

@@ -6,8 +6,6 @@ library(shiny)
 
 shinyApp(ui = ui, server = server)
 
-# rm(list = ls())
-
 
 # numericInput(inputId = "n", 
 #              "Sample size", value = 25),
