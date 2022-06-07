@@ -9,17 +9,18 @@
 # . -------------------------------------------------------------------------- =============
 
 ## utilisation des librairies "RPostgreSQL", "DBI","readr"
+print("Connection to BDD...");
 
-pkgs <-  c("RPostgreSQL", "DBI","readr")
-
-# on test si les librairies sont installé sur l'environnement, si c'est pas le cas on les installes
-if (length(setdiff(pkgs, rownames(installed.packages()))) > 0) {
-  # installation des packages 
-  install.packages(setdiff(pkgs, rownames(installed.packages())))  
-} 
-# chargement des librairies (nécéssite qu'elles soient installées) 
-lapply(pkgs, library, character.only = TRUE)
-rm(pkgs)
+# pkgs <-  c("RPostgres", "RPostgreSQL", "DBI","readr")
+# 
+# # on test si les librairies sont installé sur l'environnement, si c'est pas le cas on les installes
+# if (length(setdiff(pkgs, rownames(installed.packages()))) > 0) {
+#   # installation des packages 
+#   install.packages(setdiff(pkgs, rownames(installed.packages())))  
+# } 
+# # chargement des librairies (nécéssite qu'elles soient installées) 
+# lapply(pkgs, library, character.only = TRUE)
+# rm(pkgs)
 
 # . -------------------------------------------------------------------------- =============
 # 2 - Connexion BDD postGIS ====
@@ -51,3 +52,4 @@ con_gn <- DBI::dbConnect(RPostgres::Postgres(),
 # lists des tables dans la BDD 
 dbListTables(con_gn) ## permet de voir toutes les tables de la BDD, si rien ne ressors c'est que la connexion a un soucis
 rm(name,addresse,uti,mdp) ## suppression des informations
+

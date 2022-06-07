@@ -1,0 +1,11 @@
+# library(plotly)
+# library(shiny)
+# library(leaflet)
+# library(plyr)
+# library(sf)
+# library(sp)
+# library(rgdal)
+# library("devtools")
+# library("RColorBrewer")
+
+rm(list = ls())

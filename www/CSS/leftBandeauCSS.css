@@ -139,9 +139,16 @@ body::-webkit-scrollbar-thumb {
   padding-left: 5%;
 }
 
+#histogramme {
+  margin-bottom: 10px;
+}
+
+#PieChart {
+  margin-bottom: 10px;
+}
+
 #bandeauUtil {
-  min-width: 170px;
-  width: 90%;
+  width: 450px;
 }
 
 #bandeauUncollapsed>button {
@@ -199,6 +206,7 @@ body::-webkit-scrollbar-thumb {
   max-width: 30%;
   background-color: var(--color_bleuLPO);
   border-radius: 0 20px 20px 0;
+  z-index: 2;
 }
 
 /* Zone de la carte */

@@ -34,6 +34,7 @@
   display: flex;
   padding: 20px;
   border-radius: 0 0 50% 0;
+  z-index: 2;
 }
 
 /* Titre du dashboard */
@@ -103,13 +104,13 @@
 
 /* div du titre et de la navigation */
 #logoTitleNav {
-  display: flex;
-  align-items: center;
   background-color: var(--color_violet);
   display: flex;
+  align-items: center;
   justify-content: space-between;
   height: 90px;
   min-width: 900px;
+  z-index: 2;
 }
 
 /* Bandeau vide */
@@ -129,7 +130,7 @@
 
 /* En tête générale */
 #enTete {
-  /*height: 240px;*/
+  height: 240px;
   display: flex;
   flex-direction: row;
 }

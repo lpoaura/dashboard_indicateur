@@ -63,10 +63,8 @@ divDataSumUp <- div(id = "dataSumUp",
 # Zone des data viz
 divDataViz <- div(id = "dataViz",
                   divDataSumUp,
-                  "DATA VIZ",
-                  img(src = "Resources/fleches/fleche_gauche.png",
-                      width = 300,
-                      height = 300))
+                  divHist,
+                  divPie)
 
 # Zone des indicateurs et data viz
 divData <- div(id = "data",
@@ -101,9 +99,9 @@ divBandeauTotal <- div(id = "bandeauTotal",
                        divBandeau)
 
 # Zone de la carte
-divCarte <- div(id = "carte")
+divBandeauRightCarte <- div(id = "bandeauRightCarte")
 
 divBandeauCarte <- div(id = "bandeauCarte",
                        divBandeauTotal,
-                       divCarte)
-rm(divBandeauTotal, divCarte)
+                       divBandeauRightCarte)
+rm(divBandeauTotal, divBandeauRightCarte)

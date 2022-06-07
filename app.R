@@ -1,8 +1,16 @@
 # app.R
-rm(list = ls())
+# rm(list = ls())
 
-
-library(shiny)
+# library(shiny)
+# library(plotly)
+# library(leaflet)
+# library(plyr)
+# library(sf)
+# library(sp)
+# library(rgdal)
+# library("devtools")
+# library("RColorBrewer")
+print("Launching app...");
 
 shinyApp(ui = ui, server = server)
 
