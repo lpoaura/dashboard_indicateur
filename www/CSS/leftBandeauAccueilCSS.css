@@ -1,0 +1,171 @@
+/* CSS du bandeau de gauche du mode Accueil*/
+
+#bandeauAccueil {
+  display:flex;
+  flex-direction:row;
+}
+
+#navBar {
+  display:flex;
+  flex-direction:column;
+  flex-basis:200px;
+  overflow-y: auto;
+}
+
+#navBar::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+#navBar::-webkit-scrollbar-track {
+ background-color: #FFFFFF; /* color of the tracking area */
+  border-radius: 10px;
+}
+
+#navBar::-webkit-scrollbar-thumb {
+   background-color: var(--color_violet); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid white; /* creates padding around scroll thumb */
+}
+
+.subNav {
+  display:flex;
+  flex-direction:row;
+  flex-basis:50px;
+}
+
+.subNavContent {
+  display: none;
+  position: absolute;
+  left: 200px;
+  width: 200px;
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.subNavContent::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+.subNavContent::-webkit-scrollbar-track {
+ background-color: #FFFFFF; /* color of the tracking area */
+ border-radius: 10px;
+}
+
+.subNavContent::-webkit-scrollbar-thumb {
+   background-color: var(--color_violet); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid white; /* creates padding around scroll thumb */
+}
+
+.subNav:hover .subNavContent {
+  display: flex;
+  flex-direction:column;
+}
+
+.labelMultipleInd {
+  display:flex;
+  flex-direction:row;
+}
+
+.labelMultipleInd >p {
+   margin-right: 10px;
+   margin-bottom: 0px;
+}
+
+.singleInd {
+  display: flex;
+  flex-basis: 50px;
+  border: solid 2px white;
+  background-color:var(--color_bleuLPO_light);
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+  border-radius:0px;
+}
+
+.singleInd:active {
+  background-color:var(--color_bleuLPO);
+}
+
+.singleInd:focus {
+  background-color:var(--color_bleuLPO);
+}
+
+.singleInd:hover {
+  background-color:var(--color_bleuLPO);
+}
+
+.multipleInd {
+  display: flex;
+  flex-basis: 200px;
+  border: solid 2px white;
+  background-color:var(--color_bleuLPO_light);
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+  border-radius:0px;
+}
+
+.multipleInd:active {
+  background-color:var(--color_bleuLPO);
+}
+
+.multipleInd:focus {
+  background-color:var(--color_bleuLPO);
+}
+
+.multipleInd:hover {
+  background-color:var(--color_bleuLPO);
+}
+
+.subNavContent .btn {
+  border: solid 2px white;
+  background-color: var(--color_bleuLPO_light);
+  outline: none;
+  box-shadow: none;
+  padding: 0px;
+  border-radius:0px;
+}
+
+.subNavContent .btn:active {
+  background-color:var(--color_bleuLPO);
+}
+
+.subNavContent .btn:focus {
+  background-color:var(--color_bleuLPO);
+}
+
+#info {
+  background-color: #eff0f2;
+  position: absolute;
+  top: 110px;
+  left: 270px;
+  width: 72%;
+  height: 76%;
+  z-index: 0;
+  border-radius:30px;
+  overflow-y: auto;
+}
+
+#info::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+#info::-webkit-scrollbar-track {
+ background-color: #FFFFFF; /* color of the tracking area */
+  border-radius: 10px;
+}
+
+#info::-webkit-scrollbar-thumb {
+   background-color: var(--color_violet); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid white; /* creates padding around scroll thumb */
+}
+
+#info >h1 {
+  text-align:center;
+}
+
+#info >p {
+  margin: 3%;
+}

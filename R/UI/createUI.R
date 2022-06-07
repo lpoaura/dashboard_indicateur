@@ -18,8 +18,9 @@ ui <- fluidPage(
   
   includeCSS("www/CSS/enTeteCSS.css"),
   includeCSS("www/CSS/settingsCSS.css"),
-  includeCSS("www/CSS/leftBandeauCSS.css"),
+  includeCSS("www/CSS/leftBandeauGlobalExpertCSS.css"),
   includeCSS("www/CSS/generalCSS.css"),
+  includeCSS('www/CSS/leftBandeauAccueilCSS.css'),
   
   divTotal
 )
