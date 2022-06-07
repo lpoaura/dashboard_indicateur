@@ -1,10 +1,12 @@
 /* CSS du bandeau de gauche du mode Accueil*/
 
+/* Zone totale du bandeau */
 #bandeauAccueil {
   display:flex;
   flex-direction:row;
 }
 
+/* Zone de sélection des indicateurs généraux */
 #navBar {
   display:flex;
   flex-direction:column;
@@ -12,6 +14,7 @@
   overflow-y: auto;
 }
 
+/* Scroll bar de la navigation des indicateurs généraux */
 #navBar::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }
@@ -27,12 +30,14 @@
   border: 3px solid white; /* creates padding around scroll thumb */
 }
 
+/* Zone de sélection de sous-indicateurs d'un indicateur général */
 .subNav {
   display:flex;
   flex-direction:row;
   flex-basis:50px;
 }
 
+/* Sous-indicateurs d'un indicateur général */
 .subNavContent {
   display: none;
   position: absolute;
@@ -42,6 +47,7 @@
   overflow-y: auto;
 }
 
+/* ScrollBar des sous-indicateurs d'un indicateur général */
 .subNavContent::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }
@@ -57,21 +63,32 @@
   border: 3px solid white; /* creates padding around scroll thumb */
 }
 
+/* Lorsqu'on passe par-dessus un indicateur général multiple, les 
+sous-indicateurs apparaissent*/
 .subNav:hover .subNavContent {
   display: flex;
   flex-direction:column;
 }
 
+
+/* Zone de label d'un indicateur général multiple */
 .labelMultipleInd {
   display:flex;
   flex-direction:row;
+  justify-content:space-between;
+  align-items: center;
+  width:100%;
+  height:100%;
+  padding-right:2%;
 }
 
+/* Nom de l'indicateur général multiple */
 .labelMultipleInd >p {
-   margin-right: 10px;
    margin-bottom: 0px;
 }
 
+
+/* Sélecteur d'un indicateur général unique */
 .singleInd {
   display: flex;
   flex-basis: 50px;
@@ -81,6 +98,7 @@
   box-shadow: none;
   padding: 0px;
   border-radius:0px;
+  align-items: center;
 }
 
 .singleInd:active {
@@ -95,6 +113,7 @@
   background-color:var(--color_bleuLPO);
 }
 
+/* Sélecteur d'un indicateur général multiple */
 .multipleInd {
   display: flex;
   flex-basis: 200px;
@@ -118,6 +137,7 @@
   background-color:var(--color_bleuLPO);
 }
 
+/* Sélecteurs des sous-indicateurs d'un indicateur général multiple */
 .subNavContent .btn {
   border: solid 2px white;
   background-color: var(--color_bleuLPO_light);
@@ -135,6 +155,7 @@
   background-color:var(--color_bleuLPO);
 }
 
+/* Zone du panneau de renseignement associé à l'indicateur sélectionné */
 #info {
   background-color: #eff0f2;
   position: absolute;
@@ -147,6 +168,7 @@
   overflow-y: auto;
 }
 
+/* Scroll bar du panneau de renseignements */
 #info::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }

@@ -1,5 +1,6 @@
 /* CSS du bandeau de gauche du mode Global et Expert */
 
+/* Scrollbar du corps du site web */
 body::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }
@@ -15,6 +16,10 @@ body::-webkit-scrollbar-thumb {
   border: 3px solid white; /* creates padding around scroll thumb */
 }
 
+
+/* Zone du bandeau de gauche */
+
+/* Zone des feux */
 #feuFlore {
   border: none;
   background-color: #FFFFFF00;
@@ -46,6 +51,8 @@ body::-webkit-scrollbar-thumb {
   margin: 0px;
 }
 
+
+/* Zone des chiffres globaux */
 #affichageNbData {
   color: #FFFFFF;
   margin: 0px;
@@ -83,6 +90,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #FFFFFF;
 }
 
+/* Zone de sélection des indicateurs */
 #selectIndicator {
     width: 90%;
     padding: 5%;
@@ -95,6 +103,7 @@ body::-webkit-scrollbar-thumb {
     background-color: var(--color_violet50);
 }
 
+/* Scroll bar du menu déroulant des indicateurs */
 #selectIndicator::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }
@@ -110,6 +119,8 @@ body::-webkit-scrollbar-thumb {
   border: 3px solid white; /* creates padding around scroll thumb */
 }
 
+/*Les icones de la bibliothèque fa sont mis en blanc : ici le 
+point d'interrogation dans un cercle*/
 .fa{
   color: white;
 }
@@ -122,6 +133,7 @@ body::-webkit-scrollbar-thumb {
   padding: 0px;
 }
 
+/* Zone de l'affichage des data viz */
 #dataSumUp {
   display: flex;
   flex-direction: row;
@@ -139,11 +151,14 @@ body::-webkit-scrollbar-thumb {
   padding-left: 5%;
 }
 
+/* Zone du bandeau qui est utilisé pour afficher des informations */
 #bandeauUtil {
   min-width: 170px;
   width: 90%;
 }
 
+
+/* Zone du bandeau qui est utilisé pour permettre le collapsing du bandeau */
 #bandeauUncollapsed>button {
   border: none;
   background-color: #FFFFFF00;
@@ -152,6 +167,7 @@ body::-webkit-scrollbar-thumb {
   padding: 5px;
 }
 
+/* Forme du bandeau lorsque collapsed */
 #bandeauCollapsed {
   display: flex;
   justify-content: center;
@@ -167,6 +183,7 @@ body::-webkit-scrollbar-thumb {
   padding: 0px;
 }
 
+/* Zone générale du bandeau */
 #bandeau {
   display: flex;
   width: 100%;
@@ -175,6 +192,7 @@ body::-webkit-scrollbar-thumb {
   overflow-y: auto;
 }
 
+/* Scrollbar du bandeau */
 #bandeau::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }

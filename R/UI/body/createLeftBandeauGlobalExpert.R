@@ -1,4 +1,4 @@
-# Création du bandeau de gauche
+# Création du bandeau de gauche en mode Global et Expert
 
 # Feu du pôle flore
 actionButtonFlore <- actionButton(inputId = "feuFlore",
