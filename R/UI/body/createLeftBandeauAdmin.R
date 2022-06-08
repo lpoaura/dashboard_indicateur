@@ -94,7 +94,53 @@ divPanelAdd <- div(id = "panelAdd",
                                      rows = 10),
                        submitButton(text = "RAJOUT"))
 
+# Sélecteur d'un indicateur existant
+selectExistingInd <- tags$select(id = "selectExistingInd",
+                                    "onfocus"='this.size=2;',
+                                    "onblur"='this.size=1;' ,
+                                    "onchange"='this.size=1; this.blur();',
+                                    
+                                    tags$option(value = "A", "Indicateur A"),
+                                    tags$option(value = "B", "Indicateur B"),
+                                    tags$option(value = "C", "Indicateur C"))
+
+# Panneau récapitulatif d'un indicateur existant choisi
+divExistingIndSumUp <- div(id = "existingIndSumUp",
+                           tags$ul(id = "listSumUpInd",
+                                   tags$li(id = "sumUpNameInd",
+                                           "NOM"),
+                                   tags$li(id = "sumUpTypeInd",
+                                           "TYPE"),
+                                   tags$li(id = "sumUpDeclinaisonInd",
+                                           "DECLINAISON"),
+                                   tags$li(id = "sumUpRepresentationInd",
+                                           "REPRESENTATION"),
+                                   tags$li(id = "sumUpProfilInd",
+                                           "PROFIL"),
+                                   tags$li(id = "sumUpDataBaseInd",
+                                           "JEU DE DONNEES")))
+
+# Panneau de suppression d'indicateur
+divPanelSuppress <- div(id = "panelSuppress",
+                   class = "panelAdmin",
+                   h1("SUPPRESSION"),
+                   selectExistingInd,
+                   divExistingIndSumUp,
+                   submitButton(text = "SUPPRESSION"))
+
+# Panneau de modification d'indicateur
+divPanelModify <- div(id = "panelModify",
+                      class = "panelAdmin",
+                      h1("MODIFICATION"),
+                      selectExistingInd,
+                      textAreaInput(inputId = "descriptionInput",
+                                    label = "Description de l'indicateur :",
+                                    rows = 10),
+                      submitButton(text = "MODIFICATION"))
+
 # Bandeau total du mode Admin
 divBandeauAdmin <- div(id="bandeauAdmin",
                        divNavOption,
-                       divPanelAdd)
+                       #divPanelAdd,
+                       #divPanelSuppress,
+                       divPanelModify)
