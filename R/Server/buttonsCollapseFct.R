@@ -2,6 +2,8 @@
 # boutons de navigation entre les pages
 
 buttonCollapseFct <- function(input, output, session) {
+  
+  # Collapse button du bandeau de settings
   observeEvent(input$collapaseSettingsButton, {
     print("collapseButton settings pressed");
     removeUI(selector = '#settings')
@@ -16,6 +18,7 @@ buttonCollapseFct <- function(input, output, session) {
              ui = divSettings)
   })
   
+  # Collapse button du bandeau de gauche
   observeEvent(input$collapaseBandeauButton, {
     print("collapseButton bandeau pressed");
     removeUI(selector = '#bandeau')

@@ -3,6 +3,7 @@
 print("Creating server...");
 
 server <- function(input, output, session) {
+  
   # reactiveValues permettant de se rappeler de la page précédente.
   data_page <- reactiveValues(
     page = "global"

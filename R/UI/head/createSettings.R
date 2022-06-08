@@ -48,9 +48,7 @@ rm(divYearSettings, ulPolesSettings);
 # Bandeau de settings déplié
 divSettingsUncollapsed <- div(id = "settingsUncollapsed",
                               actionButton(inputId = "collapaseSettingsButton",
-                                            img(src = "Resources/fleches/fleche_haut.png",
-                                                width = 10,
-                                                height = 10)))
+                                           icon("caret-up")))
 
 # Bandeau de settings déplié total
 divSettings <- div(id = "settings",
@@ -62,6 +60,4 @@ rm(divObjSettings, divSettingsUncollapsed)
 # Bandeau de settings replié
 divSettingsCollapsed <- div(id = "settingsCollapsed",
                             actionButton(inputId = "uncollapaseSettingsButton",
-                                         img(src = "Resources/fleches/fleche_bas.png",
-                                             width = 10,
-                                             height = 10)))
+                                         icon("caret-down")))

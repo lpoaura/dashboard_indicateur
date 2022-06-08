@@ -9,8 +9,6 @@ divCorps <- div(id = "corps",
 # Carte en background
 divCarteBack <- div(id = "carteBack",
                     divCarte);
-# test <- div(id = "machin",
-#             divCarte00);
 
 # Page entière globale
 divTotal <- div(id = "total",
@@ -18,16 +16,13 @@ divTotal <- div(id = "total",
                 divEnTete,
                 divCorps)
 
-# ui <- fluidPage(
-# )
-# divCarte0 <- div(id="carte",
-#                  leafletOutput("mymap"))
 
+# UI qui sera donné initialement à l'utilisateur
 ui <- fluidPage(
   
   includeCSS("www/CSS/enTeteCSS.css"),
   includeCSS("www/CSS/settingsCSS.css"),
-  includeCSS("www/CSS/leftBandeauCSS.css"),
+  includeCSS("www/CSS/leftBandeauGlobalExpertCSS.css"),
   includeCSS("www/CSS/generalCSS.css"),
   
   divTotal

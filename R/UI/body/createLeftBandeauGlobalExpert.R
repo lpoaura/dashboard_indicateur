@@ -70,6 +70,7 @@ divDataViz <- div(id = "dataViz",
 divData <- div(id = "data",
                selectIndicator,
                divDataViz)
+
 # Bandeau déplié 
 divBandeauUtil <- div(id = "bandeauUtil",
                       divChiff,
@@ -77,17 +78,14 @@ divBandeauUtil <- div(id = "bandeauUtil",
 
 # Bandeau déplié
 divBandeauUncollapsed <- div(id = "bandeauUncollapsed",
-                           actionButton(inputId = "collapaseBandeauButton",
-                                         img(src = "Resources/fleches/fleche_gauche.png",
-                                             width = 10,
-                                             height = 10)))
+                             actionButton(inputId = "collapaseBandeauButton",
+                                          icon("caret-left")))
 
 # Bandeau replié
 divBandeauCollapsed <- div(id = "bandeauCollapsed",
                            actionButton(inputId = "uncollapaseBandeauButton",
-                                         img(src = "Resources/fleches/fleche_droite.png",
-                                             width = 10,
-                                             height = 10)))
+                                        icon("caret-right")))
+
 divBandeau <- div(id = "bandeau",
                   divBandeauUtil,
                   divBandeauUncollapsed)

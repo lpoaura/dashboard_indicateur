@@ -37,6 +37,7 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
     removeUI(selector = "#bandeauCarte")
     insertUI(selector = "#corps",
              ui = divBandeauAccueil)
+    removeUI(selector = "#carteBack");
     
     data_page$page <- "accueil";
   })
@@ -76,6 +77,10 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
       removeUI(selector = '#bandeauAccueil')
       insertUI(selector = '#corps',
                ui = divBandeauCarte)
+      
+      
+      insertUI(selector = "#total",
+               ui = divCarteBack)
     }
     
     data_page$page <- "global";
@@ -116,6 +121,10 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
       removeUI(selector = '#bandeauAccueil')
       insertUI(selector = '#corps',
                ui = divBandeauCarte)
+      
+      
+      insertUI(selector = "#total",
+               ui = divCarteBack)
     }
     
     data_page$page <- "expert";
@@ -156,6 +165,10 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
       removeUI(selector = '#bandeauAccueil')
       insertUI(selector = '#corps',
                ui = divBandeauCarte)
+      
+      
+      insertUI(selector = "#total",
+               ui = divCarteBack)
     }
     
     data_page$page <- "admin";
