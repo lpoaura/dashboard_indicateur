@@ -19,6 +19,7 @@ divTotal <- div(id = "total",
 
 # UI qui sera donné initialement à l'utilisateur
 ui <- fluidPage(
+  includeScript('www/JavaScript/test.js'),
   
   includeCSS("www/CSS/enTeteCSS.css"),
   includeCSS("www/CSS/settingsCSS.css"),
@@ -27,4 +28,5 @@ ui <- fluidPage(
   includeCSS('www/CSS/leftBandeauAccueilCSS.css'),
   
   divTotal
+  
 )
