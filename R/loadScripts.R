@@ -41,6 +41,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/UI/body/createLeftBandeauAdmin.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/UI/createUI.R") %>%
   source()
 

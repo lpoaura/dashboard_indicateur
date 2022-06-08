@@ -32,12 +32,15 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
     if(data_page$page == "global" || data_page$page == "expert") {
       removeUI(selector = "#settings")
       removeUI(selector = "#settingsCollapsed")
+      removeUI(selector = "#bandeauCarte")
+      removeUI(selector = "#carteBack")
+    }
+    if (data_page$page == "admin") {
+      removeUI(selector = "#bandeauAdmin")
     }
     
-    removeUI(selector = "#bandeauCarte")
     insertUI(selector = "#corps",
              ui = divBandeauAccueil)
-    removeUI(selector = "#carteBack");
     
     data_page$page <- "accueil";
   })
@@ -75,6 +78,16 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
     
     if(data_page$page == "accueil") {
       removeUI(selector = '#bandeauAccueil')
+      insertUI(selector = '#corps',
+               ui = divBandeauCarte)
+      
+      
+      insertUI(selector = "#total",
+               ui = divCarteBack)
+    }
+    
+    if (data_page$page == "admin") {
+      removeUI(selector = "#bandeauAdmin")
       insertUI(selector = '#corps',
                ui = divBandeauCarte)
       
@@ -127,12 +140,23 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
                ui = divCarteBack)
     }
     
+    if (data_page$page == "admin") {
+      removeUI(selector = "#bandeauAdmin")
+      insertUI(selector = '#corps',
+               ui = divBandeauCarte)
+      
+      
+      insertUI(selector = "#total",
+               ui = divCarteBack)
+    }
+    
     data_page$page <- "expert";
   })
   
   # Bouton "Admin"
   observeEvent(input$adminButton, {
-    print("admin pressed");
+    print("admin pressed from");
+    print(data_page$page);
     
     # Changement des boutons de navigation
     removeUI(selector = "#passiveButton")
@@ -159,17 +183,18 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
     if(data_page$page == "global" || data_page$page == "expert") {
       removeUI(selector = "#settings")
       removeUI(selector = "#settingsCollapsed")
+      
+      removeUI(selector = "#carteBack")
+      removeUI(selector = "#bandeauCarte")
     }
     
     if(data_page$page == "accueil") {
+      print("HERE")
       removeUI(selector = '#bandeauAccueil')
-      insertUI(selector = '#corps',
-               ui = divBandeauCarte)
-      
-      
-      insertUI(selector = "#total",
-               ui = divCarteBack)
     }
+    
+    insertUI(selector = '#corps',
+             ui = divBandeauAdmin)
     
     data_page$page <- "admin";
   })
