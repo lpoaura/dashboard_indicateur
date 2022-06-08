@@ -9,6 +9,13 @@ server <- function(input, output, session) {
     page = "global"
   );
   
+  # reactiveValues permettent de savoir quels boutons de pôles sont actifs
+  data_polesButtons <- reactiveValues(
+    flore = TRUE,
+    invertebre = TRUE,
+    vertebre = TRUE
+  );
+  
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
   buttonsNavTabFct(input, output, session, data_page);
   
@@ -16,11 +23,12 @@ server <- function(input, output, session) {
   buttonCollapseFct(input, output, session);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
-  buttonsPolesSettingsFct(input, output, session);
+  buttonsPolesSettingsFct(input, output, session, data_polesButtons);
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session);
   
   # -------------------- DONNEES -------------------- #
   datasForServerFct(input, output, session);
+  
 }

@@ -13,8 +13,8 @@ divLogo <- div(id = "logo",
 ## Bandeau d'en-tête (titre et navigation)
 
 # Titre du Dashboard
-titre <- titlePanel(title = "TITRE DU DASHBOARD",
-                     windowTitle = "TITRE WINDOW"
+titre <- titlePanel(title = "Indicateurs de la biodiversité AURA",
+                     windowTitle = "Biodiversité - AURA"
 )
 
 # div qui contiennent les boutons de navigation
