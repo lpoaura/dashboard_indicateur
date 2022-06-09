@@ -23,6 +23,11 @@ server <- function(input, output, session) {
     vertebre = TRUE
   );
   
+  # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
+  data_tabAdmin <- reactiveValues(
+    tab = "RAJOUT"
+  );
+  
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
   buttonsNavTabFct(input, output, session, data_page);
   
@@ -34,6 +39,9 @@ server <- function(input, output, session) {
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);
+  
+  # -------------------- BOUTONS D'ONGLETS DANS LE MODE ADMIN -------------------- #
+  buttonsAdminTabFct(input, output, session, data_tabAdmin);
   
   # -------------------- DONNEES -------------------- #
   datasForServerFct(input, output, session);

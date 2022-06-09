@@ -22,19 +22,21 @@ mode Admin */
   color:#333;
 }
 
-.tabAdmin:hover {
-  background-color : var(--color_violet25);
-  color:#333;
-}
-
-.tabAdmin:active {
-  background-color : var(--color_bleuLPO);
+#addButton {
+  background-color: var(--color_bleuLPO);
   color: white;
+  outline: none;
+  box-shadow: none;
 }
 
-.tabAdmin:focus {
-  background-color : var(--color_bleuLPO);
-  color:white;
+#suppressButton {
+  outline: none;
+  box-shadow: none;
+}
+
+#modifyButton {
+  outline: none;
+  box-shadow: none;
 }
 
 /* Navigation des fonctionnalités du mode Admin */
