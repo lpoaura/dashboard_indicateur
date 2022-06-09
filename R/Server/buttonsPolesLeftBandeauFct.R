@@ -13,6 +13,11 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
         otherData1 = data_polesFeux$invertebre,
         otherData2 = data_polesFeux$vertebre
       );
+      data_polesButtonsOrdered <- reactiveValues(
+        actualData = data_polesButtons$flore,
+        otherData1 = data_polesButtons$invertebre,
+        otherData2 = data_polesButtons$vertebre
+      );
       actualName <- "rond_vert";
       otherName1 <- "rond_orange";
       otherName2 <- "rond_bleu";
@@ -21,8 +26,8 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       otherButton2 <- 'Vertebre';
       
       processPolesFeux(actualName, otherName1, otherName2,
-                          actualButton, otherButton1, otherButton2,
-                          data_polesFeuxOrdered)
+                       actualButton, otherButton1, otherButton2,
+                       data_polesFeuxOrdered, data_polesButtonsOrdered)
       
       data_polesFeux$flore <- data_polesFeuxOrdered$actualData
       data_polesFeux$invertebre <- data_polesFeuxOrdered$otherData1
@@ -114,6 +119,11 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
         otherData1 = data_polesFeux$flore,
         otherData2 = data_polesFeux$vertebre
       );
+      data_polesButtonsOrdered <- reactiveValues(
+        actualData = data_polesButtons$invertebre,
+        otherData1 = data_polesButtons$flore,
+        otherData2 = data_polesButtons$vertebre
+      );
       actualName <- "rond_orange";
       otherName1 <- "rond_vert";
       otherName2 <- "rond_bleu";
@@ -122,8 +132,8 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       otherButton2 <- 'Vertebre';
       
       processPolesFeux(actualName, otherName1, otherName2,
-                          actualButton, otherButton1, otherButton2,
-                          data_polesFeuxOrdered)
+                       actualButton, otherButton1, otherButton2,
+                       data_polesFeuxOrdered, data_polesButtonsOrdered)
       
       
       data_polesFeux$invertebre <- data_polesFeuxOrdered$actualData
@@ -217,6 +227,11 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
         otherData1 = data_polesFeux$flore,
         otherData2 = data_polesFeux$invertebre
       );
+      data_polesButtonsOrdered <- reactiveValues(
+        actualData = data_polesButtons$vertebre,
+        otherData1 = data_polesButtons$flore,
+        otherData2 = data_polesButtons$invertebre
+      );
       actualName <- "rond_bleu";
       otherName1 <- "rond_vert";
       otherName2 <- "rond_orange";
@@ -225,8 +240,8 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       otherButton2 <- 'Invertebre';
       
       processPolesFeux(actualName, otherName1, otherName2,
-                          actualButton, otherButton1, otherButton2,
-                          data_polesFeuxOrdered)
+                       actualButton, otherButton1, otherButton2,
+                       data_polesFeuxOrdered, data_polesButtonsOrdered)
       
       data_polesFeux$vertebre <- data_polesFeuxOrdered$actualData
       data_polesFeux$flore <- data_polesFeuxOrdered$otherData1
@@ -374,28 +389,54 @@ meNotOnlyActivePolesFeux <- function(actualName, otherName1, otherName2,
 
 # --------------- Ce feux était le seul actif ---------------#
 meOnlyActivePolesFeux <- function(actualName, otherName1, otherName2,
-                                     actualButton, otherButton1, otherButton2,
-                                     data_polesFeuxOrdered)
+                                  actualButton, otherButton1, otherButton2,
+                                  data_polesFeuxOrdered, data_polesButtonsOrdered)
 {
-  removeUI(selector = paste('#feu', actualButton, '>img', sep=""))
-  insertUI(selector = paste('#feu', actualButton, sep=""),
-           ui = img(src = "Resources/pictogrammes/rond_violet.png",
-                    width=15,
-                    height=15))
-  
-  removeUI(selector = paste('#feu', otherButton1, '>img', sep=""))
-  insertUI(selector = paste('#feu', otherButton1, sep=""),
-           ui = img(src = "Resources/pictogrammes/rond_violet.png",
-                    width=15,
-                    height=15))
-  data_polesFeuxOrdered$otherData1 = TRUE;
-  
-  removeUI(selector = paste('#feu', otherButton2, '>img', sep=""))
-  insertUI(selector = paste('#feu', otherButton2, sep=""),
-           ui = img(src = "Resources/pictogrammes/rond_violet.png",
-                    width=15,
-                    height=15))
-  data_polesFeuxOrdered$otherData2 = TRUE;
+  # Les deux autres boutons sont disponibles
+  if (data_polesButtonsOrdered$otherData1 && data_polesButtonsOrdered$otherData2) {
+    removeUI(selector = paste('#feu', actualButton, '>img', sep=""))
+    insertUI(selector = paste('#feu', actualButton, sep=""),
+             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+                      width=15,
+                      height=15))
+    
+    removeUI(selector = paste('#feu', otherButton1, '>img', sep=""))
+    insertUI(selector = paste('#feu', otherButton1, sep=""),
+             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+                      width=15,
+                      height=15))
+    data_polesFeuxOrdered$otherData1 = TRUE;
+    
+    removeUI(selector = paste('#feu', otherButton2, '>img', sep=""))
+    insertUI(selector = paste('#feu', otherButton2, sep=""),
+             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+                      width=15,
+                      height=15))
+    data_polesFeuxOrdered$otherData2 = TRUE;
+  }
+  # Au moins un autre bouton est disponible
+  else if (data_polesButtonsOrdered$otherData1 || data_polesButtonsOrdered$otherData2) {
+    if (data_polesButtonsOrdered$otherData1) {
+      removeUI(selector = paste('#feu', otherButton1, '>img', sep=""))
+      insertUI(selector = paste('#feu', otherButton1, sep=""),
+               ui = img(src = paste("Resources/pictogrammes/", otherName1, ".png", sep=""),
+                        width=15,
+                        height=15))
+      data_polesFeuxOrdered$otherData1 = TRUE;
+    }
+    else {
+      removeUI(selector = paste('#feu', otherButton2, '>img', sep=""))
+      insertUI(selector = paste('#feu', otherButton2, sep=""),
+               ui = img(src = paste("Resources/pictogrammes/", otherName2, ".png", sep=""),
+                        width=15,
+                        height=15))
+      data_polesFeuxOrdered$otherData2 = TRUE;
+    }
+  }
+  # Aucun autre bouton n'est disponible : on ne fait rien
+  else {
+    
+  }
 }
 
 # --------------- Un autre feux était actif ---------------#
@@ -413,8 +454,8 @@ otherActivePolesFeux <- function(actualName, otherName1, otherName2,
 
 # --------------- Permet de process le clic sur un feux ---------------#
 processPolesFeux <- function(actualName, otherName1, otherName2,
-                                actualButton, otherButton1, otherButton2,
-                                data_polesFeuxOrdered)
+                             actualButton, otherButton1, otherButton2,
+                             data_polesFeuxOrdered, data_polesButtonsOrdered)
 {
   if(data_polesFeuxOrdered$actualData && data_polesFeuxOrdered$otherData1 && data_polesFeuxOrdered$otherData2) {
     allActivePolesFeux(actualName, otherName1, otherName2,
@@ -440,8 +481,8 @@ processPolesFeux <- function(actualName, otherName1, otherName2,
         # Ce bouton était le seul actif
         else {
           meOnlyActivePolesFeux(actualName, otherName1, otherName2,
-                                   actualButton, otherButton1, otherButton2,
-                                   data_polesFeuxOrdered)
+                                actualButton, otherButton1, otherButton2,
+                                data_polesFeuxOrdered, data_polesButtonsOrdered)
         }
       }
       # Ce bouton n'était pas actif
