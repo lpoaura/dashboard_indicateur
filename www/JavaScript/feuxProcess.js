@@ -38,9 +38,19 @@ $(document).ready(function () {
             color1 = "128, 49, 167";
             color2 = "128, 49, 167";
         }
-        document.getElementById('nombreData').style.background = "linear-gradient(90deg, rgba(" + color1 + ",1) 0%, rgba(" + color2 + ",1) 100%)";
-        document.getElementById('nombreSpecies').style.background = "linear-gradient(90deg, rgba(" + color1 + ",1) 0%, rgba(" + color2 + ",1) 100%)";
-      });
+        document.getElementById('nombreData').style.background =
+              "linear-gradient(90deg, rgba(" +
+              color1 + ",1) 0%, rgba(" +
+              color1 + ",1) 33%, rgba(" +
+              color2 + ",1) 67%, rgba(" +
+              color2 + ",1) 100%)";
+        document.getElementById('nombreSpecies').style.background =
+              "linear-gradient(90deg, rgba(" +
+              color1 + ",1) 0%, rgba(" +
+              color1 + ",1) 33%, rgba(" +
+              color2 + ",1) 67%, rgba(" +
+              color2 + ",1) 100%)";
+    });
   });
 });
 
