@@ -32,6 +32,9 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       data_polesFeux$flore <- data_polesFeuxOrdered$actualData
       data_polesFeux$invertebre <- data_polesFeuxOrdered$otherData1
       data_polesFeux$vertebre <- data_polesFeuxOrdered$otherData2
+      
+      stringForJS <- encodeFeux(data_polesFeux);
+      session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
     
     # var<-as.numeric(input$feuFlore)%%2+as.numeric(input$feuInvertebre)%%2+as.numeric(input$feuVertebre)%%2;
@@ -139,6 +142,9 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       data_polesFeux$invertebre <- data_polesFeuxOrdered$actualData
       data_polesFeux$flore <- data_polesFeuxOrdered$otherData1
       data_polesFeux$vertebre <- data_polesFeuxOrdered$otherData2
+      
+      stringForJS <- encodeFeux(data_polesFeux);
+      session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
     
     
@@ -246,6 +252,9 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       data_polesFeux$vertebre <- data_polesFeuxOrdered$actualData
       data_polesFeux$flore <- data_polesFeuxOrdered$otherData1
       data_polesFeux$invertebre <- data_polesFeuxOrdered$otherData2
+      
+      stringForJS <- encodeFeux(data_polesFeux);
+      session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
     
     # var<-as.numeric(input$feuFlore)%%2+as.numeric(input$feuInvertebre)%%2+as.numeric(input$feuVertebre)%%2;
@@ -503,7 +512,6 @@ processPolesFeux <- function(actualName, otherName1, otherName2,
 }
 
 # --------------- Permet de s'adapter au boutons de pôles ---------------#
-
 adaptPolesFeux <- function(name, data_polesButtons)
 {
   play = TRUE;
@@ -518,4 +526,39 @@ adaptPolesFeux <- function(name, data_polesButtons)
     play = FALSE;
   }
   return(play);
+}
+
+# --------------- Permet d'encoder pour envoyer à JS ---------------#
+encodeFeux <- function(data_polesFeux) {
+  res <- "";
+  if (!data_polesFeux$flore) {
+    if (!data_polesFeux$invertebre) {
+      if (!data_polesFeux$vertebre) {
+        res <- "rien"; # Cas impossible
+      } else {
+        res <- "vertebre";
+      }
+    } else {
+      if (!data_polesFeux$vertebre) {
+        res <- "invertebre";
+      } else {
+        res <- "iv";
+      }
+    }
+  } else {
+    if (!data_polesFeux$invertebre) {
+      if (!data_polesFeux$vertebre) {
+        res <- "flore";
+      } else {
+        res <- "fv";
+      }
+    } else {
+      if (!data_polesFeux$vertebre) {
+        res <- "fi";
+      } else {
+        res <- "all";
+      }
+    }
+  }
+  return(res);
 }

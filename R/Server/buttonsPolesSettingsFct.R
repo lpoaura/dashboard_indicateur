@@ -27,7 +27,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData1
     data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
     
-    actializeFeux(data_polesButtons, data_polesFeux);
+    actializeFeux(session, data_polesButtons, data_polesFeux);
   })
   
   #--------------- Bouton Abeille ---------------#
@@ -55,7 +55,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
     data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
     
-    actializeFeux(data_polesButtons, data_polesFeux);
+    actializeFeux(session, data_polesButtons, data_polesFeux);
   })
   
   #--------------- Bouton Patte ---------------#
@@ -82,7 +82,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
     data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData2
     
-    actializeFeux(data_polesButtons, data_polesFeux);
+    actializeFeux(session, data_polesButtons, data_polesFeux);
   })
 }
 
@@ -241,7 +241,7 @@ processPolesButtons <- function(actualName, otherName1, otherName2,
 }
 
 # --------------- Permet d'actualiser les feux ---------------#
-actializeFeux <- function(data_polesButtons, data_polesFeux)
+actializeFeux <- function(session, data_polesButtons, data_polesFeux)
 {
   if (!data_polesButtons$flore && data_polesFeux$flore) {
     data_polesFeux$flore <- FALSE;
@@ -293,4 +293,8 @@ actializeFeux <- function(data_polesButtons, data_polesFeux)
                       width=15,
                       height=15))
   }
+  
+  
+  stringForJS <- encodeFeux(data_polesFeux);
+  session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
 }
