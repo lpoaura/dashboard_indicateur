@@ -141,6 +141,4 @@ divPanelModify <- div(id = "panelModify",
 # Bandeau total du mode Admin
 divBandeauAdmin <- div(id="bandeauAdmin",
                        divNavOption,
-                       #divPanelAdd,
-                       #divPanelSuppress,
-                       divPanelModify)
+                       divPanelAdd)
