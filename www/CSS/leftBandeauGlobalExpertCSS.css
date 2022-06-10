@@ -56,13 +56,13 @@ body::-webkit-scrollbar-thumb {
 #affichageNbData {
   color: #FFFFFF;
   margin: 0px;
-  font-size: 85%;
+  font-size: 16px;
 }
 
 #affichageNbSpecies {
   color: #FFFFFF;
   margin: 0px;
-  font-size: 85%;
+  font-size: 16px;
 }
 
 #nombreData {
@@ -95,12 +95,12 @@ body::-webkit-scrollbar-thumb {
     width: 90%;
     padding: 5%;
     margin-bottom: 10%;
-    font-size: 80%;
+    font-size: 16px;
     border-radius: 10px;
     outline: none;
     border: none;
     color: #FFFFFF;
-    background-color: var(--color_violet50);
+    background-color: var(--color_violet100);
 }
 
 /* Scroll bar du menu déroulant des indicateurs */
@@ -221,7 +221,7 @@ point d'interrogation dans un cercle*/
   padding-bottom: 1%;
   padding-right: 1%;
   height: 450px;
-  max-width: 30%;
+  max-width: 45%;
   background-color: var(--color_bleuLPO);
   border-radius: 0 20px 20px 0;
   z-index: 2;

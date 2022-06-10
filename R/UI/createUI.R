@@ -20,6 +20,7 @@ divTotal <- div(id = "total",
 # UI qui sera donné initialement à l'utilisateur
 ui <- fluidPage(
   includeScript('www/JavaScript/feuxProcess.js'),
+  includeScript('www/JavaScript/polesButtonsProcess.js'),
   
   includeCSS("www/CSS/enTeteCSS.css"),
   includeCSS("www/CSS/settingsCSS.css"),

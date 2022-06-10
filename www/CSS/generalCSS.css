@@ -19,6 +19,11 @@
   width: 100%;
 }
 
+/* Corps total */
+/*#corps {
+  height: calc(100% - 240px);
+}*/
+
 /* Total des zones */
 #total {
   display: flex;

@@ -28,6 +28,9 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
     
     actializeFeux(session, data_polesButtons, data_polesFeux);
+    
+    stringForJS <- encodeFeux(data_polesButtons);
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
   })
   
   #--------------- Bouton Abeille ---------------#
@@ -56,6 +59,9 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
     
     actializeFeux(session, data_polesButtons, data_polesFeux);
+    
+    stringForJS <- encodeFeux(data_polesButtons);
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
   })
   
   #--------------- Bouton Patte ---------------#
@@ -83,6 +89,9 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData2
     
     actializeFeux(session, data_polesButtons, data_polesFeux);
+    
+    stringForJS <- encodeFeux(data_polesButtons);
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
   })
 }
 
