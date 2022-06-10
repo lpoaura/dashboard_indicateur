@@ -70,6 +70,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/buttonsAccueilTabFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/createServer.R") %>%
   source()
 

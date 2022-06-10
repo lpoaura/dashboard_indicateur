@@ -28,6 +28,11 @@ server <- function(input, output, session) {
     tab = "RAJOUT"
   );
   
+  data_tabAccueil <- reactiveValues(
+    tab = "ind1"
+  );
+  
+  
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
   buttonsNavTabFct(input, output, session, data_page);
   
@@ -42,6 +47,9 @@ server <- function(input, output, session) {
   
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ADMIN -------------------- #
   buttonsAdminTabFct(input, output, session, data_tabAdmin);
+  
+  # -------------------- BOUTONS D'ONGLETS DANS LE MODE ACCUEIL -------------------- #
+  buttonsAccueilTabFct(input, output, session, data_tabAccueil);
   
   # -------------------- DONNEES -------------------- #
   datasForServerFct(input, output, session);
