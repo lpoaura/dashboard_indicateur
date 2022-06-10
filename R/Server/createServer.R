@@ -4,6 +4,9 @@ print("Creating server...");
 
 server <- function(input, output, session) {
   
+  # Permet d'initialiser les indicateurs.
+  session$sendCustomMessage(type = 'setIndicators', message = listIndicators)
+  
   # reactiveValues permettant de se rappeler de la page précédente.
   data_page <- reactiveValues(
     page = "global"

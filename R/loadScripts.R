@@ -33,6 +33,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/UI/body/createListIndicators.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/UI/body/createLeftBandeauGlobalExpert.R") %>%
   source()
 
