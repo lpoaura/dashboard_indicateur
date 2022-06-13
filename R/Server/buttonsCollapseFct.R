@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonCollapseFct <- function(input, output, session) {
+buttonCollapseFct <- function(input, output, session, data_currentInd) {
   
   # Collapse button du bandeau de settings
   observeEvent(input$collapaseSettingsButton, {
@@ -31,5 +31,14 @@ buttonCollapseFct <- function(input, output, session) {
     removeUI(selector = '#bandeauCollapsed')
     insertUI(selector = '#bandeauTotal',
              ui = divBandeau)
+    
+    # Permet d'initialiser les indicateurs.
+    initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
   })
 }
+
+
+
+
+
+

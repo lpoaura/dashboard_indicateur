@@ -23,6 +23,12 @@ server <- function(input, output, session) {
     vertebre = TRUE
   );
   
+  # Permet d'initialiser les indicateurs.
+  data_currentInd <- reactiveValues(
+    indicator = valIndicators[[1]]
+  );
+  initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
+  
   # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
   data_tabAdmin <- reactiveValues(
     tab = "RAJOUT"
@@ -34,16 +40,19 @@ server <- function(input, output, session) {
   
   
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
-  buttonsNavTabFct(input, output, session, data_page);
+  buttonsNavTabFct(input, output, session, data_page, data_currentInd);
   
   # -------------------- BOUTONS DE COLLAPSE/UNCOLLAPSE -------------------- #
-  buttonCollapseFct(input, output, session);
+  buttonCollapseFct(input, output, session, data_currentInd);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
   buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux);
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);
+  
+  # -------------------- MENU DE SELECTION -------------------- #
+  selectIndicatorsFct(input, output, session, data_currentInd);
   
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ADMIN -------------------- #
   buttonsAdminTabFct(input, output, session, data_tabAdmin);

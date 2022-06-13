@@ -46,11 +46,7 @@ divChiff <- div(id = "chiffreGlobaux",
 selectIndicator <- tags$select(id = "selectIndicator",
                                "onfocus"='this.size=2;',
                                "onblur"='this.size=1;' ,
-                               "onchange"='this.size=1; this.blur();',
-                               
-                               tags$option(value = "A", "Indicateur A"),
-                               tags$option(value = "B", "Indicateur B"),
-                               tags$option(value = "C", "Indicateur C"))
+                               "onchange"='this.size=1; this.blur();')
 
 # Récapitulatif de l'indicateur sélectionné
 divDataSumUp <- div(id = "dataSumUp",
