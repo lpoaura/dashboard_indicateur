@@ -72,6 +72,7 @@ afficher_pie<-function(groupe,pole,taxo,année)
   plot <- plot_ly(data = df, labels = ~qualite_labels, values = ~qualite, type = "pie", hole=0.6,
                 textinfo = "percent", 
                 marker = list(colors = fcouleur(pole)),
+                sort = FALSE,
                 insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
   return(plot)
 }
@@ -97,3 +98,4 @@ server <- function(input, output) {
 shinyApp(ui=ui,server=server)
 
 h <-  dbGetQuery(con_gn, "SELECT * FROM orb_indicateurs.ind_connaissance_general ")
+
