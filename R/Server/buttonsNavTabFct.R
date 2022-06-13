@@ -90,7 +90,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd)
                ui = divCarteBack)
       
       # Permet d'initialiser les indicateurs.
-      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
+      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
     
     data_page$page <- "global";
@@ -141,7 +141,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd)
                ui = divCarteBack)
       
       # Permet d'initialiser les indicateurs.
-      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
+      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
     
     data_page$page <- "expert";

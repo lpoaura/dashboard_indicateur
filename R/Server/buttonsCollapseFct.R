@@ -33,7 +33,7 @@ buttonCollapseFct <- function(input, output, session, data_currentInd) {
              ui = divBandeau)
     
     # Permet d'initialiser les indicateurs.
-    initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
+    initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
   })
 }
 

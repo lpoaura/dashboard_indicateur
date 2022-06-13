@@ -15,7 +15,7 @@ for (el in listIndicators) {
   i <- i+1;
 }
 
-initSelectorsFct <- function (input, output, session, currentInd) {
+initSelectorsFct <- function (input, output, session, currentInd, currentIndName) {
   for (i in 1:length(listIndicators)) {
     insertUI(selector = "#selectIndicator",
              ui = tags$option(value = valIndicators[[i]], listIndicators[[i]]));
@@ -23,6 +23,7 @@ initSelectorsFct <- function (input, output, session, currentInd) {
   
   session$onFlushed(function() {
     session$sendCustomMessage(type = 'setIndicator', message = currentInd);
+    session$sendCustomMessage(type = 'updateIndicatorName', message = currentIndName);
   });
 }
 

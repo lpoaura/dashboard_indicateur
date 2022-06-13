@@ -10,7 +10,13 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd) {
   
   observeEvent(input$currentInd, {
     data_currentInd$indicator <- input$currentInd;
-    print(paste("New indicator : ", data_currentInd$indicator, sep=""))
+    print(paste("New indicator : ", data_currentInd$indicator, sep=""));
+  });
+  
+  observeEvent(input$currentIndName, {
+    data_currentInd$indicatorName <- input$currentIndName;
+    print(paste("New indicator : ", input$currentIndName, sep=""));
+    session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
   });
 }
 

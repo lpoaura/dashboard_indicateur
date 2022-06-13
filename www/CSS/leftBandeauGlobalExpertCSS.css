@@ -119,6 +119,12 @@ body::-webkit-scrollbar-thumb {
   border: 3px solid white; /* creates padding around scroll thumb */
 }
 
+/* Titre du nom de l'indicateur */
+#indicatorName {
+  color; white;
+  font-size: 20px;
+}
+
 /*Les icones de la bibliothèque fa sont mis en blanc : ici le 
 point d'interrogation dans un cercle*/
 .fa{

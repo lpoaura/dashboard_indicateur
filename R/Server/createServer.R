@@ -25,9 +25,10 @@ server <- function(input, output, session) {
   
   # Permet d'initialiser les indicateurs.
   data_currentInd <- reactiveValues(
-    indicator = valIndicators[[1]]
+    indicator = valIndicators[[1]],
+    indicatorName = listIndicators[[1]]
   );
-  initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
+  initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
   
   # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
   data_tabAdmin <- reactiveValues(
