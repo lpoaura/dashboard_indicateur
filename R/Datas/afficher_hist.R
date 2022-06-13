@@ -43,8 +43,8 @@ afficher_hist<-function(groupe,pole,taxo,type)
     plot <- plot_ly(dataHist, x = ~count, y = ~histFlore, type = 'bar', name = 'Flore et Fongus',marker = list(color = '#399E69')) %>%
       add_trace(y = ~histVertebres, name = 'Vertebres',marker = list(color = '#0099D0')) %>%
       add_trace(y = ~histInvertebres, name = 'Invertebres',marker = list(color = '#EA7200')) %>%
-      layout(yaxis = list(title = 'Count'), barmode = 'stack')
-    
+      layout(yaxis = list(title = 'Count'), barmode = 'stack')%>%
+      config(displayModeBar = F)
 }
 
   if (groupe == "pole"){
@@ -53,7 +53,8 @@ afficher_hist<-function(groupe,pole,taxo,type)
     hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))[,1]
     dataHist <- data.frame(count,hist)   
     
-    plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))
+    plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))%>%
+    config(displayModeBar = F)
     print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
   }
   
@@ -63,7 +64,8 @@ afficher_hist<-function(groupe,pole,taxo,type)
     hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",taxo,"' ORDER BY annee ASC",sep = ""))[,1]
     dataHist <- data.frame(count,hist)   
     
-    plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))
+    plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))%>%
+    config(displayModeBar = F)
     print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
   }
   
