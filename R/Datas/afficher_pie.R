@@ -7,7 +7,7 @@ fcouleur <- function(pole){
   if (pole =="general"){return(colors1)}
   if (pole =="Vertébrés"){return(colors4)}
   if (pole =="Invertébrés"){return(colors2)}
-  if (pole =="Flore"){return(colors3)}
+  if (pole =="Flore et Fongus"){return(colors3)}
 }
 
 afficher_pie<-function(groupe,pole,taxo,année)
@@ -23,7 +23,7 @@ afficher_pie<-function(groupe,pole,taxo,année)
     base = "orb_indicateurs.ind_connaissance_taxo"
   }
   
-  commande = paste("SELECT SUM(nb_data_tot) FROM", base, "WHERE ind_tot_group =")
+  commande = paste("SELECT count(*) FROM", base, "WHERE ind_tot_group =")
   
   com_faible <- paste(commande,"'Faible'")
   com_moyenne <- paste(commande,"'Moyenne'")
@@ -78,8 +78,8 @@ afficher_pie<-function(groupe,pole,taxo,année)
 
 
 ##Test
-a="general"
-b="general"
+a="pole"
+b="Flore et Fongus"
 c="Mammifères"
 d=0
 
