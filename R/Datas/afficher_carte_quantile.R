@@ -71,8 +71,7 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
   #Chargement des données de la cartes (nb data vertébrés entre 2021 et 2025)
   indic = Carte%>% pull(sum)
   
-  map <- leaflet() %>%
-      addTiles() %>%
+  map <- leaflet(options = leafletOptions(7,11)) %>%
       addProviderTiles("CartoDB.Positron") %>%
       addPolygons(data =poly ,label = ~indic, smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic)(indic),stroke = TRUE,
                   weight = 0.1, color = "black",
@@ -86,7 +85,8 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
                 n = length(cuts)
                 paste0(floor(cuts[-n]), " &ndash; ", floor(cuts[-1]))},
               opacity = 1
-    )
+    )%>%
+    setMaxBounds(0,42,10,48)
   map
   
   return(map)
