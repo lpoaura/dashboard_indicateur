@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonsNavTabFct <- function(input, output, session, data_page) {
+buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd) {
   # Bouton "Accueil"
   observeEvent(input$accueilButton, {
     print("accueil pressed from");
@@ -71,29 +71,26 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
     }
     
     # Changement de la page à faire
-    if(data_page$page != "expert") {
-      insertUI(selector = '#settingsTotal',
-               ui = divSettings)
-    }
-    
     if(data_page$page == "accueil") {
       removeUI(selector = '#bandeauAccueil')
-      insertUI(selector = '#corps',
-               ui = divBandeauCarte)
-      
-      
-      insertUI(selector = "#total",
-               ui = divCarteBack)
     }
     
     if (data_page$page == "admin") {
       removeUI(selector = "#bandeauAdmin")
+    }
+    
+    if(data_page$page != "expert") {
+      insertUI(selector = '#settingsTotal',
+               ui = divSettings)
+      
       insertUI(selector = '#corps',
                ui = divBandeauCarte)
       
-      
       insertUI(selector = "#total",
                ui = divCarteBack)
+      
+      # Permet d'initialiser les indicateurs.
+      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
     }
     
     data_page$page <- "global";
@@ -125,29 +122,26 @@ buttonsNavTabFct <- function(input, output, session, data_page) {
     }
     
     # Changement de la page à faire
-    if(data_page$page != "global") {
-      insertUI(selector = '#settingsTotal',
-               ui = divSettings)
-    }
-    
     if(data_page$page == "accueil") {
       removeUI(selector = '#bandeauAccueil')
-      insertUI(selector = '#corps',
-               ui = divBandeauCarte)
-      
-      
-      insertUI(selector = "#total",
-               ui = divCarteBack)
     }
     
     if (data_page$page == "admin") {
       removeUI(selector = "#bandeauAdmin")
+    }
+    
+    if(data_page$page != "global") {
+      insertUI(selector = '#settingsTotal',
+               ui = divSettings)
+      
       insertUI(selector = '#corps',
                ui = divBandeauCarte)
       
-      
       insertUI(selector = "#total",
                ui = divCarteBack)
+      
+      # Permet d'initialiser les indicateurs.
+      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator));
     }
     
     data_page$page <- "expert";
