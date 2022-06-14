@@ -20,4 +20,11 @@ createDivDatas <- function() {
                 plotlyOutput('pie'))
 }
 
-createDivDatas()
+divCarte <- div(id="carte",
+                leafletOutput("mymap"))
+
+divHist <- div(id="histogramme",
+               plotlyOutput('hist'))
+
+divPie <- div(id="PieChart",
+              plotlyOutput('pie'))

@@ -2,7 +2,7 @@
 # fait sur le select des indicateurs et les autres dans la page experte.
 
 
-selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, annee = 0) {
+selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, data_year) {
   
   observeEvent(input$selectIndicator, {
     session$sendCustomMessage(type = 'selectIndicator', message = '');
@@ -19,7 +19,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     datasForServerFct(input = input, output = output, session = session,
                       type = data_currentInd$indicator,
                       groupe = groupe, pole = poles, taxo = "Oiseaux",
-                      année = 0);
+                      année = data_year$year);
   });
   
   observeEvent(input$currentIndName, {

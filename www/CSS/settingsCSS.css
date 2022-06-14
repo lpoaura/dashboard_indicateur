@@ -55,6 +55,10 @@
   margin: 0px;
 }
 
+.checkbox label {
+  color: white;
+}
+
 /*ScrollBar*/
 span.irs-min {
   opacity: 0;

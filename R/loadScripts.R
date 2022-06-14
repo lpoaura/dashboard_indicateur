@@ -74,6 +74,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/yearsSettingsFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/buttonsPolesSettingsFct.R") %>%
   source()
 

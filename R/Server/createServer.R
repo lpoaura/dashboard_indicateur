@@ -9,6 +9,12 @@ server <- function(input, output, session) {
     page = "global"
   );
   
+  # reactiveValues permettant de mémoriser l'année à oberver.
+  data_year <- reactiveValues(
+    year = 0,
+    loading = FALSE
+  )
+  
   # reactiveValues permettent de savoir quels boutons de pôles sont actifs
   data_polesButtons <- reactiveValues(
     flore = TRUE,
@@ -42,19 +48,22 @@ server <- function(input, output, session) {
   
   
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
-  buttonsNavTabFct(input, output, session, data_page, data_currentInd);
+  buttonsNavTabFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
   
   # -------------------- BOUTONS DE COLLAPSE/UNCOLLAPSE -------------------- #
-  buttonCollapseFct(input, output, session, data_currentInd);
+  buttonCollapseFct(input, output, session, data_currentInd, data_polesButtons, data_polesFeux, data_year);
+  
+  # -------------------- CHOIX DE L'ANNÉE -------------------- #
+  yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
-  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd);
+  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year);
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);
   
   # -------------------- MENU DE SELECTION -------------------- #
-  selectIndicatorsFct(input, output, session, data_currentInd, data_polesButtons);
+  selectIndicatorsFct(input, output, session, data_currentInd, data_polesButtons, data_year);
   
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ADMIN -------------------- #
   buttonsAdminTabFct(input, output, session, data_tabAdmin);
