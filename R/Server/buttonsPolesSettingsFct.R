@@ -78,7 +78,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     if (poles != "general") groupe <- "pole";
     datasForServerFct(input = input, output = output, session = session,
                       type = data_currentInd$indicator,
-                      groupe = "pole", pole = poles, taxo = "Oiseaux",
+                      groupe = groupe, pole = poles, taxo = "Oiseaux",
                       année = 0);
   })
   
@@ -117,7 +117,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     if (poles != "general") groupe <- "pole";
     datasForServerFct(input = input, output = output, session = session,
                       type = data_currentInd$indicator,
-                      groupe = "pole", pole = poles, taxo = "Oiseaux",
+                      groupe = groupe, pole = poles, taxo = "Oiseaux",
                       année = 0);
   })
 }
