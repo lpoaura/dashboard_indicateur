@@ -8,11 +8,16 @@ print("Create divs for Datas...")
 #                    actionButton("invertebres", "Invertebres"))
 # ui <- fluidPage(
 # )
-divCarte <- div(id="carte",
-                leafletOutput("mymap"))
 
-divHist <- div(id="histogramme",
-               plotlyOutput('hist'))
+createDivDatas <- function() {
+  divCarte <- div(id="carte",
+                  leafletOutput("mymap"))
+  
+  divHist <- div(id="histogramme",
+                 plotlyOutput('hist'))
+  
+  divPie <- div(id="PieChart",
+                plotlyOutput('pie'))
+}
 
-divPie <- div(id="PieChart",
-              plotlyOutput('pie'))
+createDivDatas()

@@ -2,7 +2,7 @@
 # fait sur le select des indicateurs et les autres dans la page experte.
 
 
-selectIndicatorsFct <- function(input, output, session, data_currentInd) {
+selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, annee = 0) {
   
   observeEvent(input$selectIndicator, {
     session$sendCustomMessage(type = 'selectIndicator', message = '');
@@ -11,6 +11,13 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd) {
   observeEvent(input$currentInd, {
     data_currentInd$indicator <- input$currentInd;
     print(paste("New indicator : ", data_currentInd$indicator, sep=""));
+    
+    
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = "general", pole = poles, taxo = "Oiseaux",
+                      année = 0);
   });
   
   observeEvent(input$currentIndName, {
@@ -20,4 +27,19 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd) {
   });
 }
 
-
+# --------------- Permet d'encoder pour envoyer à JS ---------------#
+convertPolesForRequest <- function(poleStr) {
+  res <- "";
+  switch(poleStr,
+         "all" = res <- "general",
+         "fi" = res <- "Flore Invertébrés",
+         "fv" = res <- "Flore Vertébrés",
+         "iv" = res <- "Invertébrés Vertébrés",
+         "flore" = res <- "Flore et Fongus",
+         "invertebre" = res <- "Invertébrés",
+         "vertebre" = res <- "Vertébrés",
+         "rien" = res <- "rien"
+  );
+    
+  return(res);
+}

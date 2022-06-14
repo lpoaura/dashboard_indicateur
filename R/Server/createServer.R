@@ -28,7 +28,8 @@ server <- function(input, output, session) {
     indicator = valIndicators[[1]],
     indicatorName = listIndicators[[1]]
   );
-  initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
+  initSelectorsFct(input, output, session,
+                   isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName));
   
   # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
   data_tabAdmin <- reactiveValues(
@@ -53,7 +54,7 @@ server <- function(input, output, session) {
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);
   
   # -------------------- MENU DE SELECTION -------------------- #
-  selectIndicatorsFct(input, output, session, data_currentInd);
+  selectIndicatorsFct(input, output, session, data_currentInd, data_polesButtons);
   
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ADMIN -------------------- #
   buttonsAdminTabFct(input, output, session, data_tabAdmin);
@@ -61,7 +62,7 @@ server <- function(input, output, session) {
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ACCUEIL -------------------- #
   buttonsAccueilTabFct(input, output, session, data_tabAccueil);
   
-  # -------------------- DONNEES -------------------- #
+  # -------------------- INITIALISATION DES DONNEES -------------------- #
   datasForServerFct(input, output, session);
   
 }
