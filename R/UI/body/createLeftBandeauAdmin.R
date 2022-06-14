@@ -66,10 +66,13 @@ selectProfil <- tags$select(id = "selectProfil",
                                     tags$option(value = "Global", "Global"),
                                     tags$option(value = "Expert", "Expert"))
 
+# Zone des critères d'une catégorie
+divCategorieInfo <- div(id="categorieInfo",
+                        tags$p("Type de l'indicateur :"),
+                        selectTypeIndGeneral)
+
 # Zone des critères d'un sous indicateur
 divSubIndInfo <- div(id = "subIndInfo",
-                     tags$p("Type de l'indicateur :"),
-                     selectTypeIndGeneral,
                      tags$p("Déclinaison :"),
                      selectDeclinaison,
                      tags$p("Type de représentation :"),
@@ -79,19 +82,33 @@ divSubIndInfo <- div(id = "subIndInfo",
                      textInput(inputId = "dataBaseInput",
                                label = "Jeu de données où se trouve l'indicateur :"))
 
+radButtInfo<-c("Type ?"="type","Catégorie ?"="categorie");
+radButtInd<-c("Type ?"="type","Catégorie ?"="categorie","Sous-indicateur ?"="sousind");
+
+divSettingsAdd <- div(id = "identityInd",
+                      textInput(inputId = "nameInput",
+                                label = "Nom de l'indicateur :"),
+                      radioButtons(inputId = "infoCheckInput",
+                                   label = NULL,
+                                   choices = c("Information"="info","Indicateur"="ind")),
+                      radioButtons(inputId = "subIndInput",
+                                   label = NULL,
+                                   choices = radButtInfo));
+
+divDescription<-div(id = "descriptionArea",
+                    tags$p("Description de l'indicateur :"),
+                    textAreaInput(inputId = "descriptionInput",
+                                  label = NULL,
+                                  rows = 10))
+
 # Panneau de rajout d'indicateur
 divPanelAdd <- div(id = "panelAdd",
                    class = "panelAdmin",
                        h1("RAJOUT"),
-                       div(id = "identityInd",
-                           textInput(inputId = "nameInput",
-                                     label = "Nom de l'indicateur :"),
-                           checkboxInput(inputId = "subIndInput",
-                                         label = "Sous indicateur ?")),
+                       divSettingsAdd,
+                       divCategorieInfo,
                        divSubIndInfo,
-                       textAreaInput(inputId = "descriptionInput",
-                                     label = "Description de l'indicateur :",
-                                     rows = 10),
+                       divDescription,
                        submitButton(text = "RAJOUT"))
 
 # Sélecteur d'un indicateur existant

@@ -50,7 +50,7 @@ mode Admin */
   position:absolute;
   top: 120px;
   left: 400px;
-  width: 40%;
+  width: 43%;
   height: 75%;
   
   border-radius : 15px;
@@ -87,12 +87,25 @@ mode Admin */
   margin-top:10px;
 }
 
+#descriptionArea >p {
+  font-weight:bold;
+}
+
+#categorieInfo >p {
+  font-weight:bold;
+}
+
 /* Zone de l'identité du nouveau indicateur : nom + sous ou indicateur général */
 #identityInd {
   display: flex;
   flex-direction : row;
 }
 
-#identityInd .checkbox {
-  margin-left: 5%;
+#infoCheckInput {
+  margin-left: 7%;
 }
+
+#nameInput {
+  margin-right: 3%;
+}
+

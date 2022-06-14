@@ -86,6 +86,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/addPanelAccueilFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/createServer.R") %>%
   source()
 

@@ -64,6 +64,9 @@ server <- function(input, output, session) {
   # -------------------- BOUTON D'AIDE DANS LE MODE GLOBAL/EXPERT -------------------- #
   buttonHelpFct(input, output, session, data_page, data_tabAccueil, data_currentInd);
   
+  # -------------------- DYNAMIQUE DE LA FONCTION RAJOUT DU MODE ADMIN -------------------- #
+  addPanelAccueilFct(input, output, session);
+  
   # -------------------- DONNEES -------------------- #
   datasForServerFct(input, output, session);
   
