@@ -10,21 +10,21 @@ buttonInd2<-actionButton(inputId="ind2",
                          class="multipleInd",
                          div(class="labelMultipleInd",
                              id="ind2",
-                             tags$p("Indicateur 2"),
+                             tags$p("Indicateur de connaissance"),
                              icon(name = "caret-right")))
 
 # Premier sélecteur de sous-indicateur
 buttonInd21<-actionButton(inputId="ind21",
                           class="subInd",
-                          label="Indicateur 2.1")
+                          label="Nombre de données")
 # Second sélecteur de sous-indicateur
 buttonInd22<-actionButton(inputId="ind22",
                           class="subInd",
-                          label="Indicateur 2.2")
+                          label="Nombre d'espèces")
 # Troisième sélecteur de sous-indicateur
 buttonInd23<-actionButton(inputId="ind23",
                           class="subInd",
-                          label="Indicateur 2.3")
+                          label="Indicateur de connaissances")
 
 # Second sélecteur d'indicateur unique
 buttonInd3<-actionButton(inputId="ind3",
@@ -71,7 +71,7 @@ divInfo_ind1 <- div(id="info_ind1",
 divInfo_ind2 <- div(id="info_ind2",
                     class="info",
                     h1(class="indName",
-                       "Indicateur 2"),
+                       "Indicateur de connaissance"),
                     tags$p(class="indExplanation",
                            "Lorem ipsum dolor sit amet, 
                       consectetur adipiscing elit. 
@@ -87,7 +87,7 @@ divInfo_ind2 <- div(id="info_ind2",
 divInfo_ind21 <- div(id="info_ind21",
                      class="info",
                     h1(class="indName",
-                       "Indicateur 2.1"),
+                       "Nombre de données"),
                     tags$p(class="indExplanation",
                            "Lorem ipsum dolor sit amet, 
                       consectetur adipiscing elit. 
@@ -103,7 +103,7 @@ divInfo_ind21 <- div(id="info_ind21",
 divInfo_ind22 <- div(id="info_ind22",
                      class="info",
                     h1(class="indName",
-                       "Indicateur 2.2"),
+                       "Nombre d'espèces"),
                     tags$p(class="indExplanation",
                            "Lorem ipsum dolor sit amet, 
                       consectetur adipiscing elit. 
@@ -119,7 +119,7 @@ divInfo_ind22 <- div(id="info_ind22",
 divInfo_ind23 <- div(id="info_ind23",
                      class="info",
                     h1(class="indName",
-                       "Indicateur 2.3"),
+                       "Indicateur de connaissances"),
                     tags$p(class="indExplanation",
                            "Lorem ipsum dolor sit amet, 
                       consectetur adipiscing elit. 

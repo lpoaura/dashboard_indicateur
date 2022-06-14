@@ -82,6 +82,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/buttonHelpFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/createServer.R") %>%
   source()
 

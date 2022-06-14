@@ -17,8 +17,8 @@ buttonsAccueilTabFct <- function(input, output, session, data_tabAccueil) {
     print(data_tabAccueil$tab);
     
     # Changement des boutons de navigation
-    session$sendCustomMessage(type = 'actualizeNewTabAccueil', message = input$tabAccueilNew)
     session$sendCustomMessage(type = 'actualizeOldTabAccueil', message = data_tabAccueil$tab)
+    session$sendCustomMessage(type = 'actualizeNewTabAccueil', message = input$tabAccueilNew)
     
     # Changement de la page à faire
     removedUI <- paste("#info_",data_tabAccueil$tab,sep="")

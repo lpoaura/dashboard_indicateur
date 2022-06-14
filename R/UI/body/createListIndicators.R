@@ -1,6 +1,6 @@
 listIndicators <- list("Nombre de données",
                        "Nombre d'espèces",
-                       "Indicateur de Connaissances")
+                       "Indicateur de connaissances")
 
 valIndicators <- list("donnees",
                        "espece",

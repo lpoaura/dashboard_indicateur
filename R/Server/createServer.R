@@ -61,6 +61,9 @@ server <- function(input, output, session) {
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ACCUEIL -------------------- #
   buttonsAccueilTabFct(input, output, session, data_tabAccueil);
   
+  # -------------------- BOUTON D'AIDE DANS LE MODE GLOBAL/EXPERT -------------------- #
+  buttonHelpFct(input, output, session, data_page, data_tabAccueil, data_currentInd);
+  
   # -------------------- DONNEES -------------------- #
   datasForServerFct(input, output, session);
   

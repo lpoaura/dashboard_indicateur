@@ -28,6 +28,7 @@ ui <- fluidPage(
   includeScript('www/JavaScript/accueilModeNewProcess.js'),
   includeScript('www/JavaScript/accueilModeOldProcess.js'),
   includeScript('www/JavaScript/indicatorNameUpdateProcess.js'),
+  includeScript('www/JavaScript/idIndicatorAccueilFromNameProcess.js'),
   
   includeCSS("www/CSS/enTeteCSS.css"),
   includeCSS("www/CSS/settingsCSS.css"),
