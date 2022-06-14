@@ -48,7 +48,7 @@ server <- function(input, output, session) {
   buttonCollapseFct(input, output, session, data_currentInd);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
-  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux);
+  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd);
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);

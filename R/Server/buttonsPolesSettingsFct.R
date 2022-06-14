@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de choix de pôles dans le bandeau de settings
 
-buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux) {
+buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux, data_currentInd) {
   
   #--------------- Bouton Fleur ---------------#
   observeEvent(input$actionButtonFlower, {
@@ -30,7 +30,16 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     actializeFeux(session, data_polesButtons, data_polesFeux);
     
     stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+    
+    # Changement des graphiques et de la carte
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    groupe <- "general";
+    if (poles != "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = groupe, pole = poles, taxo = "Oiseaux",
+                      année = 0);
   })
   
   #--------------- Bouton Abeille ---------------#
@@ -61,7 +70,16 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     actializeFeux(session, data_polesButtons, data_polesFeux);
     
     stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+    
+    # Changement des graphiques et de la carte
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    groupe <- "general";
+    if (poles != "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = "pole", pole = poles, taxo = "Oiseaux",
+                      année = 0);
   })
   
   #--------------- Bouton Patte ---------------#
@@ -91,7 +109,16 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     actializeFeux(session, data_polesButtons, data_polesFeux);
     
     stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+    
+    # Changement des graphiques et de la carte
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    groupe <- "general";
+    if (poles != "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = "pole", pole = poles, taxo = "Oiseaux",
+                      année = 0);
   })
 }
 
@@ -306,4 +333,21 @@ actializeFeux <- function(session, data_polesButtons, data_polesFeux)
   
   stringForJS <- encodeFeux(data_polesFeux);
   session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
+}
+
+# --------------- Permet d'encoder pour faire une requête SQL ---------------#
+convertPolesForRequest <- function(poleStr) {
+  res <- "";
+  switch(poleStr,
+         "all" = res <- "general",
+         "fi" = res <- "Flore Invertébrés",
+         "fv" = res <- "Flore Vertébrés",
+         "iv" = res <- "Invertébrés Vertébrés",
+         "flore" = res <- "Flore et Fongus",
+         "invertebre" = res <- "Invertébrés",
+         "vertebre" = res <- "Vertébrés",
+         "rien" = res <- "rien"
+  );
+  
+  return(res);
 }
