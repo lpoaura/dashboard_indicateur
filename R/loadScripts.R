@@ -74,6 +74,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/buttonLogInAdminFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/buttonsAdminTabFct.R") %>%
   source()
 

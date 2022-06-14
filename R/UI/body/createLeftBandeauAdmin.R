@@ -1,7 +1,14 @@
 # Création du bandeau de gauche du mode Admin
 
 # Panneau de log in
-divPanelLogIn <- div(id="panelLogIn")
+divPanelLogIn <- div(id="panelLogIn",
+                     passwordInput(inputId = "pwdInput",
+                                   label = "Mot de passe :"),
+                     actionButton(inputId = "submitPwd",
+                                  label = "SE CONNECTER"))
+
+# Alerte de mauvais pwd
+badPwdAlerte <- tags$p(id="badPwdAlerte", "Le mot de passe saisi n'est pas correct.")
 
 # Onglets des fonctionnalités du mode Admin
 # Bouton de rajout d'indicateurs
@@ -157,5 +164,4 @@ divPanelModify <- div(id = "panelModify",
 
 # Bandeau total du mode Admin
 divBandeauAdmin <- div(id="bandeauAdmin",
-                       divNavOption,
-                       divPanelAdd)
+                       divPanelLogIn)

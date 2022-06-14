@@ -39,6 +39,10 @@ server <- function(input, output, session) {
     tab = "ind1"
   );
   
+  mdpAdmin = read_file("mdpAdmin.txt")
+  # gestion des carctères \\ \ 
+  mdpAdmin <- gsub("[\\]", "", mdpAdmin)
+  
   
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
   buttonsNavTabFct(input, output, session, data_page, data_currentInd);
@@ -54,6 +58,9 @@ server <- function(input, output, session) {
   
   # -------------------- MENU DE SELECTION -------------------- #
   selectIndicatorsFct(input, output, session, data_currentInd);
+  
+  # -------------------- BOUTONS DE LOGIN DANS LE MODE ADMIN -------------------- #
+  buttonLogInAdminFct(input, output, session, mdpAdmin);
   
   # -------------------- BOUTONS D'ONGLETS DANS LE MODE ADMIN -------------------- #
   buttonsAdminTabFct(input, output, session, data_tabAdmin);

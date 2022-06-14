@@ -1,5 +1,26 @@
 /* CSS du bandeau de gauche du mode Admin */
 
+/* Zone de login */
+#panelLogIn {
+  position:absolute;
+  top: 120px;
+  left: 400px;
+  width: 43%;
+  height: 25%;
+  
+  border-radius : 15px;
+  background-color : #eff0f2;
+  border:none;
+  padding : 3%;
+  padding-top : 1%;
+}
+
+/* Message d'alerte */
+#badPwdAlerte {
+  color : red;
+  text-align : center;
+}
+
 /* Zone totale du corps du mode Admin */
 #bandeauAdmin {
   display:flex;
