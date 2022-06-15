@@ -20,6 +20,7 @@ datasForServerFct <- function(input, output, session) {
                   marker = list(colors = colors1),
                   insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
   output$pie <- renderPlotly({plot})
+  output$pie2 <- renderPlotly({plot})
   
   observeEvent(input$total,{
     plot <- plot_ly(data = dftotal, labels = ~qualite_labels, values = ~qualiteTotale, type = "pie", hole=0.6,
@@ -59,6 +60,7 @@ datasForServerFct <- function(input, output, session) {
     add_trace(y = ~histInvertebres, name = 'Invertebres',marker = list(color = '#EA7200')) %>%
     layout(yaxis = list(title = 'Count'), barmode = 'stack')
   output$hist <- renderPlotly({plot1})
+  output$hist2 <- renderPlotly({plot1})
   
   observeEvent(input$total,{
     plot1 <- plot_ly(dataHist, x = ~count, y = ~histFlore, type = 'bar', name = 'Flore et Fongus',marker = list(color = '#399E69')) %>%

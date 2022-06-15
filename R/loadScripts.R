@@ -90,6 +90,10 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/popUpDataVizFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/addPanelAccueilFct.R") %>%
   source()
 
