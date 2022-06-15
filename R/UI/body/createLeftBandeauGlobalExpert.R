@@ -67,6 +67,10 @@ divData <- div(id = "data",
                selectIndicator,
                divDataViz)
 
+# Pop-Up du data viz survolé
+divPopUpDataViz <- div(id = "popUpDataViz")
+
+
 # Bandeau déplié 
 divBandeauUtil <- div(id = "bandeauUtil",
                       divChiff,
