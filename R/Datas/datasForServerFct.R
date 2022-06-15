@@ -25,11 +25,13 @@ datasForServerFct <- function(input, output, session,
     insertUI(selector = "#pieChart",
              ui = plotlyOutput('pie1'));
     output$pie1 <- renderPlotly({piePlot[[2]]});
+    output$pie1Copy <- renderPlotly({piePlot[[2]]});
   }
   if (piePlot[[1]] >= 2) {
     insertUI(selector = "#pieChart",
              ui = plotlyOutput('pie2'));
     output$pie2 <- renderPlotly({piePlot[[3]]});
+    output$pie2Copy <- renderPlotly({piePlot[[3]]});
   }
   
   
@@ -41,6 +43,7 @@ datasForServerFct <- function(input, output, session,
     insertUI(selector = "#histogramme",
              ui = plotlyOutput('hist'));
     output$hist <- renderPlotly({histoPlot[[2]]});
+    output$histCopy <- renderPlotly({histoPlot[[2]]});
   }
 }
 
