@@ -9,8 +9,9 @@ createDivDatas <- function() {
   divHist <- div(id="histogramme",
                  plotlyOutput('hist'))
   
-  divPie <- div(id="PieChart",
-                plotlyOutput('pie'))
+  divPie <- div(id="pieChart",
+                plotlyOutput('pie1'),
+                plotlyOutput('pie2'))
 }
 
 divCarte <- div(id="carte",
@@ -19,5 +20,6 @@ divCarte <- div(id="carte",
 divHist <- div(id="histogramme",
                plotlyOutput(outputId = 'hist'))
 
-divPie <- div(id="PieChart",
-              plotlyOutput('pie'))
+divPie <- div(id="pieChart",
+              plotlyOutput('pie1'),
+              plotlyOutput('pie2'))

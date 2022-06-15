@@ -72,6 +72,9 @@ server <- function(input, output, session) {
   buttonsAccueilTabFct(input, output, session, data_tabAccueil);
   
   # -------------------- INITIALISATION DES DONNEES -------------------- #
-  datasForServerFct(input, output, session);
+  # Il n'est pas nécessaire d'appeler cette fonction car l'actualisation de la 
+  # barre de temps (par le fait que la checkbox associée est validée) appelle
+  # déjà cette fonction.
+  # datasForServerFct(input, output, session);
   
 }

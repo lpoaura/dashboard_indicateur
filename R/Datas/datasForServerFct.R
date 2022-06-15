@@ -8,98 +8,82 @@ datasForServerFct <- function(input, output, session,
                               groupe = "general", pole = "general", taxo = "Oiseaux",
                               année = 0) {
   
-  output$mymap <- renderLeaflet({afficher_carte(groupe,pole,taxo,année,type)});
+  print("New datas to show...");
   
-  output$pie <- renderPlotly({afficher_pie(groupe,pole,taxo,année)});
+  
+  # Actualisation de la carte
+  mapPlot <- afficher_carte(groupe,pole,taxo,année,type);
+  output$mymap <- renderLeaflet({mapPlot});
+  
+  
+  
+  # Actualisation du pie chart
+  piePlot <- afficher_pie(groupe,pole,taxo,année,type);
+  removeUI(selector = "#pie1");
+  removeUI(selector = "#pie2");
+  if (piePlot[[1]] >= 1) {
+    insertUI(selector = "#pieChart",
+             ui = plotlyOutput('pie1'));
+    output$pie1 <- renderPlotly({piePlot[[2]]});
+  }
+  if (piePlot[[1]] >= 2) {
+    insertUI(selector = "#pieChart",
+             ui = plotlyOutput('pie2'));
+    output$pie2 <- renderPlotly({piePlot[[3]]});
+  }
+  
+  
   
   # Actualisation de l'histogramme
-  histo <- afficher_hist(groupe,pole,taxo,type);
+  histoPlot <- afficher_hist(groupe,pole,taxo,type);
   removeUI(selector = "#hist");
-  if (histo[[1]]) {
+  if (histoPlot[[1]]) {
     insertUI(selector = "#histogramme",
              ui = plotlyOutput('hist'));
-    output$hist <- renderPlotly({histo[[2]]});
+    output$hist <- renderPlotly({histoPlot[[2]]});
   }
 }
 
 
-# datasForServerFct <- function(input, output, session) {
-#   ##affichage carte
-#   output$mymap <- renderLeaflet({
-#     leaflet() %>%
-#       addTiles() %>%
-#       addProviderTiles("CartoDB.Positron") %>%
-#       addPolygons(data =poly ,label = ~indic, smoothFactor = 3, fillOpacity = 1, fillColor = ~pal(indic),stroke = TRUE,
-#                   weight = 0.1, color = "black",
-#                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1))
-#   })
-#   
-#   ##affichage piechart
-#   plot <- plot_ly(data = dftotal, labels = ~qualite_labels, values = ~qualiteTotale, type = "pie", hole=0.6,
-#                   textinfo = "percent", 
-#                   marker = list(colors = colors1),
-#                   insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
-#   output$pie <- renderPlotly({plot})
-#   
-#   observeEvent(input$total,{
-#     plot <- plot_ly(data = dftotal, labels = ~qualite_labels, values = ~qualiteTotale, type = "pie", hole=0.6,
-#                     textinfo = "percent", 
-#                     marker = list(colors = colors1),
-#                     insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
-#     output$pie <- renderPlotly({plot})
-#   })
-#   
-#   observeEvent(input$vertebres,{
-#     plot <- plot_ly(data = dfvertebres, labels = ~qualite_labels, values = ~qualiteVertebres, type = "pie", hole=0.6,
-#                     textinfo = "percent", 
-#                     marker = list(colors = colors4),
-#                     insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
-#     output$pie <- renderPlotly({plot})
-#   })
-#   
-#   observeEvent(input$flore,{
-#     plot <- plot_ly(data = dfflore, labels = ~qualite_labels, values = ~qualiteFlore, type = "pie", hole=0.6,
-#                     textinfo = "percent", 
-#                     marker = list(colors = colors3),
-#                     insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
-#     output$pie <- renderPlotly({plot})
-#   })
-#   
-#   observeEvent(input$invertebres,{
-#     plot <- plot_ly(data = dfinvertebres, labels = ~qualite_labels, values = ~qualiteInvertebres, type = "pie", hole=0.6,
-#                     textinfo = "percent", 
-#                     marker = list(colors = colors2),
-#                     insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
-#     output$pie <- renderPlotly({plot})
-#   })
-#   
-#   ##affichage hist
-#   plot1 <- plot_ly(dataHist, x = ~count, y = ~histFlore, type = 'bar', name = 'Flore et Fongus',marker = list(color = '#399E69')) %>%
-#     add_trace(y = ~histVertebres, name = 'Vertebres',marker = list(color = '#0099D0')) %>%
-#     add_trace(y = ~histInvertebres, name = 'Invertebres',marker = list(color = '#EA7200')) %>%
-#     layout(yaxis = list(title = 'Count'), barmode = 'stack')
-#   output$hist <- renderPlotly({plot1})
-#   
-#   observeEvent(input$total,{
-#     plot1 <- plot_ly(dataHist, x = ~count, y = ~histFlore, type = 'bar', name = 'Flore et Fongus',marker = list(color = '#399E69')) %>%
-#       add_trace(y = ~histVertebres, name = 'Vertebres',marker = list(color = '#0099D0')) %>%
-#       add_trace(y = ~histInvertebres, name = 'Invertebres',marker = list(color = '#EA7200')) %>%
-#       layout(yaxis = list(title = 'Count'), barmode = 'stack')
-#     output$hist <- renderPlotly({plot1})
-#   })
-#   
-#   
-#   observeEvent(input$flore,{
-#     plot1 <- plot_ly(dataHist, x = ~count, y = ~histFlore, type = 'bar', name = 'Flore et Fongus',marker = list(color = '#399E69')) 
-#     output$hist <- renderPlotly({plot1})
-#   })
-#   
-#   observeEvent(input$vertebres,{
-#     plot1 <- plot_ly(dataHist, x = ~count, y = ~histVertebres, type = 'bar', name = 'Vertebres',marker = list(color = '#0099D0')) 
-#     output$hist <- renderPlotly({plot1})
-#   })
-#   observeEvent(input$invertebres,{
-#     plot1 <- plot_ly(dataHist, x = ~count, y = ~histInvertebres, type = 'bar', name = 'Invertebres',marker = list(color = '#EA7200')) 
-#     output$hist <- renderPlotly({plot1})
-#   })
-# }
+# Cette fonction permet d'avoir une gamme de couleurs en fonction d'un pôle.
+# Elle est nécessaire lors de la création de certains graphiques.
+fcouleur <- function(pole){
+  colors1 <- c('#ECE0F3','#DDC8E9','#C39AD6','#A56AC2')#violet
+  colors2 <- c('#F8C04F','F9BA39','EE9039','#CC7B57')#orange
+  colors3 <- c('#CED760','#C5CF39','#8AC154','#399E69')#vert
+  colors4 <- c('#8BD6F0','#6CCAEB','#39AFDA','#398CB7')#bleu
+  if (pole =="general"){return(colors1)}
+  if (pole =="Vertébrés"){return(colors4)}
+  if (pole =="Invertébrés"){return(colors2)}
+  if (pole =="Flore et Fongus"){return(colors3)}
+}
+
+
+# Cette fonction permet de décoder les pôles pour prendre en compte deux pôles
+# si nécessaire. Elle est utilisée dans les foncitons de création de graphs.
+fdecode_poles <- function(pole) {
+  nbPoles <- 1;
+  pole1 <- pole;
+  pole2 <- pole;
+  switch(pole,
+         "Flore Invertébrés" = {
+           pole1 <- "Flore et Fongus";
+           pole2 <- "Invertébrés";
+           nbPoles <- 2;
+         },
+         "Flore Vertébrés" = {
+           pole1 <- "Flore et Fongus";
+           pole2 <- "Vertébrés";
+           nbPoles <- 2;
+         },
+         "Invertébrés Vertébrés" = {
+           pole1 <- "Invertébrés";
+           pole2 <- "Vertébrés";
+           nbPoles <- 2;
+         },
+         "general" = {
+           nbPoles <- 3;
+         }
+  )
+  return(list(nbPoles, pole1, pole2))
+}

@@ -1,26 +1,34 @@
+# Fonctions permettant de récupérer le bon pieChart
+print("Create function to get a pie chart...")
 
-fcouleur <- function(pole){
-  colors1 <- c('#ECE0F3','#DDC8E9','#C39AD6','#A56AC2')#violet
-  colors2 <- c('#F8C04F','F9BA39','EE9039','#CC7B57')#orange
-  colors3 <- c('#CED760','#C5CF39','#8AC154','#399E69')#vert
-  colors4 <- c('#8BD6F0','#6CCAEB','#39AFDA','#398CB7')#bleu
-  if (pole =="general"){return(colors1)}
-  if (pole =="Vertébrés"){return(colors4)}
-  if (pole =="Invertébrés"){return(colors2)}
-  if (pole =="Flore et Fongus"){return(colors3)}
-}
-
-afficher_pie<-function(groupe,pole,taxo,année)
+afficher_pie<-function(groupe,pole,taxo,année,type)
 {
-
+  nbPlot <- 1;
+  plot1 <- NULL;
+  plot2 <- NULL;
+  listPoles <- fdecode_poles(pole);
+  
   qualite_labels = c('Faible', 'Moyenne', 'Bonne','Elevee')
+  
+  if (type == "connaissances") {
+    
+  }
+  # Cas par défaut : aucun histogramme à tracer
+  else {
+    nbPlot <- 0;
+    return(list(nbPlot,plot1,plot2));
+  } 
   
   if ((groupe == "general")||(groupe=="pole")){
     base = "orb_indicateurs.ind_connaissance_pole"
   }
-  
-  if (groupe == "taxo"){
+  else if (groupe == "taxo"){
     base = "orb_indicateurs.ind_connaissance_taxo"
+  }
+  # Cas par défaut : aucun histogramme à tracer
+  else {
+    nbPlot <- 0;
+    return(list(nbPlot,plot1,plot2));
   }
   
   commande = paste("SELECT count(*) FROM", base, "WHERE ind_tot_group =")
@@ -30,21 +38,41 @@ afficher_pie<-function(groupe,pole,taxo,année)
   com_bonne <- paste(commande,"'Bonne'")
   com_elevee <- paste(commande,"'Ã‰levÃ©s'")
   
-  if (groupe == "taxo"){
+  if (groupe == "general") {
+    
+  }
+  else if (groupe == "taxo") {
     
     com_faible <- paste(com_faible, " AND declinaison ='",taxo,"'",sep = "")
     com_moyenne <- paste(com_moyenne, " AND declinaison ='",taxo,"'",sep = "")
     com_bonne <- paste(com_bonne, " AND declinaison ='",taxo,"'",sep = "")
     com_elevee <- paste(com_elevee, " AND declinaison ='",taxo,"'",sep = "")
   }
-
-  if (groupe == "pole"){
+  else if (groupe == "pole") {
+    # On ne peut pas afficher un pieChart avec plusieurs pôles, on en affiche
+    # donc 2 si il y a deux pôles.
+    if (listPoles[[1]] == 2) {
+      nbPlot <- 2;
+    }
     
-    com_faible <- paste(com_faible, " AND declinaison ='",pole,"'",sep = "")
-    com_moyenne <- paste(com_moyenne, " AND declinaison ='",pole,"'",sep = "")
-    com_bonne <- paste(com_bonne, " AND declinaison ='",pole,"'",sep = "")
-    com_elevee <- paste(com_elevee, " AND declinaison ='",pole,"'",sep = "")
+    com_faible <- paste(com_faible, " AND declinaison ='",listPoles[[2]],"'",sep = "")
+    com_moyenne <- paste(com_moyenne, " AND declinaison ='",listPoles[[2]],"'",sep = "")
+    com_bonne <- paste(com_bonne, " AND declinaison ='",listPoles[[2]],"'",sep = "")
+    com_elevee <- paste(com_elevee, " AND declinaison ='",listPoles[[2]],"'",sep = "")
+    
+    if (nbPlot == 2) {
+      com_faible2 <- paste(commande,"'Faible'", " AND declinaison ='",listPoles[[3]],"'",sep = "")
+      com_moyenne2 <- paste(commande,"'Moyenne'", " AND declinaison ='",listPoles[[3]],"'",sep = "")
+      com_bonne2 <- paste(commande,"'Bonne'", " AND declinaison ='",listPoles[[3]],"'",sep = "")
+      com_elevee2 <- paste(commande,"'Ã‰levÃ©s'", " AND declinaison ='",listPoles[[3]],"'",sep = "")
+    }
   }
+  # Cas par défaut : aucun histogramme à tracer
+  else {
+    nbPlot <- 0;
+    return(list(nbPlot,plot1,plot2));
+  }
+  
   
   if (année != 0){
     annéeinf = 2001+(floor((année-2001)/5))*5
@@ -55,28 +83,52 @@ afficher_pie<-function(groupe,pole,taxo,année)
     com_bonne <- paste(com_bonne, " AND annee_group ='",créneau,"'",sep = "")
     com_elevee <- paste(com_elevee, " AND annee_group ='",créneau,"'",sep = "")
     
+    if (nbPlot == 2) {
+      com_faible2 <- paste(com_faible2, " AND annee_group ='",créneau,"'",sep = "")
+      com_moyenne2 <- paste(com_moyenne2, " AND annee_group ='",créneau,"'",sep = "")
+      com_bonne2 <- paste(com_bonne2, " AND annee_group ='",créneau,"'",sep = "")
+      com_elevee2 <- paste(com_elevee2, " AND annee_group ='",créneau,"'",sep = "")
+    }
+    
     print(créneau)
   }
-    
+  
   print (com_faible)
   faible <- dbGetQuery(con_gn, com_faible)[,1,1]
   moyenne <- dbGetQuery(con_gn, com_moyenne)[,1,1]
   bonne <- dbGetQuery(con_gn, com_bonne)[,1,1]
   elevee <- dbGetQuery(con_gn, com_elevee)[,1,1]
   
-                  
-                       
   qualite = c(faible,moyenne,bonne,elevee)
   df = data.frame(qualite_labels,qualite)
   
-  plot <- plot_ly(data = df, labels = ~qualite_labels, values = ~qualite, type = "pie", hole=0.6,
-                textinfo = "percent", 
-                marker = list(colors = fcouleur(pole)),
-                insidetextorientation = "horizontal")  %>% layout(title = 'Proportion de mailles par niveau de connaissances')
-  return(plot)
+  # Création de pieChart
+  plot1 <- plot_ly(data = df, labels = ~qualite_labels, values = ~qualite, type = "pie", hole=0.6,
+                   textinfo = "percent", 
+                   marker = list(colors = fcouleur(listPoles[[2]])),
+                   insidetextorientation = "horizontal")  %>% layout(title = listPoles[[2]])
+  
+  if (nbPlot == 2) {
+    
+    faible2 <- dbGetQuery(con_gn, com_faible2)[,1,1]
+    moyenne2 <- dbGetQuery(con_gn, com_moyenne2)[,1,1]
+    bonne2 <- dbGetQuery(con_gn, com_bonne2)[,1,1]
+    elevee2 <- dbGetQuery(con_gn, com_elevee2)[,1,1]
+    
+    qualite2 = c(faible2,moyenne2,bonne2,elevee2)
+    df2 = data.frame(qualite_labels,qualite2)
+    plot2 <- plot_ly(data = df2, labels = ~qualite_labels, values = ~qualite2, type = "pie", hole=0.6,
+                     textinfo = "percent", 
+                     marker = list(colors = fcouleur(listPoles[[3]])),
+                     insidetextorientation = "horizontal")  %>% layout(title = listPoles[[3]])
+    
+    return(list(nbPlot,plot1,plot2))
+  }
+  
+  return(list(nbPlot,plot1,plot2))
 }
 
-
+# 
 # ##Test
 # a="pole"
 # b="Flore et Fongus"

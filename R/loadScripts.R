@@ -24,6 +24,14 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Datas/afficher_bar.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_fournisseur_producteur.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Datas/datasForServerFct.R") %>%
   source()
 
