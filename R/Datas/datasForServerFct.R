@@ -12,7 +12,14 @@ datasForServerFct <- function(input, output, session,
   
   output$pie <- renderPlotly({afficher_pie(groupe,pole,taxo,année)});
   
-  output$hist <- renderPlotly({afficher_hist(groupe,pole,taxo,type)});
+  # Actualisation de l'histogramme
+  histo <- afficher_hist(groupe,pole,taxo,type);
+  removeUI(selector = "#hist");
+  if (histo[[1]]) {
+    insertUI(selector = "#histogramme",
+             ui = plotlyOutput('hist'));
+    output$hist <- renderPlotly({histo[[2]]});
+  }
 }
 
 
