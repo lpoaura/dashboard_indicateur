@@ -91,16 +91,28 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* Zone de sélection des indicateurs */
-#selectIndicator {
+#selectArea >select {
     width: 90%;
     padding: 5%;
-    margin-bottom: 10%;
     font-size: 16px;
     border-radius: 10px;
     outline: none;
     border: none;
     color: #FFFFFF;
     background-color: var(--color_violet100);
+}
+
+#selectArea >p {
+  font-weight:bold;
+  text-align:center;
+  color :white;
+  margin-top : 1%;
+  margin-bottom : 0px;
+  font-size: 20px;
+}
+
+#selectArea {
+  margin-bottom: 10%;
 }
 
 /* Scroll bar du menu déroulant des indicateurs */

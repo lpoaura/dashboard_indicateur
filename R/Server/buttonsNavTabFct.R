@@ -63,6 +63,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd)
     if(data_page$page == "expert") {
       insertUI(selector = "#divExpertButton",
                ui = expertButton)
+      removeUI(selector = "#selectTypeIndicator")
+      removeUI(selector = "#selectDeclinaison")
+      removeUI(selector = "#selectGroupe")
+      removeUI(selector = ".titleSel")
     }
     
     if(data_page$page == "admin") {
@@ -114,6 +118,12 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd)
     if(data_page$page == "global") {
       insertUI(selector = "#divGlobalButton",
                ui = globalButton)
+      insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
+      insertUI(selector = "#selectTypeIndicator", where = "beforeBegin", ui = tags$p(class = "titleSel","Type d'indicateurs :"))
+      insertUI(selector = "#selectIndicator", where = "afterEnd", ui = selectDeclinaison)
+      insertUI(selector = "#selectDeclinaison", where = "beforeBegin", ui = tags$p(class = "titleSel","Déclinaison :"))
+      insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
+      insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = tags$p(class = "titleSel","Groupe :"))
     }
     
     if(data_page$page == "admin") {

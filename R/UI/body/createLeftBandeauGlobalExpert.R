@@ -48,6 +48,24 @@ selectIndicator <- tags$select(id = "selectIndicator",
                                "onblur"='this.size=1;' ,
                                "onchange"='this.size=1; this.blur();')
 
+# Menu déroulant du type d'indicateurs
+selectTypeIndicator <- tags$select(id = "selectTypeIndicator",
+                                   "onfocus"='this.size=2;',
+                                   "onblur"='this.size=1;' ,
+                                   "onchange"='this.size=1; this.blur();')
+
+# Menu déroulant de la déclinaison
+selectDeclinaison <- tags$select(id = "selectDeclinaison",
+                                 "onfocus"='this.size=2;',
+                                 "onblur"='this.size=1;' ,
+                                 "onchange"='this.size=1; this.blur();')
+
+# Menu déroulant du groupe
+selectGroupe <- tags$select(id = "selectGroupe",
+                            "onfocus"='this.size=2;',
+                            "onblur"='this.size=1;' ,
+                            "onchange"='this.size=1; this.blur();')
+
 # Récapitulatif de l'indicateur sélectionné
 divDataSumUp <- div(id = "dataSumUp",
                     tags$p(id = "indicatorName",
@@ -62,9 +80,15 @@ divDataViz <- div(id = "dataViz",
                   divHist,
                   divPie)
 
+# Zone des sélecteurs 
+
+divSelectArea <- div(id="selectArea",
+                     tags$p("Indicateur :"),
+                     selectIndicator)
+
 # Zone des indicateurs et data viz
 divData <- div(id = "data",
-               selectIndicator,
+               divSelectArea,
                divDataViz)
 
 # Pop-Up du data viz survolé
