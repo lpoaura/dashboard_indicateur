@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd) {
+buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
   # Bouton "Accueil"
   observeEvent(input$accueilButton, {
     print("accueil pressed from");
@@ -93,7 +93,9 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd)
       insertUI(selector = "#total",
                ui = divCarteBack)
       
-      # Permet d'initialiser les indicateurs.
+      # Permet d'initialiser les indicateurs, les pôles et l'année.
+      setYearsFct(input, output, session, data_year);
+      setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
       initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
     
@@ -150,7 +152,9 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd)
       insertUI(selector = "#total",
                ui = divCarteBack)
       
-      # Permet d'initialiser les indicateurs.
+      # Permet d'initialiser les indicateurs, les pôles et l'année.
+      setYearsFct(input, output, session, data_year);
+      setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
       initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
     

@@ -37,7 +37,11 @@ divYearSettings <- div(id = "yearSettings",
                                    step = 1,
                                    sep = "",
                                    ticks = FALSE,
-                                   width = "80%"))
+                                   width = "70%"),
+                       checkboxInput(inputId = "checkAllYears",
+                                     label = "Toutes ?",
+                                     value = TRUE,
+                                     width = "15%"))
 
 # Objets de settings (poles et années)
 divObjSettings <- div(id = "objSettings",

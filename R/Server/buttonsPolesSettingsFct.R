@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de choix de pôles dans le bandeau de settings
 
-buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux) {
+buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year) {
   
   #--------------- Bouton Fleur ---------------#
   observeEvent(input$actionButtonFlower, {
@@ -30,7 +30,16 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     actializeFeux(session, data_polesButtons, data_polesFeux);
     
     stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+    
+    # Changement des graphiques et de la carte
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    groupe <- "general";
+    if (poles != "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = groupe, pole = poles, taxo = "Oiseaux",
+                      année = data_year$year);
   })
   
   #--------------- Bouton Abeille ---------------#
@@ -61,7 +70,16 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     actializeFeux(session, data_polesButtons, data_polesFeux);
     
     stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+    
+    # Changement des graphiques et de la carte
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    groupe <- "general";
+    if (poles != "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = groupe, pole = poles, taxo = "Oiseaux",
+                      année = data_year$year);
   })
   
   #--------------- Bouton Patte ---------------#
@@ -91,7 +109,16 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
     actializeFeux(session, data_polesButtons, data_polesFeux);
     
     stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS)
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+    
+    # Changement des graphiques et de la carte
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    groupe <- "general";
+    if (poles != "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = groupe, pole = poles, taxo = "Oiseaux",
+                      année = data_year$year);
   })
 }
 
@@ -307,3 +334,166 @@ actializeFeux <- function(session, data_polesButtons, data_polesFeux)
   stringForJS <- encodeFeux(data_polesFeux);
   session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
 }
+
+# --------------- Permet d'encoder pour faire une requête SQL ---------------#
+convertPolesForRequest <- function(poleStr) {
+  res <- "";
+  switch(poleStr,
+         "all" = res <- "general",
+         "fi" = res <- "Flore Invertébrés",
+         "fv" = res <- "Flore Vertébrés",
+         "iv" = res <- "Invertébrés Vertébrés",
+         "flore" = res <- "Flore et Fongus",
+         "invertebre" = res <- "Invertébrés",
+         "vertebre" = res <- "Vertébrés",
+         "rien" = res <- "rien"
+  );
+  
+  return(res);
+}
+
+# --------------- Permet de réinitialiser les couleurs de tous les feux et boutons --------------- #
+# Initialisation des boutons de pôles
+setPolesFct <- function(session, data_polesButtons) {
+  # Les 3 pôles sont allumés
+  if (data_polesButtons$flore && data_polesButtons$invertebre && data_polesButtons$vertebre) {
+    removeUI(selector = '#actionButtonFlower>img')
+    insertUI(selector = '#actionButtonFlower',
+             ui = img(src = "Resources/pictogrammes/fleur_violet.png",
+                      width=50,
+                      height=50))
+    removeUI(selector = '#actionButtonFlower>img')
+    insertUI(selector = '#actionButtonFlower',
+             ui = img(src = "Resources/pictogrammes/fleur_violet.png",
+                      width=50,
+                      height=50))
+    removeUI(selector = '#actionButtonFlower>img')
+    insertUI(selector = '#actionButtonFlower',
+             ui = img(src = "Resources/pictogrammes/fleur_violet.png",
+                      width=50,
+                      height=50))
+  } 
+  # Au moins 1 des 3 pôle n'es pas allumé
+  else {
+    if (data_polesButtons$flore) {
+      removeUI(selector = '#actionButtonFlower>img')
+      insertUI(selector = '#actionButtonFlower',
+               ui = img(src = "Resources/pictogrammes/fleur.png",
+                        width=50,
+                        height=50))
+    } else {
+      removeUI(selector = '#actionButtonFlower>img')
+      insertUI(selector = '#actionButtonFlower',
+               ui = img(src = "Resources/pictogrammes/fleur_gris.png",
+                        width=50,
+                        height=50))
+    }
+    
+    if (data_polesButtons$invertebre) {
+      removeUI(selector = '#actionButtonBee>img')
+      insertUI(selector = '#actionButtonBee',
+               ui = img(src = "Resources/pictogrammes/abeille.png",
+                        width=50,
+                        height=50))
+    } else {
+      removeUI(selector = '#actionButtonBee>img')
+      insertUI(selector = '#actionButtonBee',
+               ui = img(src = "Resources/pictogrammes/abeille_gris.png",
+                        width=50,
+                        height=50))
+    }
+    
+    if (data_polesButtons$vertebre) {
+      removeUI(selector = '#actionButtonPaw>img')
+      insertUI(selector = '#actionButtonPaw',
+               ui = img(src = "Resources/pictogrammes/patte_violet.png",
+                        width=50,
+                        height=50))
+    } else {
+      removeUI(selector = '#actionButtonPaw>img')
+      insertUI(selector = '#actionButtonPaw',
+               ui = img(src = "Resources/pictogrammes/patte_gris.png",
+                        width=50,
+                        height=50))
+    }
+  }
+}
+
+# Initialisation des feux de pôles
+setFeuxFct <- function(session, data_polesButtons, data_polesFeux) {
+  # Les 3 pôles sont allumés
+  if (data_polesFeux$flore && data_polesFeux$invertebre && data_polesFeux$vertebre) {
+    removeUI(selector = '#feuFlore>img')
+    insertUI(selector = '#feuFlore',
+             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+                      width=15,
+                      height=15))
+    removeUI(selector = '#feuInvertebre>img')
+    insertUI(selector = '#feuInvertebre',
+             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+                      width=15,
+                      height=15))
+    removeUI(selector = '#feuVertebre>img')
+    insertUI(selector = '#feuVertebre',
+             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+                      width=15,
+                      height=15))
+  } 
+  # Au moins 1 des 3 pôle n'es pas allumé
+  else {
+    if (data_polesFeux$flore) {
+      removeUI(selector = '#feuFlore>img')
+      insertUI(selector = '#feuFlore',
+               ui = img(src = "Resources/pictogrammes/rond_vert.png",
+                        width=15,
+                        height=15))
+    } else {
+      removeUI(selector = '#feuFlore>img')
+      insertUI(selector = '#feuFlore',
+               ui = img(src = "Resources/pictogrammes/rond_gris.png",
+                        width=15,
+                        height=15))
+    }
+    
+    if (data_polesFeux$invertebre) {
+      removeUI(selector = '#feuInvertebre>img')
+      insertUI(selector = '#feuInvertebre',
+               ui = img(src = "Resources/pictogrammes/rond_orange.png",
+                        width=15,
+                        height=15))
+    } else {
+      removeUI(selector = '#feuInvertebre>img')
+      insertUI(selector = '#feuInvertebre',
+               ui = img(src = "Resources/pictogrammes/rond_gris.png",
+                        width=15,
+                        height=15))
+    }
+    
+    if (data_polesFeux$vertebre) {
+      removeUI(selector = '#feuVertebre>img')
+      insertUI(selector = '#feuVertebre',
+               ui = img(src = "Resources/pictogrammes/rond_bleu.png",
+                        width=15,
+                        height=15))
+    } else {
+      removeUI(selector = '#feuVertebre>img')
+      insertUI(selector = '#feuVertebre',
+               ui = img(src = "Resources/pictogrammes/rond_gris.png",
+                        width=15,
+                        height=15))
+    }
+  }
+  polesButtonsStr <- encodeFeux(data_polesButtons);
+  feuxStr <- encodeFeux(data_polesFeux);
+  session$onFlushed(function() {
+    session$sendCustomMessage(type = 'actualizePolesButtons', message = polesButtonsStr);
+    session$sendCustomMessage(type = 'actualizeFeux', message = feuxStr);
+  });
+}
+
+# Initialisation des pôles et des feux
+setPolesFeuxFct <- function(session, data_polesButtons, data_polesFeux) {
+  setPolesFct(session, data_polesButtons);
+  setFeuxFct(session, data_polesButtons, data_polesFeux)
+}
+  

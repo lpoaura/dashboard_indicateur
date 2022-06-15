@@ -1,5 +1,7 @@
 # Création de l'en-tête
 
+print("Creating Head...")
+
 ## Logo en haut à gauche
 
 # Logo du laboratoire

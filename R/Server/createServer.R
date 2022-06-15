@@ -9,6 +9,12 @@ server <- function(input, output, session) {
     page = "global"
   );
   
+  # reactiveValues permettant de mémoriser l'année à oberver.
+  data_year <- reactiveValues(
+    year = 0,
+    loading = FALSE
+  )
+  
   # reactiveValues permettent de savoir quels boutons de pôles sont actifs
   data_polesButtons <- reactiveValues(
     flore = TRUE,
@@ -28,7 +34,8 @@ server <- function(input, output, session) {
     indicator = valIndicators[[1]],
     indicatorName = listIndicators[[1]]
   );
-  initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
+  initSelectorsFct(input, output, session,
+                   isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName));
   
   # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
   data_tabAdmin <- reactiveValues(
@@ -45,19 +52,22 @@ server <- function(input, output, session) {
   
   
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
-  buttonsNavTabFct(input, output, session, data_page, data_currentInd);
+  buttonsNavTabFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
   
   # -------------------- BOUTONS DE COLLAPSE/UNCOLLAPSE -------------------- #
-  buttonCollapseFct(input, output, session, data_currentInd);
+  buttonCollapseFct(input, output, session, data_currentInd, data_polesButtons, data_polesFeux, data_year);
+  
+  # -------------------- CHOIX DE L'ANNÉE -------------------- #
+  yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
-  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux);
+  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year);
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);
   
   # -------------------- MENU DE SELECTION -------------------- #
-  selectIndicatorsFct(input, output, session, data_currentInd);
+  selectIndicatorsFct(input, output, session, data_currentInd, data_polesButtons, data_year);
   
   # -------------------- BOUTONS DE LOGIN DANS LE MODE ADMIN -------------------- #
   buttonLogInAdminFct(input, output, session, mdpAdmin);
@@ -77,7 +87,10 @@ server <- function(input, output, session) {
   # -------------------- DYNAMIQUE DE LA FONCTION RAJOUT DU MODE ADMIN -------------------- #
   addPanelAccueilFct(input, output, session);
   
-  # -------------------- DONNEES -------------------- #
-  datasForServerFct(input, output, session);
+# -------------------- INITIALISATION DES DONNEES -------------------- #
+  # Il n'est pas nécessaire d'appeler cette fonction car l'actualisation de la 
+  # barre de temps (par le fait que la checkbox associée est validée) appelle
+  # déjà cette fonction.
+  # datasForServerFct(input, output, session);
   
 }

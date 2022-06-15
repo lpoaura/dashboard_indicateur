@@ -7,8 +7,28 @@ getwd() %>%
   paste0("/R/Datas/connexion_lpo.R") %>%
   source()
 
+# getwd() %>%
+#   paste0("/R/Datas/requetesSQL.R") %>%
+#   source()
+
 getwd() %>%
-  paste0("/R/Datas/requetesSQL.R") %>%
+  paste0("/R/Datas/afficher_carte_quantile.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_hist.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_pie.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_bar.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_fournisseur_producteur.R") %>%
   source()
 
 getwd() %>%
@@ -59,6 +79,10 @@ getwd() %>%
 
 getwd() %>%
   paste0("/R/Server/buttonsCollapseFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/yearsSettingsFct.R") %>%
   source()
 
 getwd() %>%
