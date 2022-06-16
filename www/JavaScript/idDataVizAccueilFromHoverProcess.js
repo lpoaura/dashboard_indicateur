@@ -11,8 +11,7 @@ $(document).ready(function () {
       dont l'id correspond à l'id du DOM qui englobe l'entièreté du dataViz. Si c'est le cas,
       la variable prend ce DOM, sinon il retourne une valeur null */
       let r1 = event.target.closest("#histogramme");
-      let r2 = event.target.closest("#pie1");
-      let r3 = event.target.closest("#pie2");
+      let r2 = event.target.closest("#PieChart");
       
       if (r1!==null) {
         /*On modifie un input R qui va être écouté par un ObserverEvent*/
@@ -21,12 +20,7 @@ $(document).ready(function () {
       
       else if (r2!==null) {
         /*On modifie un input R qui va être écouté par un ObserverEvent*/
-        Shiny.setInputValue('idDataViz', "pie1",{priority: "event"});
-      }
-      
-      else if (r3!==null) {
-        /*On modifie un input R qui va être écouté par un ObserverEvent*/
-        Shiny.setInputValue('idDataViz', "pie2",{priority: "event"});
+        Shiny.setInputValue('idDataViz', "PieChart",{priority: "event"});
       }
       
       else {

@@ -20,13 +20,10 @@ popUpDataVizFct <- function(input, output, session) {
       insertUI(selector = "#bandeauTotal", ui = divPopUpDataViz)
       
       if(input$idDataViz=="histogramme"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('histCopy'))
+        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('hist2'))
       }
-      else if (input$idDataViz=="pie1"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('pie1Copy'))
-      }
-      else if (input$idDataViz=="pie2"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('pie2Copy'))
+      else if (input$idDataViz=="PieChart"){
+        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('pie2'))
       }
     }
   })

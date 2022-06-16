@@ -2,7 +2,7 @@
 # fait sur le select des indicateurs et les autres dans la page experte.
 
 
-selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, data_year) {
+selectIndicatorsFct <- function(input, output, session, data_currentInd) {
   
   observeEvent(input$selectIndicator, {
     session$sendCustomMessage(type = 'selectIndicator', message = '');
@@ -11,15 +11,6 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
   observeEvent(input$currentInd, {
     data_currentInd$indicator <- input$currentInd;
     print(paste("New indicator : ", data_currentInd$indicator, sep=""));
-    
-    # Changement des graphiques et de la carte
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    groupe <- "general";
-    if (poles != "general") groupe <- "pole";
-    datasForServerFct(input = input, output = output, session = session,
-                      type = data_currentInd$indicator,
-                      groupe = groupe, pole = poles, taxo = "Oiseaux",
-                      année = data_year$year);
   });
   
   observeEvent(input$currentIndName, {
@@ -28,3 +19,5 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
   });
 }
+
+

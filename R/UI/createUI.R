@@ -22,8 +22,6 @@ ui <- fluidPage(
   includeScript('www/JavaScript/adminModeProcess.js'),
   includeScript('www/JavaScript/feuxProcess.js'),
   includeScript('www/JavaScript/polesButtonsProcess.js'),
-  includeScript('www/JavaScript/setYearProcess.js'),
-  includeScript('www/JavaScript/endLoadingYearProcess.js'),
   includeScript('www/JavaScript/setIndicatorProcess.js'),
   includeScript('www/JavaScript/selectIndicatorProcess.js'),
   includeScript('www/JavaScript/accueilClickedTabProcess.js'),

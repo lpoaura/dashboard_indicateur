@@ -49,21 +49,18 @@ selectIndicator <- tags$select(id = "selectIndicator",
                                "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant du type d'indicateurs
-titleSelectTypeIndicator <- tags$p(class = "titleSel","Type d'indicateurs :")
 selectTypeIndicator <- tags$select(id = "selectTypeIndicator",
                                    "onfocus"='this.size=2;',
                                    "onblur"='this.size=1;' ,
                                    "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant de la déclinaison
-titleSelectDeclinaison <- tags$p(class = "titleSel","Déclinaison :")
 selectDeclinaison <- tags$select(id = "selectDeclinaison",
                                  "onfocus"='this.size=2;',
                                  "onblur"='this.size=1;' ,
                                  "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant du groupe
-titleSelectGroupe <- tags$p(class = "titleSel","Groupe :")
 selectGroupe <- tags$select(id = "selectGroupe",
                             "onfocus"='this.size=2;',
                             "onblur"='this.size=1;' ,
@@ -84,30 +81,15 @@ divDataViz <- div(id = "dataViz",
                   divPie)
 
 # Zone des sélecteurs 
+
 divSelectArea <- div(id="selectArea",
                      tags$p("Indicateur :"),
                      selectIndicator)
-
-# Zone des sélecteurs côté expert
-divSelectAreaExpert <- div(id="selectArea",
-                           titleSelectTypeIndicator,
-                           selectTypeIndicator,
-                           tags$p("Indicateur :"),
-                           selectIndicator,
-                           titleSelectDeclinaison,
-                           selectDeclinaison,
-                           titleSelectGroupe,
-                           selectGroupe)
 
 # Zone des indicateurs et data viz
 divData <- div(id = "data",
                divSelectArea,
                divDataViz)
-
-# Zone des indicateurs et data viz côté expert
-divDataExpert <- div(id = "data",
-                     divSelectAreaExpert,
-                     divDataViz)
 
 # Pop-Up du data viz survolé
 divPopUpDataViz <- div(id = "popUpDataViz")
@@ -118,12 +100,7 @@ divBandeauUtil <- div(id = "bandeauUtil",
                       divChiff,
                       divData)
 
-# Bandeau déplié côté expert
-divBandeauUtilExpert <- div(id = "bandeauUtil",
-                            divChiff,
-                            divDataExpert)
-
-# Bandeau déplié : bouton de collapse
+# Bandeau déplié
 divBandeauUncollapsed <- div(id = "bandeauUncollapsed",
                              actionButton(inputId = "collapaseBandeauButton",
                                           icon("caret-left")))
@@ -133,33 +110,20 @@ divBandeauCollapsed <- div(id = "bandeauCollapsed",
                            actionButton(inputId = "uncollapaseBandeauButton",
                                         icon("caret-right")))
 
-# Regroupement de tout
 divBandeau <- div(id = "bandeau",
                   divBandeauUtil,
                   divBandeauUncollapsed)
-divBandeauExpert <- div(id = "bandeau",
-                        divBandeauUtilExpert,
-                        divBandeauUncollapsed)
-rm(divBandeauUtil, divBandeauUtilExpert, divBandeauUncollapsed)
+rm(divBandeauUtil, divBandeauUncollapsed)
 
 
 # Bandeau de gauche
 divBandeauTotal <- div(id = "bandeauTotal",
                        divBandeau)
 
-# Bandeau de gauche côté expert
-divBandeauTotalExpert <- div(id = "bandeauTotal",
-                       divBandeauExpert)
-
-# Zone pour observer la carte
+# Zone de la carte
 divBandeauRightCarte <- div(id = "bandeauRightCarte")
 
-# Regroupement avec la div vide de droite
 divBandeauCarte <- div(id = "bandeauCarte",
                        divBandeauTotal,
                        divBandeauRightCarte)
-divBandeauCarteExpert <- div(id = "bandeauCarte",
-                             divBandeauTotalExpert,
-                             divBandeauRightCarte)
-rm(divBandeauTotal, divBandeauTotalExpert, divBandeauRightCarte)
-
+rm(divBandeauTotal, divBandeauRightCarte)
