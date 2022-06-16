@@ -63,10 +63,6 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     if(data_page$page == "expert") {
       insertUI(selector = "#divExpertButton",
                ui = expertButton)
-      removeUI(selector = "#selectTypeIndicator")
-      removeUI(selector = "#selectDeclinaison")
-      removeUI(selector = "#selectGroupe")
-      removeUI(selector = ".titleSel")
     }
     
     if(data_page$page == "admin") {
@@ -98,6 +94,12 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
       initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
+    else {
+      removeUI(selector = "#selectTypeIndicator")
+      removeUI(selector = "#selectDeclinaison")
+      removeUI(selector = "#selectGroupe")
+      removeUI(selector = ".titleSel", multiple = TRUE)
+    }
     
     data_page$page <- "global";
   })
@@ -120,12 +122,6 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     if(data_page$page == "global") {
       insertUI(selector = "#divGlobalButton",
                ui = globalButton)
-      insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
-      insertUI(selector = "#selectTypeIndicator", where = "beforeBegin", ui = tags$p(class = "titleSel","Type d'indicateurs :"))
-      insertUI(selector = "#selectIndicator", where = "afterEnd", ui = selectDeclinaison)
-      insertUI(selector = "#selectDeclinaison", where = "beforeBegin", ui = tags$p(class = "titleSel","Déclinaison :"))
-      insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
-      insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = tags$p(class = "titleSel","Groupe :"))
     }
     
     if(data_page$page == "admin") {
@@ -147,7 +143,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
                ui = divSettings)
       
       insertUI(selector = '#corps',
-               ui = divBandeauCarte)
+               ui = divBandeauCarteExpert)
       
       insertUI(selector = "#total",
                ui = divCarteBack)
@@ -156,6 +152,14 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
       initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
+    }
+    else {
+      insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
+      insertUI(selector = "#selectTypeIndicator", where = "beforeBegin", ui = titleSelectTypeIndicator)
+      insertUI(selector = "#selectIndicator", where = "afterEnd", ui = selectDeclinaison)
+      insertUI(selector = "#selectDeclinaison", where = "beforeBegin", ui = titleSelectDeclinaison)
+      insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
+      insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
     }
     
     data_page$page <- "expert";

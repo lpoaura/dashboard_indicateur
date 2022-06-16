@@ -1,6 +1,17 @@
 # Fonctions permettant de récupérer le bon histogramme
 print("Create function to get a histogram...")
 
+fcouleur_unique <- function(pole){
+  colors1 <- '#8031A7'#violet
+  colors2 <- '#EA7200'#orange
+  colors3 <- '#6AB023'#vert
+  colors4 <- '#0099D0'#bleu
+  if (pole =="general"){return(colors1)}
+  if (pole =="Vertébrés"){return(colors4)}
+  if (pole =="Invertébrés"){return(colors2)}
+  if (pole =="Flore et Fongus"){return(colors3)}
+}
+
 afficher_hist<-function(groupe,pole,taxo,type)
 {
   isPlot <- TRUE;
