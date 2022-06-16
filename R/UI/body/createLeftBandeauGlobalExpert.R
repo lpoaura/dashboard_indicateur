@@ -63,7 +63,7 @@ selectDeclinaison <- tags$select(id = "selectDeclinaison",
                                  "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant du groupe
-titleSelectGroupe <- tags$p(class = "titleSel","Groupe :")
+titleSelectGroupe <- tags$p(id = "pTitleSelGroupe", class = "titleSel","Groupe :")
 selectGroupe <- tags$select(id = "selectGroupe",
                             "onfocus"='this.size=2;',
                             "onblur"='this.size=1;' ,

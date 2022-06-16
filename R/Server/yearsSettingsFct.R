@@ -66,7 +66,6 @@ setYearsFct <- function(input, output, session, data_year) {
   currentYear <- data_year$year;
   
   session$onFlushed(function() {
-    print("SESSION FLUSHED 1")
     session$sendCustomMessage('setYear', currentYear);
   });
 }

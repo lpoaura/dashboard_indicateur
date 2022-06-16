@@ -47,7 +47,7 @@ selectTypeIndGeneral <- tags$select(id = "selectTypeIndGeneral",
                                     tags$option(value = "B", "Indicateur B"),
                                     tags$option(value = "C", "Indicateur C"))
 
-selectDeclinaison <- tags$select(id = "selectDeclinaison",
+selectIndDeclinaison <- tags$select(id = "selectDeclinaison",
                                     "onfocus"='this.size=2;',
                                     "onblur"='this.size=1;' ,
                                     "onchange"='this.size=1; this.blur();',
@@ -81,7 +81,7 @@ divCategorieInfo <- div(id="categorieInfo",
 # Zone des critères d'un sous indicateur
 divSubIndInfo <- div(id = "subIndInfo",
                      tags$p("Déclinaison :"),
-                     selectDeclinaison,
+                     selectIndDeclinaison,
                      tags$p("Type de représentation :"),
                      selectRepresentation,
                      tags$p("Profil qui a accès à cet indicateur :"),

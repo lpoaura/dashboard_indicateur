@@ -20,17 +20,27 @@ divTotal <- div(id = "total",
 # UI qui sera donné initialement à l'utilisateur
 ui <- fluidPage(
   includeScript('www/JavaScript/adminModeProcess.js'),
+  
   includeScript('www/JavaScript/feuxProcess.js'),
   includeScript('www/JavaScript/polesButtonsProcess.js'),
+  
   includeScript('www/JavaScript/setYearProcess.js'),
   includeScript('www/JavaScript/endLoadingYearProcess.js'),
+  
+  includeScript('www/JavaScript/setTypeIndicatorProcess.js'),
   includeScript('www/JavaScript/setIndicatorProcess.js'),
+  
+  includeScript('www/JavaScript/changeIndicatorProcess.js'),
+  
+  includeScript('www/JavaScript/selectTypeIndicatorProcess.js'),
   includeScript('www/JavaScript/selectIndicatorProcess.js'),
+  
   includeScript('www/JavaScript/accueilClickedTabProcess.js'),
   includeScript('www/JavaScript/accueilModeNewProcess.js'),
   includeScript('www/JavaScript/accueilModeOldProcess.js'),
   includeScript('www/JavaScript/indicatorNameUpdateProcess.js'),
   includeScript('www/JavaScript/idIndicatorAccueilFromNameProcess.js'),
+  
   includeScript('www/JavaScript/idDataVizAccueilFromHoverProcess.js'),
   
   includeCSS("www/CSS/enTeteCSS.css"),

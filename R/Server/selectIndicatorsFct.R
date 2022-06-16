@@ -2,8 +2,35 @@
 # fait sur le select des indicateurs et les autres dans la page experte.
 
 
-selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, data_year) {
+selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, data_year, data_page) {
   
+  # Changement sur le select du type d'indicateur (seulement expert)
+  observeEvent(input$selectTypeIndicator, {
+    session$sendCustomMessage(type = 'selectTypeIndicator', message = '');
+  });
+  
+  observeEvent(input$currentTypeIndName, {
+    print(paste("New type indicator : ", input$currentTypeIndName, sep=""));
+    currentInd <- findIndictorForType(input$currentTypeIndName);
+    currentIndName <- findIndicateurInfo(currentInd, "indName");
+    print(currentInd)
+    data_currentInd$indicator <- currentInd;
+    data_currentInd$indicatorName <- currentIndName;
+    
+    # Changement de la liste des indicateurs
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    initSelectorsFct(input, output, session, isolate(data_page$page), currentInd, currentIndName, poles);
+    
+    # Changement des graphiques et de la carte
+    session$onFlushed(function() {
+      session$sendCustomMessage(type = 'changeIndicator', message = isolate(data_currentInd$indicator));
+      session$sendCustomMessage(type = 'updateIndicatorName', message = isolate(data_currentInd$indicatorName));
+    });
+  });
+  
+  
+  
+  # Changement sur le select d'indicateur
   observeEvent(input$selectIndicator, {
     session$sendCustomMessage(type = 'selectIndicator', message = '');
   });

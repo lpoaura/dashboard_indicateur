@@ -562,3 +562,37 @@ encodeFeux <- function(data_polesFeux) {
   }
   return(res);
 }
+
+encodeFeuxIsolated <- function(boolFlore, boolInvertebre, boolVertebre) {
+  res <- "";
+  if (!boolFlore) {
+    if (!boolInvertebre) {
+      if (!boolVertebre) {
+        res <- "rien"; # Cas impossible
+      } else {
+        res <- "vertebre";
+      }
+    } else {
+      if (!boolVertebre) {
+        res <- "invertebre";
+      } else {
+        res <- "iv";
+      }
+    }
+  } else {
+    if (!boolInvertebre) {
+      if (!boolVertebre) {
+        res <- "flore";
+      } else {
+        res <- "fv";
+      }
+    } else {
+      if (!boolVertebre) {
+        res <- "fi";
+      } else {
+        res <- "all";
+      }
+    }
+  }
+  return(res);
+}

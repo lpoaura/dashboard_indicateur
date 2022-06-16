@@ -35,7 +35,11 @@ server <- function(input, output, session) {
     indicatorName = listIndicators[[1]]
   );
   initSelectorsFct(input, output, session,
-                   isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName));
+                   "init",
+                   isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
+                   encodeFeuxIsolated(isolate(data_polesButtons$flore),
+                              isolate(data_polesButtons$invertebre),
+                              isolate(data_polesButtons$vertebre)));
   
   # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
   data_tabAdmin <- reactiveValues(
@@ -55,7 +59,7 @@ server <- function(input, output, session) {
   buttonsNavTabFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
   
   # -------------------- BOUTONS DE COLLAPSE/UNCOLLAPSE -------------------- #
-  buttonCollapseFct(input, output, session, data_currentInd, data_polesButtons, data_polesFeux, data_year);
+  buttonCollapseFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
   
   # -------------------- CHOIX DE L'ANNÉE -------------------- #
   yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons);
@@ -67,7 +71,7 @@ server <- function(input, output, session) {
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);
   
   # -------------------- MENU DE SELECTION -------------------- #
-  selectIndicatorsFct(input, output, session, data_currentInd, data_polesButtons, data_year);
+  selectIndicatorsFct(input, output, session, data_currentInd, data_polesButtons, data_year, data_page);
   
   # -------------------- BOUTONS DE LOGIN DANS LE MODE ADMIN -------------------- #
   buttonLogInAdminFct(input, output, session, mdpAdmin);

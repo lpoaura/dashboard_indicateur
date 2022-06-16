@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonCollapseFct <- function(input, output, session, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
+buttonCollapseFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
   
   # Collapse button du bandeau de settings
   observeEvent(input$collapaseSettingsButton, {
@@ -38,7 +38,12 @@ buttonCollapseFct <- function(input, output, session, data_currentInd, data_pole
     
     # Permet d'initialiser les indicateurs et les pôles.
     setFeuxFct(session, data_polesButtons, data_polesFeux);
-    initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
+    initSelectorsFct(input, output, session,
+                     isolate(data_page$page),
+                     isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
+                     encodeFeuxIsolated(isolate(data_polesButtons$flore),
+                                        isolate(data_polesButtons$invertebre),
+                                        isolate(data_polesButtons$vertebre)));
   })
 }
 

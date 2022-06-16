@@ -92,7 +92,6 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       # Permet d'initialiser les indicateurs, les pôles et l'année.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
-      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
     else {
       removeUI(selector = "#selectTypeIndicator")
@@ -100,6 +99,14 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       removeUI(selector = "#selectGroupe")
       removeUI(selector = ".titleSel", multiple = TRUE)
     }
+    
+    # Initialise les selectors
+    initSelectorsFct(input, output, session,
+                     "global",
+                     isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
+                     encodeFeuxIsolated(isolate(data_polesButtons$flore),
+                                        isolate(data_polesButtons$invertebre),
+                                        isolate(data_polesButtons$vertebre)));
     
     data_page$page <- "global";
   })
@@ -151,7 +158,6 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       # Permet d'initialiser les indicateurs, les pôles et l'année.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
-      initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
     }
     else {
       insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
@@ -161,6 +167,14 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
       insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
     }
+    
+    # Initialise les selectors
+    initSelectorsFct(input, output, session,
+                     "expert",
+                     isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
+                     encodeFeuxIsolated(isolate(data_polesButtons$flore),
+                                        isolate(data_polesButtons$invertebre),
+                                        isolate(data_polesButtons$vertebre)));
     
     data_page$page <- "expert";
   })
