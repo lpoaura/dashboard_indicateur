@@ -32,11 +32,17 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
   
   observeEvent(input$uncollapaseBandeauButton, {
     print("uncollapseButton bandeau pressed");
-    removeUI(selector = '#bandeauCollapsed')
-    insertUI(selector = '#bandeauTotal',
-             ui = divBandeau)
+    removeUI(selector = '#bandeauCollapsed');
+    if (data_page$page == "global") {
+      insertUI(selector = '#bandeauTotal',
+               ui = divBandeau)
+    }
+    else {
+      insertUI(selector = '#bandeauTotal',
+               ui = divBandeauExpert)
+    }
     
-    # Permet d'initialiser les indicateurs et les pôles.
+    # Permet d'initialiser les indicateurs, les pôles et les graphiques.
     setFeuxFct(session, data_polesButtons, data_polesFeux);
     initSelectorsFct(input, output, session,
                      isolate(data_page$page),
@@ -44,6 +50,7 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
                      encodeFeuxIsolated(isolate(data_polesButtons$flore),
                                         isolate(data_polesButtons$invertebre),
                                         isolate(data_polesButtons$vertebre)));
+    dispDatasForServerFct(input, output, session);
   })
 }
 

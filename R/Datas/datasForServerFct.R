@@ -3,22 +3,22 @@
 
 print("Creating datas for server...");
 
-datasForServerFct <- function(input, output, session,
-                              type = "données",
-                              groupe = "general", pole = "general", taxo = "Oiseaux",
-                              année = 0) {
-  
-  print("New datas to show...");
-  
-  
-  # Actualisation de la carte
-  mapPlot <- afficher_carte(groupe,pole,taxo,année,type);
-  output$mymap <- renderLeaflet({mapPlot});
-  
-  
+mapPlot <- leaflet() %>%
+  addTiles() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  setView(lng = 4.3871779,
+          lat = 45.439695,
+          zoom = 7.1)
+piePlot <- list(0,NULL,NULL);
+histoPlot <- list(FALSE,NULL);
+barPlot <- list(FALSE,NULL);
+
+# Affichage des données à partir des variables globales de graphique
+dispDatasForServerFct <- function(input, output, session)
+{
+  print("Re showing datas...");
   
   # Actualisation du pie chart
-  piePlot <- afficher_pie(groupe,pole,taxo,année,type);
   removeUI(selector = "#pie1");
   removeUI(selector = "#pie2");
   if (piePlot[[1]] >= 1) {
@@ -35,9 +35,7 @@ datasForServerFct <- function(input, output, session,
   }
   
   
-  
   # Actualisation de l'histogramme
-  histoPlot <- afficher_hist(groupe,pole,taxo,type);
   removeUI(selector = "#hist");
   if (histoPlot[[1]]) {
     insertUI(selector = "#histogramme",
@@ -45,6 +43,24 @@ datasForServerFct <- function(input, output, session,
     output$hist <- renderPlotly({histoPlot[[2]]});
     output$histCopy <- renderPlotly({histoPlot[[2]]});
   }
+}
+
+# Modification des variables globales des graphiques
+datasForServerFct <- function(input, output, session,
+                                 type = "données",
+                                 groupe = "general", pole = "general", taxo = "Oiseaux",
+                                 année = 0)
+{
+  print("New datas to show...");
+  
+  mapPlot <<- afficher_carte(groupe,pole,taxo,année,type);
+  output$mymap <- renderLeaflet({mapPlot});
+  
+  piePlot <<- afficher_pie(groupe,pole,taxo,année,type);
+  
+  histoPlot <<- afficher_hist(groupe,pole,taxo,type);
+  
+  dispDatasForServerFct(input, output, session);
 }
 
 
@@ -60,6 +76,7 @@ fcouleur <- function(pole){
   if (pole =="Invertébrés"){return(colors2)}
   if (pole =="Flore et Fongus"){return(colors3)}
 }
+
 
 
 # Cette fonction permet de décoder les pôles pour prendre en compte deux pôles

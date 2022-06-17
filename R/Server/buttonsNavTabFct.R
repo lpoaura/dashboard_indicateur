@@ -89,9 +89,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       insertUI(selector = "#total",
                ui = divCarteBack)
       
-      # Permet d'initialiser les indicateurs, les pôles et l'année.
+      # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
+      dispDatasForServerFct(input, output, session);
     }
     else {
       removeUI(selector = "#selectTypeIndicator")
@@ -155,9 +156,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       insertUI(selector = "#total",
                ui = divCarteBack)
       
-      # Permet d'initialiser les indicateurs, les pôles et l'année.
+      # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
+      dispDatasForServerFct(input, output, session);
     }
     else {
       insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
@@ -215,7 +217,6 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     }
     
     if(data_page$page == "accueil") {
-      print("HERE")
       removeUI(selector = '#bandeauAccueil')
     }
     
