@@ -103,7 +103,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     
     # Initialise les selectors
     initSelectorsFct(input, output, session,
-                     "global",
+                     "global", data_page$page,
                      isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
                      encodeFeuxIsolated(isolate(data_polesButtons$flore),
                                         isolate(data_polesButtons$invertebre),
@@ -172,7 +172,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     
     # Initialise les selectors
     initSelectorsFct(input, output, session,
-                     "expert",
+                     "expert", data_page$page,
                      isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
                      encodeFeuxIsolated(isolate(data_polesButtons$flore),
                                         isolate(data_polesButtons$invertebre),

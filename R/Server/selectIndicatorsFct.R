@@ -19,7 +19,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     
     # Changement de la liste des indicateurs
     poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    initSelectorsFct(input, output, session, isolate(data_page$page), currentInd, currentIndName, poles);
+    initSelectorsFct(input, output, session, isolate(data_page$page), isolate(data_page$page), currentInd, currentIndName, poles);
     
     # Changement des graphiques et de la carte
     session$onFlushed(function() {
@@ -53,5 +53,27 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     data_currentInd$indicatorName <- input$currentIndName;
     print(paste("New indicator : ", input$currentIndName, sep=""));
     session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
+  });
+  
+  
+  
+  # Changement sur le select de la déclinaison (seulement expert)
+  observeEvent(input$selectDeclinaison, {
+    session$sendCustomMessage(type = 'selectDeclinaison', message = '');
+  });
+  
+  observeEvent(input$currentDeclinaison, {
+    print(paste("New declinaison : ", input$currentDeclinaison, sep=""));
+  });
+  
+  
+  
+  # Changement sur le select du (seulement expert)
+  observeEvent(input$selectGroupe, {
+    session$sendCustomMessage(type = 'selectGroupe', message = '');
+  });
+  
+  observeEvent(input$currentGroupe, {
+    print(paste("New groupe : ", input$currentDeclinaison, sep=""));
   });
 }

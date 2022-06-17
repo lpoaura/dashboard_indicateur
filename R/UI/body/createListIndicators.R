@@ -54,7 +54,7 @@ tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Indicateur de connaissances", "connaissances", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 
-newRow <- list("Nombre de données par taxonomie", "donneesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Nombre d'espèces par taxonomie", "especesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
@@ -81,19 +81,50 @@ newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indica
 tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
+
+newRow <- list("Test", "test", FALSE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
 # ---!!! DERNIERE LIGNE INDICATEUR !!!--- #
 print(tabIndicators)
 
 # Initialisation des selectors selon la page globale ou la page experte
-initSelectorsFct <- function (input, output, session, page, currentInd, currentIndName, poles) {
+initSelectorsFct <- function (input, output, session, page, fromPage, currentInd, currentIndName, poles) {
   removeUI(selector = "#selectTypeIndicator option", multiple = TRUE)
   removeUI(selector = "#selectIndicator option", multiple = TRUE)
   removeUI(selector = "#selectDeclinaison option", multiple = TRUE)
   removeUI(selector = "#selectGroupe option", multiple = TRUE)
   
   print(paste("Changement de selectors for page", page));
+  print(paste("Changement de selectors from page", fromPage));
+  print(paste("Changement de selectors for indic", currentInd));
+  print(paste("ETAT DECLINAISON", isolate(input$selectDeclinaison)))
+  numInd <- findIndicateurNum(currentInd);
   # Remplissage du seul sélect de la page globale
   if (page == "global" || page == "init") {
+    
+    if (fromPage == "expert") {
+      if (findIndicateurInfoByNum(numInd, "isGlobal") == FALSE) {
+        currentInd <- "données";
+        currentIndName <- "Nombre de données";
+      }
+      if (input$selectDeclinaison == "taxo" || input$selectDeclinaison == "Taxonomie") {
+        switch(currentInd,
+               "données" = {
+                 currentInd <- "donnéesTaxo";
+                 currentIndName <- "Nombre de données par taxonomie";
+               },
+               "especes" = {
+                 currentInd <- "especesTaxo";
+                 currentIndName <- "Nombre d'espèces par taxonomie";
+               },
+               "connaissances" = {
+                 currentInd <- "connaissancesTaxo";
+                 currentIndName <- "Indicateur de connaissances par taxonomie";
+               }
+        );
+      }
+    }
+    
     for (i in 1:nrow(tabIndicators)) {
       if (findIndicateurInfoByNum(i, "isGlobal")) {
         insertUI(selector = "#selectIndicator",
@@ -104,8 +135,6 @@ initSelectorsFct <- function (input, output, session, page, currentInd, currentI
   
   # Remplissage des 4 sélects de la page experte
   else {
-    numInd <- findIndicateurNum(currentInd);
-    
     # Remplissage du selector de type d'indicateur
     typeInd <- findIndicateurInfoByNum(numInd, "typeInd");
     for(el in listTypesIndicators) {
@@ -115,7 +144,8 @@ initSelectorsFct <- function (input, output, session, page, currentInd, currentI
     
     # Remplissage du selector d'indicateur (catégorie)
     for (i in 1:nrow(tabIndicators)) {
-      if (findIndicateurInfoByNum(i, "typeInd") == typeInd) {
+      if (findIndicateurInfoByNum(i, "typeInd") == typeInd && findIndicateurInfoByNum(i, "isExpert") == TRUE) {
+        print(i)
         insertUI(selector = "#selectIndicator",
                  ui = tags$option(value = tabIndicators[i,2], tabIndicators[i,1]));
       }
@@ -128,12 +158,41 @@ initSelectorsFct <- function (input, output, session, page, currentInd, currentI
     listDecl <- append(listDecl, taxoInd);
     listDecl <- append(listDecl, findIndicateurInfoByNum(numInd, "isFournisseur"));
     listDecl <- append(listDecl, findIndicateurInfoByNum(numInd, "isProducteur"));
+    
     for(i in 1:nrow(declinaisonIndicator)) {
       if (listDecl[[i]]) {
         insertUI(selector = "#selectDeclinaison",
                  ui = tags$option(value = declinaisonIndicator[i,2], declinaisonIndicator[i,1]));
       }
     }
+    
+    # Déclinaison en cours
+    nDecli <- 1;
+    if (fromPage == "global" && findIndicateurInfoByNum(numInd, "isExpert") == FALSE) {
+      switch(currentInd,
+             "donnéesTaxo" = {
+               currentInd <- "données";
+               currentIndName <- "Nombre de données";
+               nDecli <- findDecliNum("Taxonomie");
+             },
+             "especesTaxo" = {
+               currentInd <- "especes";
+               currentIndName <- "Nombre d'espèces";
+               nDecli <- findDecliNum("Taxonomie");
+             },
+             "connaissancesTaxo" = {
+               currentInd <- "connaissances";
+               currentIndName <- "Indicateur de connaissances";
+               nDecli <- findDecliNum("Taxonomie");
+             }
+      );
+    }
+    else if (!is.null(input$selectDeclinaison)) {
+      nDecli <- findDecliNum(input$selectDeclinaison);
+    }
+    print(currentInd)
+    print(currentIndName)
+    
     
     # Remplissage du selector de type groupe
     removeUI(selector = "#pTitleSelGroupe");
@@ -156,6 +215,10 @@ initSelectorsFct <- function (input, output, session, page, currentInd, currentI
     session$sendCustomMessage(type = 'updateIndicatorName', message = currentIndName);
     if (page == "expert") {
       session$sendCustomMessage(type = 'setTypeIndicatorName', message = typeInd);
+      session$sendCustomMessage(type = 'setDeclinaisonName', message = nDecli);
+      if (taxoInd) {
+        session$sendCustomMessage(type = 'setGroupeName', message = typeInd);
+      }
     }
   });
 }
@@ -171,6 +234,17 @@ findIndicateurNum <- function(currentInd) {
     }
   }
   print(paste("ERREUR sur l'indicateur d'une information recherchée (findIndicateurNum) :", currentInd));
+  return (-1)
+}
+
+# Permet de trouver le numéro d'une déclinaison
+findDecliNum <- function(decli) {
+  for (i in 1:length(listDeclinaisonIndName)) {
+    if (declinaisonIndicator[i,1] == decli || declinaisonIndicator[i,2] == decli) {
+      return (i);
+    }
+  }
+  print(paste("ERREUR sur la déclinaison d'indice recherché (findDecliNum) :", decli));
   return (-1)
 }
 

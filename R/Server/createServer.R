@@ -31,11 +31,11 @@ server <- function(input, output, session) {
   
   # Permet d'initialiser les indicateurs.
   data_currentInd <- reactiveValues(
-    indicator = valIndicators[[1]],
-    indicatorName = listIndicators[[1]]
+    indicator = tabIndicators[1,2],
+    indicatorName =tabIndicators[1,1]
   );
   initSelectorsFct(input, output, session,
-                   "init",
+                   "init", "init",
                    isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
                    encodeFeuxIsolated(isolate(data_polesButtons$flore),
                               isolate(data_polesButtons$invertebre),

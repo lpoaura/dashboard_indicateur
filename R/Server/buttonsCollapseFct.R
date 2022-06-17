@@ -45,7 +45,7 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
     # Permet d'initialiser les indicateurs, les pôles et les graphiques.
     setFeuxFct(session, data_polesButtons, data_polesFeux);
     initSelectorsFct(input, output, session,
-                     isolate(data_page$page),
+                     isolate(data_page$page), isolate(data_page$page),
                      isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
                      encodeFeuxIsolated(isolate(data_polesButtons$flore),
                                         isolate(data_polesButtons$invertebre),

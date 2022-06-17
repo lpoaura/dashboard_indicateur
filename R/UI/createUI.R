@@ -29,11 +29,15 @@ ui <- fluidPage(
   
   includeScript('www/JavaScript/setTypeIndicatorProcess.js'),
   includeScript('www/JavaScript/setIndicatorProcess.js'),
+  includeScript('www/JavaScript/setDeclinaisonProcess.js'),
+  includeScript('www/JavaScript/setGroupeProcess.js'),
   
   includeScript('www/JavaScript/changeIndicatorProcess.js'),
   
   includeScript('www/JavaScript/selectTypeIndicatorProcess.js'),
   includeScript('www/JavaScript/selectIndicatorProcess.js'),
+  includeScript('www/JavaScript/selectDeclinaisonProcess.js'),
+  includeScript('www/JavaScript/selectGroupeProcess.js'),
   
   includeScript('www/JavaScript/accueilClickedTabProcess.js'),
   includeScript('www/JavaScript/accueilModeNewProcess.js'),
