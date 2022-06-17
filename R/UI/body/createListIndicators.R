@@ -3,15 +3,16 @@
 
 # Toutes les colonnes à renseigner lors de la mise en place d'une nouvelle
 # catégorie d'indicateur
-listColumns <- c("indName", "ind", "isGlobal",
+listColumns <- c("indName", "ind", "isGlobal", "isExpert",
                  "typeInd",
                  "isPole", "isTaxo", "isFournisseur", "isProducteur",
                  "isAnnees")
 
 # Liste associée aux types d'indicateurs
-listTypesIndicators <- c("Indicateur de connaissance",
-                         "Indicateur de connaissance2"
-                         # ---!!! DERNIERE LIGNE de listTypesIndicators !!!--- #
+listTypesIndicators <- c("Indicateur de connaissance"
+                         , "Indicateurs d’état de la biodiversité"
+                         , "Indicateurs de pressions anthropiques"
+                         # ---!!! DERNIERE LIGNE TYPE INDICATEUR !!!--- #
 );
 
 # Liste associée aux pôles
@@ -26,7 +27,8 @@ listDeclinaisonInd <- c("general",
                         "fournisseur",
                         "producteur");
 declinaisonIndicator <- data.frame(name = listDeclinaisonIndName, value = listDeclinaisonInd)
-print(declinaisonIndicator)
+# print(declinaisonIndicator)
+
 
 # Liste associée aux groupes
 listTaxonomies <- c("test1",
@@ -34,74 +36,53 @@ listTaxonomies <- c("test1",
                     "test3",
                     "test5");
 
-# Listes associées aux indicateur (catégories)
-listIndicators <- c("Nombre de données",
-                    "Nombre d'espèces",
-                    "Indicateur de connaissances"
-                    # ---!!! DERNIERE LIGNE indName !!!--- #
-);
 
-valIndicators <- c("données",
-                   "especes",
-                   "connaissances"
-                   # ---!!! DERNIERE LIGNE indicator !!!--- #
-);
+# Liste associée aux indicateurs
+tabIndicators <- data.frame(indName = "Nombre de données",
+                            ind = "données",
+                            isGlobal = TRUE,
+                            isExpert = TRUE,
+                            typeInd = "Indicateur de connaissance",
+                            isPoles = TRUE,
+                            isTaxo = TRUE,
+                            isFournisseur = TRUE,
+                            isProducteur = TRUE,
+                            isAnnees = TRUE)
+# indName, ind, isGlobal, typeInd, isPoles, isTaxo, isFournisseur, isProducteur, isAnnees
+newRow <- list("Nombre d'espèces", "especes", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Indicateur de connaissances", "connaissances", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
 
-isGlobalIndicator <- c(TRUE,
-                       TRUE,
-                       TRUE
-                       # ---!!! DERNIERE LIGNE isGlobal !!!--- #
-);
+newRow <- list("Nombre de données par taxonomie", "donneesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Nombre d'espèces par taxonomie", "especesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Indicateur de connaissances par taxonomie", "connaissancesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
 
-isPolesIndicator <- c(TRUE,
-                      TRUE,
-                      TRUE
-                      # ---!!! DERNIERE LIGNE isPoles !!!--- #
-);
+newRow <- list("Indicateur de réservoirs de biodiversité ", "revervoirBiodiv", TRUE, TRUE, "Indicateur de connaissance", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
 
-isTaxoIndicator <- c(TRUE,
-                     FALSE,
-                     TRUE
-                     # ---!!! DERNIERE LIGNE isTaxo !!!--- #
-);
 
-isFournIndicator <- c(TRUE,
-                      FALSE,
-                      TRUE
-                      # ---!!! DERNIERE LIGNE isFournisseur !!!--- #
-);
+newRow <- list("État des populations d’oiseaux communs", "oiseauxCommuns", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Populations de chiroptères", "chiropteres", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Répartition de la différence des statuts de liste rouge LRR et LRN", "listeRouge", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Proportion des listes d'espèces menacées parmi les listes régionales", "menacees", TRUE, TRUE, "Indicateurs d’état de la biodiversité", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
 
-isProdIndicator <- c(TRUE,
-                     TRUE,
-                     TRUE
-                     # ---!!! DERNIERE LIGNE isProducteur !!!--- #
-);
 
-isAnneesIndicator <- c(TRUE,
-                       TRUE,
-                       TRUE
-                       # ---!!! DERNIERE LIGNE isAnnees !!!--- #
-);
-
-typeIndicator <- c("Indicateur de connaissance",
-                   "Indicateur de connaissance2",
-                   "Indicateur de connaissance"
-                   # ---!!! DERNIERE LIGNE typeIndicator !!!--- #
-);
-
-# Regroupement de toures les informations
-tabIndicators <- data.frame(indName = listIndicators,
-                            ind = valIndicators,
-                            isGlobal = isGlobalIndicator,
-                            typeInd = typeIndicator,
-                            isPoles = isPolesIndicator,
-                            isTaxo = isTaxoIndicator,
-                            isFournisseur = isFournIndicator,
-                            isProducteur = isProdIndicator,
-                            isAnnees = isAnneesIndicator)
+newRow <- list("Pollution lumineuse", "polutLum", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
+# ---!!! DERNIERE LIGNE INDICATEUR !!!--- #
 print(tabIndicators)
-
-
 
 # Initialisation des selectors selon la page globale ou la page experte
 initSelectorsFct <- function (input, output, session, page, currentInd, currentIndName, poles) {
@@ -155,15 +136,15 @@ initSelectorsFct <- function (input, output, session, page, currentInd, currentI
     }
     
     # Remplissage du selector de type groupe
+    removeUI(selector = "#pTitleSelGroupe");
+    removeUI(selector = "#selectGroupe");
     if (taxoInd) {
+      insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
+      insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
       for (i in 1:length(listTaxonomies)) {
         insertUI(selector = "#selectGroupe",
                  ui = tags$option(value = listTaxonomies[[i]], listTaxonomies[[i]]));
       }
-    } 
-    else {
-      removeUI(selector = "#pTitleSelGroupe");
-      removeUI(selector = "#selectGroupe");
     }
     
     # Remplissage du selector de type de représentation cartographique ?
@@ -225,8 +206,15 @@ findIndicateurInfo <- function(currentInd, information) {
 
 # Permet de trouver le 1er indicateur d'un type
 findIndictorForType <- function(typeInd) {
+  nTypeInd <- 0;
+  for (i in 1:length(listColumns)) {
+    if (listColumns[[i]] == "typeInd") {
+      nTypeInd <- i
+    }
+  }
+  
   for (i in 1:nrow(tabIndicators)) {
-    if (tabIndicators[i,4] == typeInd) {
+    if (tabIndicators[i,nTypeInd] == typeInd) {
       return (tabIndicators[i,2]);
     }
   }
