@@ -4,10 +4,9 @@ $(document).ready(function () {
   
   $(function () {
     Shiny.addCustomMessageHandler(
-      'selectGroupe', function (message) {
-        let indic = document.querySelector('#selectGroupe');
-        console.log("New groupe " + indic.options[indic.selectedIndex].text);
-        Shiny.setInputValue('currentGroupe',indic.options[indic.selectedIndex].text);
+      'showGroupe', function (groupe) {
+        document.getElementById('selectGroupe').value = groupe;
+        console.log("New groupe shown " + groupe);
     });
   });
 });

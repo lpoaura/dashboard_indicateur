@@ -38,6 +38,7 @@ $(document).ready(function () {
             color1 = "165, 106, 194";
             color2 = "165, 106, 194";
         }
+        console.log("Actualize color selectors to " + polesButtons);
         selects = document.getElementsByTagName('select');
         for(let i=0; i<selects.length; i++) {
           sel = selects[i];

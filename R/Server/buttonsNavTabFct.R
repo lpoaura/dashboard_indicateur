@@ -92,7 +92,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
-      dispDatasForServerFct(input, output, session);
+      # dispDatasForServerFct(input, output, session);
     }
     else {
       removeUI(selector = "#selectTypeIndicator")
@@ -101,15 +101,12 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       removeUI(selector = ".titleSel", multiple = TRUE)
     }
     
-    # Initialise les selectors
-    initSelectorsFct(input, output, session,
-                     "global", data_page$page,
-                     isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
-                     encodeFeuxIsolated(isolate(data_polesButtons$flore),
-                                        isolate(data_polesButtons$invertebre),
-                                        isolate(data_polesButtons$vertebre)));
-    
+    data_page$fromPage <- data_page$page;
     data_page$page <- "global";
+    # Initialise les selectors
+    initTypeIndSelectFct(input = input, output = output, session = session,
+                         data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+                         data_page = data_page, fromPrgm = "buttonGlobal")
   })
   
   # Bouton "Expert"
@@ -159,7 +156,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
-      dispDatasForServerFct(input, output, session);
+      # dispDatasForServerFct(input, output, session);
     }
     else {
       insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
@@ -170,15 +167,12 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
     }
     
-    # Initialise les selectors
-    initSelectorsFct(input, output, session,
-                     "expert", data_page$page,
-                     isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
-                     encodeFeuxIsolated(isolate(data_polesButtons$flore),
-                                        isolate(data_polesButtons$invertebre),
-                                        isolate(data_polesButtons$vertebre)));
-    
+    data_page$fromPage <- data_page$page;
     data_page$page <- "expert";
+    # Initialise les selectors
+    initTypeIndSelectFct(input = input, output = output, session = session,
+                         data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+                         data_page = data_page, fromPrgm = "buttonExpert")
   })
   
   # Bouton "Admin"

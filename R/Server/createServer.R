@@ -6,7 +6,8 @@ server <- function(input, output, session) {
   
   # reactiveValues permettant de se rappeler de la page précédente.
   data_page <- reactiveValues(
-    page = "global"
+    page = "global",
+    fromPage = "global"
   );
   
   # reactiveValues permettant de mémoriser l'année à oberver.
@@ -31,15 +32,17 @@ server <- function(input, output, session) {
   
   # Permet d'initialiser les indicateurs.
   data_currentInd <- reactiveValues(
+    typeInd = listTypesIndicators[[1]],
     indicator = tabIndicators[1,2],
-    indicatorName =tabIndicators[1,1]
+    indicatorName = tabIndicators[1,1],
+    declinaison = declinaisonIndicator[1,2],
+    groupe = tabGroupe[1,1]
   );
-  initSelectorsFct(input, output, session,
-                   "init", "init",
-                   isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
-                   encodeFeuxIsolated(isolate(data_polesButtons$flore),
-                              isolate(data_polesButtons$invertebre),
-                              isolate(data_polesButtons$vertebre)));
+  # Les selectors d'initialisent tout seul au début car l'indicateur "données"
+  # est sélectionné.
+  initTypeIndSelectFct(input = input, output = output, session = session,
+                       data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+                       data_page = data_page, fromPrgm = "CREATE SERVER")
   
   # reactiveValues permettent de savoir quel onglet du mode Admin est sélectionné
   data_tabAdmin <- reactiveValues(
@@ -65,7 +68,7 @@ server <- function(input, output, session) {
   yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
-  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year);
+  buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year, data_page);
   
   # -------------------- BOUTONS DE PÔLE DANS LE BANDEAU -------------------- #
   buttonsPolesLeftBandeauFct(input, output, session, data_polesFeux, data_polesButtons);

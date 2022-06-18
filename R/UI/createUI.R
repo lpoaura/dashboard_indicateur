@@ -32,7 +32,7 @@ ui <- fluidPage(
   includeScript('www/JavaScript/setDeclinaisonProcess.js'),
   includeScript('www/JavaScript/setGroupeProcess.js'),
   
-  includeScript('www/JavaScript/changeIndicatorProcess.js'),
+  includeScript('www/JavaScript/selectNotChangedProcess.js'),
   
   includeScript('www/JavaScript/selectTypeIndicatorProcess.js'),
   includeScript('www/JavaScript/selectIndicatorProcess.js'),

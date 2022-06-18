@@ -4,10 +4,9 @@ $(document).ready(function () {
   
   $(function () {
     Shiny.addCustomMessageHandler(
-      'selectTypeIndicator', function (message) {
-        let indic = document.querySelector('#selectTypeIndicator');
-        console.log("New type indicator " + indic.options[indic.selectedIndex].text);
-        Shiny.setInputValue('currentTypeIndName',indic.options[indic.selectedIndex].text);
+      'showTypeIndicator', function (typeInd) {
+        document.getElementById('selectTypeIndicator').value = typeInd;
+        console.log("New type indicator shown " + typeInd);
     });
   });
 });

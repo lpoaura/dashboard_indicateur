@@ -53,11 +53,14 @@ datasForServerFct <- function(input, output, session,
 {
   print("New datas to show...");
   
+  print("Création d'une map...");
   mapPlot <<- afficher_carte(groupe,pole,taxo,année,type);
   output$mymap <- renderLeaflet({mapPlot});
   
+  print("Création d'une pieChart...");
   piePlot <<- afficher_pie(groupe,pole,taxo,année,type);
   
+  print("Création d'un histogramme...");
   histoPlot <<- afficher_hist(groupe,pole,taxo,type);
   
   dispDatasForServerFct(input, output, session);

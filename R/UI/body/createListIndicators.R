@@ -5,7 +5,7 @@
 # catégorie d'indicateur
 listColumns <- c("indName", "ind", "isGlobal", "isExpert",
                  "typeInd",
-                 "isPole", "isTaxo", "isFournisseur", "isProducteur",
+                 "isPoles", "isTaxo", "isFournisseur", "isProducteur",
                  "isAnnees")
 
 # Liste associée aux types d'indicateurs
@@ -31,10 +31,24 @@ declinaisonIndicator <- data.frame(name = listDeclinaisonIndName, value = listDe
 
 
 # Liste associée aux groupes
-listTaxonomies <- c("test1",
-                    "test2",
-                    "test3",
-                    "test5");
+tabGroupe <- data.frame(groupe = "RIEN",
+                            isFlore = FALSE,
+                            isInvertebre = FALSE,
+                            isVertebre = FALSE);
+newRow <- list("all", TRUE, TRUE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("test1", TRUE, FALSE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("test2", FALSE, FALSE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("test3", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("test4", TRUE, FALSE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("test5", FALSE, FALSE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("test6", FALSE, FALSE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
 
 
 # Liste associée aux indicateurs
@@ -54,7 +68,7 @@ tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Indicateur de connaissances", "connaissances", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 
-newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, TRUE, TRUE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Nombre d'espèces par taxonomie", "especesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
@@ -87,141 +101,170 @@ tabIndicators <- rbind(tabIndicators,newRow);
 # ---!!! DERNIERE LIGNE INDICATEUR !!!--- #
 print(tabIndicators)
 
-# Initialisation des selectors selon la page globale ou la page experte
-initSelectorsFct <- function (input, output, session, page, fromPage, currentInd, currentIndName, poles) {
-  removeUI(selector = "#selectTypeIndicator option", multiple = TRUE)
-  removeUI(selector = "#selectIndicator option", multiple = TRUE)
-  removeUI(selector = "#selectDeclinaison option", multiple = TRUE)
-  removeUI(selector = "#selectGroupe option", multiple = TRUE)
-  
-  print(paste("Changement de selectors for page", page));
-  print(paste("Changement de selectors from page", fromPage));
-  print(paste("Changement de selectors for indic", currentInd));
-  print(paste("ETAT DECLINAISON", isolate(input$selectDeclinaison)))
-  numInd <- findIndicateurNum(currentInd);
-  # Remplissage du seul sélect de la page globale
-  if (page == "global" || page == "init") {
-    
-    if (fromPage == "expert") {
-      if (findIndicateurInfoByNum(numInd, "isGlobal") == FALSE) {
-        currentInd <- "données";
-        currentIndName <- "Nombre de données";
-      }
-      if (input$selectDeclinaison == "taxo" || input$selectDeclinaison == "Taxonomie") {
-        switch(currentInd,
-               "données" = {
-                 currentInd <- "donnéesTaxo";
-                 currentIndName <- "Nombre de données par taxonomie";
-               },
-               "especes" = {
-                 currentInd <- "especesTaxo";
-                 currentIndName <- "Nombre d'espèces par taxonomie";
-               },
-               "connaissances" = {
-                 currentInd <- "connaissancesTaxo";
-                 currentIndName <- "Indicateur de connaissances par taxonomie";
-               }
-        );
-      }
-    }
-    
-    for (i in 1:nrow(tabIndicators)) {
-      if (findIndicateurInfoByNum(i, "isGlobal")) {
-        insertUI(selector = "#selectIndicator",
-                 ui = tags$option(value = tabIndicators[i,2], tabIndicators[i,1]));
-      }
-    }
-  }
-  
-  # Remplissage des 4 sélects de la page experte
-  else {
-    # Remplissage du selector de type d'indicateur
-    typeInd <- findIndicateurInfoByNum(numInd, "typeInd");
-    for(el in listTypesIndicators) {
-      insertUI(selector = "#selectTypeIndicator",
-               ui = tags$option(value = el, el));
-    }
-    
-    # Remplissage du selector d'indicateur (catégorie)
-    for (i in 1:nrow(tabIndicators)) {
-      if (findIndicateurInfoByNum(i, "typeInd") == typeInd && findIndicateurInfoByNum(i, "isExpert") == TRUE) {
-        print(i)
-        insertUI(selector = "#selectIndicator",
-                 ui = tags$option(value = tabIndicators[i,2], tabIndicators[i,1]));
-      }
-    }
-    
-    # Remplissage du selector de type déclinaison
-    listDecl <- c(TRUE);
-    listDecl <- append(listDecl, findIndicateurInfoByNum(numInd, "isPole"));
-    taxoInd <- findIndicateurInfoByNum(numInd, "isTaxo");
-    listDecl <- append(listDecl, taxoInd);
-    listDecl <- append(listDecl, findIndicateurInfoByNum(numInd, "isFournisseur"));
-    listDecl <- append(listDecl, findIndicateurInfoByNum(numInd, "isProducteur"));
-    
-    for(i in 1:nrow(declinaisonIndicator)) {
-      if (listDecl[[i]]) {
-        insertUI(selector = "#selectDeclinaison",
-                 ui = tags$option(value = declinaisonIndicator[i,2], declinaisonIndicator[i,1]));
-      }
-    }
-    
-    # Déclinaison en cours
-    nDecli <- 1;
-    if (fromPage == "global" && findIndicateurInfoByNum(numInd, "isExpert") == FALSE) {
-      switch(currentInd,
-             "donnéesTaxo" = {
-               currentInd <- "données";
-               currentIndName <- "Nombre de données";
-               nDecli <- findDecliNum("Taxonomie");
-             },
-             "especesTaxo" = {
-               currentInd <- "especes";
-               currentIndName <- "Nombre d'espèces";
-               nDecli <- findDecliNum("Taxonomie");
-             },
-             "connaissancesTaxo" = {
-               currentInd <- "connaissances";
-               currentIndName <- "Indicateur de connaissances";
-               nDecli <- findDecliNum("Taxonomie");
-             }
-      );
-    }
-    else if (!is.null(input$selectDeclinaison)) {
-      nDecli <- findDecliNum(input$selectDeclinaison);
-    }
-    print(currentInd)
-    print(currentIndName)
-    
-    
-    # Remplissage du selector de type groupe
-    removeUI(selector = "#pTitleSelGroupe");
-    removeUI(selector = "#selectGroupe");
-    if (taxoInd) {
-      insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
-      insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
-      for (i in 1:length(listTaxonomies)) {
-        insertUI(selector = "#selectGroupe",
-                 ui = tags$option(value = listTaxonomies[[i]], listTaxonomies[[i]]));
-      }
-    }
-    
-    # Remplissage du selector de type de représentation cartographique ?
-  }
-  
-  session$onFlushed(function() {
-    session$sendCustomMessage(type = 'setIndicator', message = currentInd);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = poles);
-    session$sendCustomMessage(type = 'updateIndicatorName', message = currentIndName);
-    if (page == "expert") {
-      session$sendCustomMessage(type = 'setTypeIndicatorName', message = typeInd);
-      session$sendCustomMessage(type = 'setDeclinaisonName', message = nDecli);
-      if (taxoInd) {
-        session$sendCustomMessage(type = 'setGroupeName', message = typeInd);
-      }
-    }
-  });
-}
+# # Initialisation des selectors selon la page globale ou la page experte
+# initSelectorsFct <- function (input, output, session, page, fromPage, currentInd, currentIndName, poles, fromPrgm = "NONE") {
+#   removeUI(selector = "#selectTypeIndicator option", multiple = TRUE)
+#   removeUI(selector = "#selectIndicator option", multiple = TRUE)
+#   removeUI(selector = "#selectDeclinaison option", multiple = TRUE)
+#   removeUI(selector = "#selectGroupe option", multiple = TRUE)
+#   
+#   print(paste("Changement de selectors for page", page));
+#   print(paste("Changement de selectors from page", fromPage));
+#   print(paste("Changement de selectors for indic", currentInd));
+#   print(paste("Changement de selectors for poles", poles));
+#   print(paste("Changement de selectors for declinaison", isolate(input$selectDeclinaison)));
+#   print(paste("Changement de selectors from program", fromPrgm));
+#   numInd <- findIndicateurNum(currentInd);
+#   # Remplissage du seul sélect de la page globale
+#   if (page == "global" || page == "init") {
+#     
+#     if (fromPage == "expert") {
+#       if (findIndicateurInfoByNum(numInd, "isGlobal") == FALSE) {
+#         currentInd <- "données";
+#         currentIndName <- "Nombre de données";
+#       }
+#       if (input$selectDeclinaison == "taxo") {
+#         switch(currentInd,
+#                "données" = {
+#                  currentInd <- "donnéesTaxo";
+#                  currentIndName <- "Nombre de données par taxonomie";
+#                },
+#                "especes" = {
+#                  currentInd <- "especesTaxo";
+#                  currentIndName <- "Nombre d'espèces par taxonomie";
+#                },
+#                "connaissances" = {
+#                  currentInd <- "connaissancesTaxo";
+#                  currentIndName <- "Indicateur de connaissances par taxonomie";
+#                }
+#         );
+#       }
+#     }
+#     
+#     for (i in 1:nrow(tabIndicators)) {
+#       if (findIndicateurInfoByNum(i, "isGlobal")) {
+#         insertUI(selector = "#selectIndicator",
+#                  ui = tags$option(value = tabIndicators[i,2], tabIndicators[i,1]));
+#       }
+#     }
+#   }
+#   
+#   # Remplissage des 4 sélects de la page experte
+#   else {
+#     # Remplissage du selector de type d'indicateur
+#     typeInd <- findIndicateurInfoByNum(numInd, "typeInd");
+#     for(el in listTypesIndicators) {
+#       insertUI(selector = "#selectTypeIndicator",
+#                ui = tags$option(value = el, el));
+#     }
+#     
+#     # Remplissage du selector d'indicateur (catégorie)
+#     for (i in 1:nrow(tabIndicators)) {
+#       if (findIndicateurInfoByNum(i, "typeInd") == typeInd && findIndicateurInfoByNum(i, "isExpert") == TRUE) {
+#         insertUI(selector = "#selectIndicator",
+#                  ui = tags$option(value = tabIndicators[i,2], tabIndicators[i,1]));
+#       }
+#     }
+#     
+#     # Remplissage du selector de type déclinaison
+#     listDecli <- c(TRUE);
+#     polesInd <- findIndicateurInfoByNum(numInd, "isPoles");
+#     listDecli <- append(listDecli, polesInd);
+#     taxoInd <- findIndicateurInfoByNum(numInd, "isTaxo");
+#     listDecli <- append(listDecli, taxoInd);
+#     listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isFournisseur"));
+#     listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isProducteur"));
+#     print(listDecli)
+#     
+#     for(i in 1:nrow(declinaisonIndicator)) {
+#       if (listDecli[[i]]) {
+#         insertUI(selector = "#selectDeclinaison",
+#                  ui = tags$option(value = declinaisonIndicator[i,2], declinaisonIndicator[i,1]));
+#       }
+#     }
+#     
+#     # Déclinaison en cours
+#     nDecli <- 1;
+#     if (fromPage == "global" && findIndicateurInfoByNum(numInd, "isExpert") == FALSE) {
+#       print("SPECIAL INDICATOR FROM GLOBAL");
+#       switch(currentInd,
+#              "donnéesTaxo" = {
+#                currentInd <- "données";
+#                currentIndName <- "Nombre de données";
+#                nDecli <- findDecliNum("taxo");
+#              },
+#              "especesTaxo" = {
+#                currentInd <- "especes";
+#                currentIndName <- "Nombre d'espèces";
+#                nDecli <- findDecliNum("taxo");
+#              },
+#              "connaissancesTaxo" = {
+#                currentInd <- "connaissances";
+#                currentIndName <- "Indicateur de connaissances";
+#                nDecli <- findDecliNum("taxo");
+#              }
+#       );
+#     }
+#     else if (fromPage != "expert") {
+#       if (poles != "all" && poles != "general") {
+#         nDecli <- findDecliNum("poles")
+#       }
+#       else {
+#         nDecli <- findDecliNum("general")
+#       }
+#     }
+#     # On était sur la page expert et la sélection était initialisée (doit
+#     # toujours être le cas en utilisation normale, on vérifie quand même)
+#     else if (!is.null(input$selectDeclinaison)) {
+#       if (poles != "all" && poles != "general" && input$selectDeclinaison == "general") {
+#         if (polesInd) {
+#           print("HERE")
+#           nDecli <- findDecliNum("poles");
+#         }
+#         else { # Devrait être un cas exceptionnel...
+#           nDecli <- findDecliNum("general");
+#           poles <- "all";
+#         }
+#       }
+#       else if (poles == "all" && input$selectDeclinaison == "poles") {
+#         nDecli <- findDecliNum("general");
+#         poles <- "all";
+#       }
+#       # On ne change pas de déclinaison
+#       else {
+#         nDecli <- findDecliNum(input$selectDeclinaison);
+#       }
+#     }
+#     
+#     
+#     # Remplissage du selector de type groupe
+#     removeUI(selector = "#pTitleSelGroupe");
+#     removeUI(selector = "#selectGroupe");
+#     if (taxoInd) {
+#       insertUI(selector = "#selectDeclinaison", where = "afterEnd", ui = selectGroupe)
+#       insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
+#       for (i in 1:length(listTaxonomies)) {
+#         insertUI(selector = "#selectGroupe",
+#                  ui = tags$option(value = listTaxonomies[[i]], listTaxonomies[[i]]));
+#       }
+#     }
+#     
+#     # Remplissage du selector de type de représentation cartographique ?
+#   }
+#   
+#   session$onFlushed(function() {
+#     session$sendCustomMessage(type = 'setIndicator', message = currentInd);
+#     session$sendCustomMessage(type = 'actualizePolesButtons', message = poles);
+#     # session$sendCustomMessage(type = 'updateIndicatorName', message = currentIndName);
+#     if (page == "expert") {
+#       session$sendCustomMessage(type = 'setTypeIndicatorName', message = typeInd);
+#       session$sendCustomMessage(type = 'setDeclinaisonName', message = nDecli);
+#       if (taxoInd) {
+#         session$sendCustomMessage(type = 'setGroupeName', message = typeInd);
+#       }
+#     }
+#   });
+# }
 
 
 
@@ -239,7 +282,7 @@ findIndicateurNum <- function(currentInd) {
 
 # Permet de trouver le numéro d'une déclinaison
 findDecliNum <- function(decli) {
-  for (i in 1:length(listDeclinaisonIndName)) {
+  for (i in 1:nrow(declinaisonIndicator)) {
     if (declinaisonIndicator[i,1] == decli || declinaisonIndicator[i,2] == decli) {
       return (i);
     }
@@ -294,6 +337,32 @@ findIndictorForType <- function(typeInd) {
   }
   print(paste("ERREUR sur le type d'indicateur d'un indicateur recherchée (findIndictorForType) :", typeInd));
   return ("NULL")
+}
+
+
+# Permet de savoir si un groupe est disponible
+isGroupeDispo <- function(nGroupe, data_polesButtons) {
+  if ((tabGroupe[nGroupe,2] && data_polesButtons$flore) ||
+      (tabGroupe[nGroupe,3] && data_polesButtons$invertebre) ||
+      (tabGroupe[nGroupe,4] && data_polesButtons$vertebre))
+  {
+    return(TRUE);
+  }
+  else {
+    return(FALSE);
+  }
+}
+
+
+# Permet de connaitre le numéro d'un groupe
+findGroupeNum <- function(groupe) {
+  for (i in 1:nrow(tabGroupe)) {
+    if (tabGroupe[i,1] == groupe) {
+      return (i);
+    }
+  }
+  print(paste("ERREUR sur le groupe d'indice recherché (findGroupeNum) :", groupe));
+  return (-1)
 }
 
 

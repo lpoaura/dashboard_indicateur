@@ -44,13 +44,12 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
     
     # Permet d'initialiser les indicateurs, les pôles et les graphiques.
     setFeuxFct(session, data_polesButtons, data_polesFeux);
-    initSelectorsFct(input, output, session,
-                     isolate(data_page$page), isolate(data_page$page),
-                     isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName),
-                     encodeFeuxIsolated(isolate(data_polesButtons$flore),
-                                        isolate(data_polesButtons$invertebre),
-                                        isolate(data_polesButtons$vertebre)));
-    dispDatasForServerFct(input, output, session);
+    session$onFlushed(function() {
+      initTypeIndSelectFct(input = input, output = output, session = session,
+                           data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+                           data_page = data_page, fromPrgm = "collapse button")
+    });
+    # dispDatasForServerFct(input, output, session);
   })
 }
 

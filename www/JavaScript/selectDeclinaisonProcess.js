@@ -4,10 +4,9 @@ $(document).ready(function () {
   
   $(function () {
     Shiny.addCustomMessageHandler(
-      'selectDeclinaison', function (message) {
-        let indic = document.querySelector('#selectDeclinaison');
-        console.log("New declinaison " + indic.options[indic.selectedIndex].text);
-        Shiny.setInputValue('currentDeclinaison',indic.options[indic.selectedIndex].text);
+      'showDeclinaison', function (declinaison) {
+        document.getElementById('selectDeclinaison').value = declinaison;
+        console.log("New declinaison shown " + declinaison);
     });
   });
 });

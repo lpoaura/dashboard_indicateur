@@ -5,9 +5,8 @@ $(document).ready(function () {
   $(function () {
     Shiny.addCustomMessageHandler(
       'setTypeIndicatorName', function (typeInd) {
-        let selected = document.querySelector("#selectTypeIndicator");
-        selected.value = typeInd;
-        console.log("New type indicator " + typeInd);
+        Shiny.setInputValue('selectTypeIndicator', typeInd);
+        console.log("New current type indicator name set :" + typeInd);
     });
   });
 });

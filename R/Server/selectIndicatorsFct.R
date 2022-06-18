@@ -6,74 +6,200 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
   
   # Changement sur le select du type d'indicateur (seulement expert)
   observeEvent(input$selectTypeIndicator, {
-    session$sendCustomMessage(type = 'selectTypeIndicator', message = '');
+    data_currentInd$typeInd <- input$selectTypeIndicator;
+    print(paste("New type indicator selected :", data_currentInd$typeInd));
+    
+    if (data_page$page == "expert") {
+      session$sendCustomMessage(type = 'showTypeIndicator', message = data_currentInd$typeInd);
+    }
+    
+    # Reset du select d'indicateur
+    modifyIndSelectFct(input, output, session,
+                       data_currentInd, data_polesButtons,
+                       data_page, fromPrgm = "ObserveSelectTypeInd");
   });
   
-  observeEvent(input$currentTypeIndName, {
-    print(paste("New type indicator : ", input$currentTypeIndName, sep=""));
-    currentInd <- findIndictorForType(input$currentTypeIndName);
-    currentIndName <- findIndicateurInfo(currentInd, "indName");
-    print(currentInd)
-    data_currentInd$indicator <- currentInd;
-    data_currentInd$indicatorName <- currentIndName;
-    
-    # Changement de la liste des indicateurs
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    initSelectorsFct(input, output, session, isolate(data_page$page), isolate(data_page$page), currentInd, currentIndName, poles);
-    
-    # Changement des graphiques et de la carte
-    session$onFlushed(function() {
-      session$sendCustomMessage(type = 'changeIndicator', message = isolate(data_currentInd$indicator));
-      session$sendCustomMessage(type = 'updateIndicatorName', message = isolate(data_currentInd$indicatorName));
-    });
-  });
   
   
   
   # Changement sur le select d'indicateur
   observeEvent(input$selectIndicator, {
-    session$sendCustomMessage(type = 'selectIndicator', message = '');
-  });
-  
-  observeEvent(input$currentInd, {
-    data_currentInd$indicator <- input$currentInd;
-    print(paste("New indicator : ", data_currentInd$indicator, sep=""));
+    data_currentInd$indicator <- input$selectIndicator
+    print(paste("New indicator selected :", data_currentInd$indicator));
     
-    # Changement des graphiques et de la carte
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    groupe <- "general";
-    if (poles != "general") groupe <- "pole";
-    datasForServerFct(input = input, output = output, session = session,
-                      type = data_currentInd$indicator,
-                      groupe = groupe, pole = poles, taxo = "Oiseaux",
-                      année = data_year$year);
+    data_currentInd$indicatorName <- findIndicateurInfo(data_currentInd$indicator, "indName");
+    session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
+    
+    session$sendCustomMessage(type = 'showIndicator', message = data_currentInd$indicator);
+    
+    # Reset du select de déclinaison
+    modifyDecliSelectFct(input, output, session,
+                       data_currentInd, data_polesButtons,
+                       data_page, fromPrgm = "ObserveSelectInd");
   });
   
-  observeEvent(input$currentIndName, {
-    data_currentInd$indicatorName <- input$currentIndName;
-    print(paste("New indicator : ", input$currentIndName, sep=""));
-    session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
-  });
+  # observeEvent(input$selectIndicator, {
+  #   print(paste("New indicator selected : ", input$selectIndicator, sep=""));
+  #   session$sendCustomMessage(type = 'selectIndicator', message = '');
+  # });
+  # 
+  # observeEvent(input$currentInd, {
+  #   data_currentInd$indicator <- input$currentInd;
+  #   print(paste("New current indicator : ", data_currentInd$indicator, sep=""));
+  #   
+  #   # Changement des graphiques et de la carte
+  #   poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+  #   groupe <- "general";
+  #   if (poles != "general") groupe <- "pole";
+  #   datasForServerFct(input = input, output = output, session = session,
+  #                     type = data_currentInd$indicator,
+  #                     groupe = groupe, pole = poles, taxo = "Oiseaux",
+  #                     année = data_year$year);
+  #   
+  #   # Changement de la liste des indicateurs
+  #   initSelectorsFct(input, output, session,
+  #                    isolate(data_page$page), isolate(data_page$page),
+  #                    isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
+  #                    poles,
+  #                    "currentInd");
+  # });
+  # 
+  # observeEvent(input$currentIndName, {
+  #   data_currentInd$indicatorName <- input$currentIndName;
+  #   print(paste("New current indicator name : ", input$currentIndName, sep=""));
+  #   session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
+  # });
   
   
   
   # Changement sur le select de la déclinaison (seulement expert)
   observeEvent(input$selectDeclinaison, {
-    session$sendCustomMessage(type = 'selectDeclinaison', message = '');
+    data_currentInd$declinaison <- input$selectDeclinaison;
+    print(paste("New declinaison selected :", data_currentInd$declinaison));
+    
+    if (data_page$page == "expert") {
+      session$sendCustomMessage(type = 'showDeclinaison', message = data_currentInd$declinaison);
+    }
+    
+    # Reset du select de groupe
+    modifyGroupeSelectFct(input, output, session,
+                          data_currentInd, data_polesButtons,
+                          data_page, fromPrgm = "ObserveSelectInd");
   });
   
-  observeEvent(input$currentDeclinaison, {
-    print(paste("New declinaison : ", input$currentDeclinaison, sep=""));
-  });
+  # observeEvent(input$currentDeclinaison, {
+  #   print(paste("New current declinaison : ", input$currentDeclinaison, sep=""));
+  #   if (input$currentDeclinaison == "general") {
+  #     data_polesButtons$flore <- TRUE;
+  #     data_polesButtons$invertebre <- TRUE;
+  #     data_polesButtons$vertebre <- TRUE;
+  #     
+  #     setPolesFct(session,data_polesButtons);
+  #   }
+  #   
+  #   # Changement des graphiques et de la carte
+  #   poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+  #   groupe <- "general";
+  #   if (poles != "general") groupe <- "pole";
+  #   # datasForServerFct(input = input, output = output, session = session,
+  #   #                   type = data_currentInd$indicator,
+  #   #                   groupe = groupe, pole = poles, taxo = "Oiseaux",
+  #   #                   année = data_year$year);
+  #   
+  #   # Changement de la liste des indicateurs
+  #   initSelectorsFct(input, output, session,
+  #                    isolate(data_page$page), isolate(data_page$page),
+  #                    isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
+  #                    poles,
+  #                    "currentDeclinaison");
+  # });
   
   
   
   # Changement sur le select du (seulement expert)
   observeEvent(input$selectGroupe, {
-    session$sendCustomMessage(type = 'selectGroupe', message = '');
+    data_currentInd$groupe <- input$selectGroupe;
+    print(paste("New groupe selected :", data_currentInd$groupe));
+    
+    if (data_page$page == "expert" && data_currentInd$groupe != "RIEN") {
+      session$sendCustomMessage(type = 'showGroupe', message = data_currentInd$groupe);
+    }
+    
+    # Affichage des nouvelles données
+    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+    decli <- data_currentInd$declinaison;
+    groupe <- data_currentInd$groupe;
+    if (poles != "general" && groupe == "general") groupe <- "pole";
+    datasForServerFct(input = input, output = output, session = session,
+                      type = data_currentInd$indicator,
+                      groupe = decli, pole = poles, taxo = groupe,
+                      année = data_year$year);
   });
   
-  observeEvent(input$currentGroupe, {
-    print(paste("New groupe : ", input$currentDeclinaison, sep=""));
+  # observeEvent(input$currentGroupe, {
+  #   print(paste("New groupe : ", input$currentDeclinaison, sep=""));
+  # });
+  
+  
+  
+  # Lancement du changement d'indicateur si le typeIndd n'a pas changé
+  observeEvent(input$selectNotChanged, {
+    if (input$selectNotChanged != "noChange") {
+      print(paste("New seclect not changed :", input$selectNotChanged));
+      
+      session$sendCustomMessage(type = 'selectNotChanged', message = c("noChange","truc"));
+      
+      if (input$selectNotChanged == "typeInd") {
+        print(paste("Current type indicator :", data_currentInd$typeInd));
+        
+        if (data_page$page == "expert") {
+          session$sendCustomMessage(type = 'showTypeIndicator', message = data_currentInd$typeInd);
+        }
+        
+        # Reset du select d'indicateur
+        modifyIndSelectFct(input, output, session,
+                           data_currentInd, data_polesButtons,
+                           data_page, fromPrgm = "ObserveSelectTypeInd Not Changed");
+      }
+      else if (input$selectNotChanged == "indicator") {
+        print(paste("Current indicator :", data_currentInd$indicator));
+        
+        session$sendCustomMessage(type = 'showIndicator', message = data_currentInd$indicator);
+        
+        # Reset de la déclinaison
+        modifyDecliSelectFct(input, output, session,
+                           data_currentInd, data_polesButtons,
+                           data_page, fromPrgm = "ObserveSelectInd Not Changed");
+      }
+      else if (input$selectNotChanged == "declinaison") {
+        print(paste("Current declinaison :", data_currentInd$declinaison));
+        
+        if (data_page$page == "expert") {
+          session$sendCustomMessage(type = 'showDeclinaison', message = data_currentInd$declinaison);
+        }
+        
+        # Reset du groupe
+        modifyGroupeSelectFct(input, output, session,
+                              data_currentInd, data_polesButtons,
+                              data_page, fromPrgm = "ObserveSelectDeclinaison Not Changed");
+      }
+      else if (input$selectNotChanged == "groupe") {
+        print(paste("Current groupe :", data_currentInd$groupe));
+        
+        if (data_page$page == "expert" && data_currentInd$groupe != "RIEN") {
+          session$sendCustomMessage(type = 'showGroupe', message = data_currentInd$groupe);
+        }
+        
+        # Affichage des nouvelles données
+        poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+        decli <- data_currentInd$declinaison;
+        groupe <- data_currentInd$groupe;
+        if (poles != "general" && groupe == "general") groupe <- "pole";
+        datasForServerFct(input = input, output = output, session = session,
+                          type = data_currentInd$indicator,
+                          groupe = decli, pole = poles, taxo = groupe,
+                          année = data_year$year);
+      }
+    }
   });
 }

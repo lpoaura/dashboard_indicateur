@@ -4,10 +4,9 @@ $(document).ready(function () {
   
   $(function () {
     Shiny.addCustomMessageHandler(
-      'setGroupeName', function (nGroupe) {
-        let selected = document.querySelector("#selectGroupe");
-        selected.selectedIndex = nGroupe - 1;
-        console.log("New groupe " + selected.value);
+      'setGroupe', function (groupe) {
+        Shiny.setInputValue('selectGroupe', groupe);
+        console.log("New groupe set " + groupe);
     });
   });
 });

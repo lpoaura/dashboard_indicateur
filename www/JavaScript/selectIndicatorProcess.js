@@ -4,12 +4,9 @@ $(document).ready(function () {
   
   $(function () {
     Shiny.addCustomMessageHandler(
-      'selectIndicator', function (message) {
-        let indic = document.querySelector('#selectIndicator');
-        console.log("New indicator " + indic.value);
-        console.log("New indicator " + indic.options[indic.selectedIndex].text);
-        Shiny.setInputValue('currentInd', indic.value);
-        Shiny.setInputValue('currentIndName',indic.options[indic.selectedIndex].text);
+      'showIndicator', function (indicator) {
+        document.getElementById('selectIndicator').value = indicator;
+        console.log("New indicator shown " + indicator);
     });
   });
 });
