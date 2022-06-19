@@ -81,6 +81,19 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
       session$sendCustomMessage(type = 'showDeclinaison', message = data_currentInd$declinaison);
     }
     
+    # Si l'utilisateur ne choisi pas "poles" ou "taxo" les poles doivent se
+    # réinitialiser
+    if (data_currentInd$declinaison != "poles" &&
+        data_currentInd$declinaison != "taxo" &&
+        (!data_polesButtons$flore ||
+         !data_polesButtons$invertebre ||
+         !data_polesButtons$vertebre)) {
+      data_polesButtons$flore <- TRUE;
+      data_polesButtons$invertebre <- TRUE;
+      data_polesButtons$vertebre <- TRUE;
+      setPolesFct(session, data_polesButtons);
+    }
+    
     # Reset du select de groupe
     modifyGroupeSelectFct(input, output, session,
                           data_currentInd, data_polesButtons,
@@ -147,7 +160,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     if (input$selectNotChanged != "noChange") {
       print(paste("New seclect not changed :", input$selectNotChanged));
       
-      session$sendCustomMessage(type = 'selectNotChanged', message = c("noChange","truc"));
+      session$sendCustomMessage(type = 'selectNotChanged', message = "noChange");
       
       if (input$selectNotChanged == "typeInd") {
         print(paste("Current type indicator :", data_currentInd$typeInd));

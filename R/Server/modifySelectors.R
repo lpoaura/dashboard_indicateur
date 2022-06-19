@@ -1,5 +1,6 @@
 
 
+# Fonction d'actualisation de selector de type d'indicateur
 initTypeIndSelectFct <- function (input, output, session,
                                   data_currentInd, data_polesButtons,
                                   data_page, fromPrgm = "NONE")
@@ -7,7 +8,6 @@ initTypeIndSelectFct <- function (input, output, session,
   removeUI(selector = "#selectTypeIndicator option", multiple = TRUE);
   
   print(paste("Initialisation de type d'indicateur from program", fromPrgm));
-  # print(paste("Previous type d'indicateur :", isolate(data_currentInd$typeInd)));
   
   # Numéro de l'indicateur en cours
   numInd <- findIndicateurNum(isolate(data_currentInd$indicator));
@@ -41,12 +41,13 @@ initTypeIndSelectFct <- function (input, output, session,
     session$sendCustomMessage(type = 'setTypeIndicatorName', message = typeInd);
   }
   else {
-    session$sendCustomMessage(type = 'selectNotChanged', message = c("typeInd","truc"));
+    session$sendCustomMessage(type = 'selectNotChanged', message = "typeInd");
   }
   # });
 }
 
 
+# Fonction d'actualisation de selector d'indicateur
 modifyIndSelectFct <- function(input, output, session,
                                data_currentInd, data_polesButtons,
                                data_page, fromPrgm = "NONE")
@@ -54,7 +55,6 @@ modifyIndSelectFct <- function(input, output, session,
   removeUI(selector = "#selectIndicator option", multiple = TRUE)
   
   print(paste("Changement d'indicateur from program", fromPrgm));
-  # print(paste("Changement d'indicateur for typeInd", data_currentInd$typeInd));
   
   # Numéro de l'indicateur en cours
   numInd <- findIndicateurNum(data_currentInd$indicator);
@@ -111,7 +111,7 @@ modifyIndSelectFct <- function(input, output, session,
     
     # Détermination de l'indicateur actuel
     if (findIndicateurInfoByNum(numInd, "isExpert") == FALSE) {
-      print("SPECIAL INDICATOR FROM GLOBAL");
+      print("Special indictor from global");
       switch(data_currentInd$indicator,
              "donnéesTaxo" = {
                data_currentInd$indicator <- "données";
@@ -140,11 +140,13 @@ modifyIndSelectFct <- function(input, output, session,
     session$sendCustomMessage(type = 'setIndicator', message = isolate(data_currentInd$indicator));
   }
   else  {
-    session$sendCustomMessage(type = 'selectNotChanged', message = c("indicator","truc"));
+    session$sendCustomMessage(type = 'selectNotChanged', message = "indicator");
   }
   # });
 }
 
+
+# Fonction d'actualisation de selector de déclinaison
 modifyDecliSelectFct <- function (input, output, session,
                                   data_currentInd, data_polesButtons,
                                   data_page, fromPrgm = "NONE")
@@ -152,7 +154,6 @@ modifyDecliSelectFct <- function (input, output, session,
   removeUI(selector = "#selectDeclinaison option", multiple = TRUE)
   
   print(paste("Initialisation de declinaison from program", fromPrgm));
-  # print(paste("Initialisation de declinaison for declinaison", data_currentInd$declinaison));
   
   # Numéro de l'indicateur en cours
   numInd <- findIndicateurNum(data_currentInd$indicator);
@@ -182,9 +183,19 @@ modifyDecliSelectFct <- function (input, output, session,
     else {
       data_currentInd$declinaison <- "poles";
     }
+    
+    # Vérification que la déclinaison est légale
+    listDecli <- c(TRUE);
+    listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isPoles"));
+    listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isTaxo"));
+    listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isFournisseur"));
+    listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isProducteur"));
+    if (!listDecli[[findDecliNum(data_currentInd$declinaison)]]) {
+      data_currentInd$declinaison <- "general";
+    }
   }
   
-  # Remplissage du select de type en page expert
+  # Remplissage du select de déclianison en page expert
   else if (data_page$page == "expert") {
     # Remplissage du selector de déclinaison
     listDecli <- c(TRUE);
@@ -204,11 +215,9 @@ modifyDecliSelectFct <- function (input, output, session,
     
     # Acutalisation de la déclinaison en cours
     poles <- encodeFeux(data_polesButtons);
-    print("CHANGED TO POLES?")
-    print(poles)
-    print(data_currentInd$declinaison)
-    if (poles != "all" && data_currentInd$declinaison == "general") {
-      print("CHANGED TO POLES")
+    if (poles != "all" &&
+        data_currentInd$declinaison != "poles" &&
+        data_currentInd$declinaison != "taxo") {
       data_currentInd$declinaison <- "poles"
     }
     nDecli <- findDecliNum(data_currentInd$declinaison);
@@ -230,12 +239,13 @@ modifyDecliSelectFct <- function (input, output, session,
     session$sendCustomMessage(type = 'setDeclinaison', message = isolate(data_currentInd$declinaison));
   }
   else  {
-    session$sendCustomMessage(type = 'selectNotChanged', message = c("declinaison",isolate(data_currentInd$declinaison)));
+    session$sendCustomMessage(type = 'selectNotChanged', message = "declinaison");
   }
   # });
 }
 
 
+# Fonction d'actualisation de selector de groupe
 modifyGroupeSelectFct <- function (input, output, session,
                                    data_currentInd, data_polesButtons,
                                    data_page, fromPrgm = "NONE")
@@ -296,7 +306,7 @@ modifyGroupeSelectFct <- function (input, output, session,
       session$sendCustomMessage(type = 'setGroupe', message = isolate(data_currentInd$groupe));
     }
     else  {
-      session$sendCustomMessage(type = 'selectNotChanged', message = c("groupe","truc"));
+      session$sendCustomMessage(type = 'selectNotChanged', message = "groupe");
     }
   });
 }

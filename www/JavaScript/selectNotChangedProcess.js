@@ -4,16 +4,9 @@ $(document).ready(function () {
   
   $(function () {
     Shiny.addCustomMessageHandler(
-      'selectNotChanged', function (message) {
-        currValueType = message[0];
+      'selectNotChanged', function (currValueType) {
         Shiny.setInputValue('selectNotChanged', currValueType);
         console.log("New current value not changed : " + currValueType);
-        if (currValueType == "declinaison") {
-          currValue = message[1];
-          //console.log("!!!!!!!!! DEC " + document.getElementById('selectDeclinaison').value)
-          //document.getElementById('selectDeclinaison').value = currValue;
-          //console.log("!!!!!!!!! DEC " + document.getElementById('selectDeclinaison').value)
-        }
     });
   });
 });
