@@ -52,6 +52,11 @@ datasForServerFct <- function(input, output, session,
                                  année = 0)
 {
   print("New datas to show...");
+  # print(type)
+  # print(groupe)
+  # print(pole)
+  # print(taxo)
+  groupe <- fdecodeGroupe(groupe);
   
   print("Création d'une map...");
   mapPlot <<- afficher_carte(groupe,pole,taxo,année,type);
@@ -109,4 +114,15 @@ fdecode_poles <- function(pole) {
          }
   )
   return(list(nbPoles, pole1, pole2))
+}
+
+# Cette fonction permet de décoder le groupe transmis à la création de
+# graphiques. Utile si les information n'ont pas été modifiée au préalable.
+fdecodeGroupe <- function(groupe) {
+  switch(groupe,
+         "poles" = {
+           groupe <- "pole";
+         }
+  )
+  return(groupe)
 }

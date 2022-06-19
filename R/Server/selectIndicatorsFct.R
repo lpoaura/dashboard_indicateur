@@ -24,7 +24,8 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
   
   # Changement sur le select d'indicateur
   observeEvent(input$selectIndicator, {
-    data_currentInd$indicator <- input$selectIndicator
+    data_currentInd$indicator <- input$selectIndicator;
+    data_currentInd$hasChanged <- TRUE;
     print(paste("New indicator selected :", data_currentInd$indicator));
     
     data_currentInd$indicatorName <- findIndicateurInfo(data_currentInd$indicator, "indName");
@@ -75,6 +76,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
   # Changement sur le select de la déclinaison (seulement expert)
   observeEvent(input$selectDeclinaison, {
     data_currentInd$declinaison <- input$selectDeclinaison;
+    data_currentInd$hasChanged <- TRUE;
     print(paste("New declinaison selected :", data_currentInd$declinaison));
     
     if (data_page$page == "expert") {
@@ -132,6 +134,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
   # Changement sur le select du (seulement expert)
   observeEvent(input$selectGroupe, {
     data_currentInd$groupe <- input$selectGroupe;
+    data_currentInd$hasChanged <- TRUE;
     print(paste("New groupe selected :", data_currentInd$groupe));
     
     if (data_page$page == "expert" && data_currentInd$groupe != "RIEN") {
@@ -139,14 +142,21 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     }
     
     # Affichage des nouvelles données
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    decli <- data_currentInd$declinaison;
-    groupe <- data_currentInd$groupe;
-    if (poles != "general" && groupe == "general") groupe <- "pole";
-    datasForServerFct(input = input, output = output, session = session,
-                      type = data_currentInd$indicator,
-                      groupe = decli, pole = poles, taxo = groupe,
-                      année = data_year$year);
+    if (data_currentInd$hasChanged) {
+      poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+      decli <- data_currentInd$declinaison;
+      groupe <- data_currentInd$groupe;
+      if (poles != "general" && groupe == "general") { groupe <- "pole"; }
+      datasForServerFct(input = input, output = output, session = session,
+                        type = data_currentInd$indicator,
+                        groupe = decli, pole = poles, taxo = groupe,
+                        année = data_year$year);
+      
+      data_currentInd$hasChanged <- FALSE;
+    }
+    else {
+      dispDatasForServerFct(input, output, session);
+    }
   });
   
   # observeEvent(input$currentGroupe, {
@@ -204,14 +214,22 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
         }
         
         # Affichage des nouvelles données
-        poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-        decli <- data_currentInd$declinaison;
-        groupe <- data_currentInd$groupe;
-        if (poles != "general" && groupe == "general") groupe <- "pole";
-        datasForServerFct(input = input, output = output, session = session,
-                          type = data_currentInd$indicator,
-                          groupe = decli, pole = poles, taxo = groupe,
-                          année = data_year$year);
+        # Affichage des nouvelles données
+        if (data_currentInd$hasChanged) {
+          poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
+          decli <- data_currentInd$declinaison;
+          groupe <- data_currentInd$groupe;
+          if (poles != "general" && groupe == "general") { groupe <- "pole"; }
+          datasForServerFct(input = input, output = output, session = session,
+                            type = data_currentInd$indicator,
+                            groupe = decli, pole = poles, taxo = groupe,
+                            année = data_year$year);
+          
+          data_currentInd$hasChanged <- FALSE;
+        }
+        else {
+          dispDatasForServerFct(input, output, session);
+        }
       }
     }
   });

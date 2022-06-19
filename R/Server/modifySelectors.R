@@ -67,6 +67,8 @@ modifyIndSelectFct <- function(input, output, session,
     if (findIndicateurInfoByNum(numInd, "isGlobal") == FALSE) {
       data_currentInd$indicator <- "données";
       data_currentInd$indicatorName <- "Nombre de données";
+      data_currentInd$hasChanged <- TRUE;
+      
     }
     # Rien à modifier : on conserve l'indicateur sélectionné en expert
     else {}
@@ -77,14 +79,17 @@ modifyIndSelectFct <- function(input, output, session,
              "données" = {
                data_currentInd$indicator <- "donnéesTaxo";
                data_currentInd$indicatorName <- "Nombre de données par taxonomie";
+               data_currentInd$hasChanged <- TRUE;
              },
              "especes" = {
                data_currentInd$indicator <- "especesTaxo";
                data_currentInd$indicatorName <- "Nombre d'espèces par taxonomie";
+               data_currentInd$hasChanged <- TRUE;
              },
              "connaissances" = {
                data_currentInd$indicator <- "connaissancesTaxo";
                data_currentInd$indicatorName <- "Indicateur de connaissances par taxonomie";
+               data_currentInd$hasChanged <- TRUE;
              }
       );
     }
@@ -116,19 +121,23 @@ modifyIndSelectFct <- function(input, output, session,
              "donnéesTaxo" = {
                data_currentInd$indicator <- "données";
                data_currentInd$indicatorName <- "Nombre de données";
+               data_currentInd$hasChanged <- TRUE;
              },
              "especesTaxo" = {
                data_currentInd$indicator <- "especes";
                data_currentInd$indicatorName <- "Nombre d'espèces";
+               data_currentInd$hasChanged <- TRUE;
              },
              "connaissancesTaxo" = {
                data_currentInd$indicator <- "connaissances";
                data_currentInd$indicatorName <- "Indicateur de connaissances";
+               data_currentInd$hasChanged <- TRUE;
              }
       );
     }
     else if (findIndicateurInfoByNum(numInd, "typeInd") != data_currentInd$typeInd) {
       data_currentInd$indicator <- findIndictorForType(data_currentInd$typeInd);
+      data_currentInd$hasChanged <- TRUE;
     }
     # On vient d'une page avec un indicateur valide : on ne fait rien
     else {}
@@ -168,6 +177,7 @@ modifyDecliSelectFct <- function (input, output, session,
         data_currentInd$declinaison != "poles" &&
         data_currentInd$declinaison != "taxo") {
       data_currentInd$declinaison <- "general";
+      data_currentInd$hasChanged <- TRUE;
     }
     
     # S'exécute dans tous les cas si on est dans la page globale
@@ -175,12 +185,15 @@ modifyDecliSelectFct <- function (input, output, session,
         data_currentInd$indicator == "especesTaxo" ||
         data_currentInd$indicator == "connaissancesTaxo")
     {
+      if (data_currentInd$declinaison != "taxo") { data_currentInd$hasChanged <- TRUE; }
       data_currentInd$declinaison <- "taxo";
     }
     else if (data_polesButtons$flore && data_polesButtons$invertebre && data_polesButtons$vertebre) {
+      if (data_currentInd$declinaison != "general") { data_currentInd$hasChanged <- TRUE; }
       data_currentInd$declinaison <- "general";
     }
     else {
+      if (data_currentInd$declinaison != "poles") { data_currentInd$hasChanged <- TRUE; }
       data_currentInd$declinaison <- "poles";
     }
     
@@ -192,6 +205,7 @@ modifyDecliSelectFct <- function (input, output, session,
     listDecli <- append(listDecli, findIndicateurInfoByNum(numInd, "isProducteur"));
     if (!listDecli[[findDecliNum(data_currentInd$declinaison)]]) {
       data_currentInd$declinaison <- "general";
+      data_currentInd$hasChanged <- TRUE;
     }
   }
   
@@ -218,12 +232,14 @@ modifyDecliSelectFct <- function (input, output, session,
     if (poles != "all" &&
         data_currentInd$declinaison != "poles" &&
         data_currentInd$declinaison != "taxo") {
-      data_currentInd$declinaison <- "poles"
+      data_currentInd$declinaison <- "poles";
+      data_currentInd$hasChanged <- TRUE;
     }
     nDecli <- findDecliNum(data_currentInd$declinaison);
     # Déclinaison précédente indisponible pour cet indicateur
     if (!listDecli[[nDecli]]) {
       data_currentInd$declinaison <- "general";
+      data_currentInd$hasChanged <- TRUE;
     }
     # On ne change pas de déclinaison
     else {
@@ -285,11 +301,13 @@ modifyGroupeSelectFct <- function (input, output, session,
       if (!isGroupeDispo(findGroupeNum(data_currentInd$groupe), data_polesButtons)) {
         # Choix du groupe : cas de base "all"
         data_currentInd$groupe <- "all";
+        data_currentInd$hasChanged <- TRUE;
       }
       # Cas valide : on ne change pas le groupe actuel
       else {}
     }
     else {
+      if (data_currentInd$groupe != "RIEN") { data_currentInd$hasChanged <- TRUE; }
       data_currentInd$groupe <- "RIEN";
     }
   }

@@ -33,6 +33,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       
       
       # Changement des selectors et des graphiques
+      data_currentInd$hasChanged <- TRUE;
       modifyDecliSelectFct(input, output, session,
                            data_currentInd, data_polesButtons,
                            data_page, fromPrgm = "buttonFlore")
@@ -73,6 +74,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       
       
       # Changement des selectors et des graphiques
+      data_currentInd$hasChanged <- TRUE;
       modifyDecliSelectFct(input, output, session,
                            data_currentInd, data_polesButtons,
                            data_page, fromPrgm = "buttonInvertebre")
@@ -112,6 +114,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       
       
       # Changement des selectors et des graphiques
+      data_currentInd$hasChanged <- TRUE;
       modifyDecliSelectFct(input, output, session,
                            data_currentInd, data_polesButtons,
                            data_page, fromPrgm = "buttonVertebre")

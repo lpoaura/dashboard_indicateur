@@ -36,7 +36,8 @@ server <- function(input, output, session) {
     indicator = tabIndicators[1,2],
     indicatorName = tabIndicators[1,1],
     declinaison = declinaisonIndicator[1,2],
-    groupe = tabGroupe[1,1]
+    groupe = tabGroupe[1,1],
+    hasChanged = FALSE
   );
   # Les selectors d'initialisent tout seul au début car l'indicateur "données"
   # est sélectionné.
