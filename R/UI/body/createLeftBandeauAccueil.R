@@ -162,23 +162,26 @@ divInfo_ind11 <- div(id="info_ind11",
 
 # ------- Panneau des collaborateurs --------- #
 
-# Zone CBN
-divCBN <- div(id = "CBNArea",
+# Zone CBN Massif Central
+divCBNMC<- div(id = "CBNMCArea",
               class = "areaCollaborator",
               actionButton(inputId = "logoBtn",
                            tags$a(href="https://www.cbnmc.fr/",
                                   target="_blank", rel="noopener noreferrer",
                                   img(src = "Resources/logos/CBN-logo-horizontal-MC-RVB.png",
                                       height = 80,
-                                      width = 130))),
-              tags$p(class = "nameCollaborator",
-                     "Conservatoire Botanique National Massif Central"),
-              tags$p(class = "descriptionCollaborator",
-                     "Lorem ipsum dolor sit amet, 
-                                      consectetur adipiscing elit. 
-                                      Quisque sodales nunc eu egestas 
-                                      dictum. Mauris maximus ante et 
-                                      diam lacinia sodales."))
+                                      width = 120))))
+
+# Zone CBN Massif Central
+divCBNALPIN <- div(id = "CBNALPINArea",
+                 class = "areaCollaborator",
+                 actionButton(inputId = "logoBtn",
+                              tags$a(href="http://www.cbn-alpin.fr/",
+                                     target="_blank", rel="noopener noreferrer",
+                                     img(src = "Resources/logos/CBN-logo-horizontal-ALPIN-RVB.png",
+                                         height = 80,
+                                         width = 120))))
+
 # Zone DREAL
 divDREAL <- div(id = "DREALArea",
                 class = "areaCollaborator",
@@ -187,15 +190,7 @@ divDREAL <- div(id = "DREALArea",
                                     target="_blank", rel="noopener noreferrer",
                                     img(src = "Resources/logos/Logo_DREAL.png",
                                         height = 80,
-                                        width = 80))),
-                tags$p(class = "nameCollaborator",
-                       "Préfet de la Région Auvergne-Rhône-Alpes"),
-                tags$p(class = "descriptionCollaborator",
-                       "Lorem ipsum dolor sit amet, 
-                                      consectetur adipiscing elit. 
-                                      Quisque sodales nunc eu egestas 
-                                      dictum. Mauris maximus ante et 
-                                      diam lacinia sodales."))
+                                        width = 80))))
 # Zone Flavia
 divFlavia <- div(id = "FlaviaArea",
                  class = "areaCollaborator",
@@ -204,21 +199,7 @@ divFlavia <- div(id = "FlaviaArea",
                                      target="_blank", rel="noopener noreferrer",
                                      img(src = "Resources/logos/Logo_Flavia_orange.png",
                                          height = 80,
-                                         width = 250))),
-                 tags$p(class = "nameCollaborator",
-                        "Flavia"),
-                 tags$p(class = "descriptionCollaborator",
-                        "Lorem ipsum dolor sit amet, 
-                                      consectetur adipiscing elit. 
-                                      Quisque sodales nunc eu egestas 
-                                      dictum. Mauris maximus ante et 
-                                      diam lacinia sodales."))
-
-# Première ligne de collaborateurs
-divHGrid1 <- div(class="horizontalGrid",
-                 divCBN,
-                 divDREAL,
-                 divFlavia)
+                                         width = 250))))
 
 # Zone de LPO
 divLPO <- div(id = "LPOrea",
@@ -228,15 +209,7 @@ divLPO <- div(id = "LPOrea",
                                   target="_blank", rel="noopener noreferrer",
                                   img(src = "Resources/logos/logo_lpo_aura.png",
                                       height = 80,
-                                      width = 230))),
-              tags$p(class = "nameCollaborator",
-                     "Ligue pour la Protection des Oiseaux"),
-              tags$p(class = "descriptionCollaborator",
-                     "Lorem ipsum dolor sit amet, 
-                                      consectetur adipiscing elit. 
-                                      Quisque sodales nunc eu egestas 
-                                      dictum. Mauris maximus ante et 
-                                      diam lacinia sodales."))
+                                      width = 230))))
 
 # Zone de Région AURA
 divRegionAURA <- div(id = "RegionAURAArea",
@@ -246,15 +219,7 @@ divRegionAURA <- div(id = "RegionAURAArea",
                                          target="_blank", rel="noopener noreferrer",
                                          img(src = "Resources/logos/Logo_region-768x178.png",
                                              height = 80,
-                                             width = 320))),
-                     tags$p(class = "nameCollaborator",
-                            "Région Auvergne-Rhône-Alpes"),
-                     tags$p(class = "descriptionCollaborator",
-                            "Lorem ipsum dolor sit amet, 
-                                      consectetur adipiscing elit. 
-                                      Quisque sodales nunc eu egestas 
-                                      dictum. Mauris maximus ante et 
-                                      diam lacinia sodales."))
+                                             width = 320))))
 
 # Zone d'OFB
 divOFB <- div(id = "OFBArea",
@@ -264,22 +229,24 @@ divOFB <- div(id = "OFBArea",
                                   target="_blank", rel="noopener noreferrer",
                                   img(src = "Resources/logos/logo-ofb.png",
                                       height = 80,
-                                      width = 200))),
-              tags$p(class = "nameCollaborator",
-                     "Office Français de la Biodiversité"),
-              tags$p(class = "descriptionCollaborator",
-                     "Lorem ipsum dolor sit amet, 
-                                      consectetur adipiscing elit. 
-                                      Quisque sodales nunc eu egestas 
-                                      dictum. Mauris maximus ante et 
-                                      diam lacinia sodales."))
+                                      width = 200))))
+
+# Première ligne de collaborateurs
+divHGrid1 <- div(class="horizontalGrid",
+                 divDREAL,
+                 divRegionAURA,
+                 divOFB)
 
 
 # Deuxième ligne de collaborateurs  
 divHGrid2 <- div(class="horizontalGrid",
-                 divLPO,
-                 divRegionAURA,
-                 divOFB)
+                 divCBNALPIN,
+                 divCBNMC,
+                 divFlavia)
+
+# Troisième ligne de collaborateurs  
+divHGrid3 <- div(class="horizontalGrid",
+                 divLPO)
 
 # Ligne réservée à Télécom Saint-Etienne et l'équipe de développement
 divTSE <- div(id = "TSEArea",
@@ -308,6 +275,7 @@ divTSE <- div(id = "TSEArea",
 divGrid <-  div(id = "gridCollaborator",
                 divHGrid1,
                 divHGrid2,
+                divHGrid3,
                 divTSE)
 
 divInfo_ind12 <- div(id="info_ind12",

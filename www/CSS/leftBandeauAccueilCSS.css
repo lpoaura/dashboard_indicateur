@@ -214,16 +214,6 @@ sous-indicateurs apparaissent*/
   align-self : center;
 }
 
-.descriptionCollaborator {
-  margin-left : 3%;
-  margin-right : 3%;
-}
-
-.nameCollaborator {
-  text-align:center;
-  font-weight:bold;
-}
-
 #TSEArea {
   margin: 3%;
   padding: 1%;
