@@ -26,9 +26,9 @@ initTypeIndSelectFct <- function (input, output, session,
     typeInd <- findIndicateurInfoByNum(numInd, "typeInd");
     
     # Remplissage du select de type d'indicateur
-    for(el in listTypesIndicators) {
+    for(i in 1:nrow(typeIndTab)) {
       insertUI(selector = "#selectTypeIndicator",
-               ui = tags$option(value = el, el));
+               ui = tags$option(value = typeIndTab[i,2], typeIndTab[i,1]));
     }
   }
   else {

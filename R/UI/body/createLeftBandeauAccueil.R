@@ -1,5 +1,9 @@
 # Création du bandeau de gauche en mode Accueil
 
+print('BAccueil');
+
+#---!!! Position de buttonInd : modify_suppress_button_tab_accueil !!!---#
+
 # Sélecteur d'indicateur unique
 buttonInd1<-actionButton(inputId="ind1",
                          class="multipleInd",
@@ -81,26 +85,38 @@ buttonInd4<-actionButton(inputId="ind4",
 buttonInd5<-actionButton(inputId="ind5",
                          class="singleInd",
                          label="Indicateurs de pressions anthropiques")
+  
+#---!!! Position de buttonInd : add_button_tab_accueil !!!---#
+
+#---!!! Position de buttonInd : modify_suppress_button_tab_accueil !!! END ---#
 
 # Boîte rassemblant les sélecteurs des sous-indicateurs
-divSubNavContent1<-div(class="subNavContent",
-                      id="subNavContentInd1",
-                      buttonInd11,
-                      buttonInd12,
-                      buttonInd13)
+divSubNavContent1<-div(class="subNavContent"
+                      , id="subNavContentInd1"
+                      , buttonInd11
+                      , buttonInd12
+                      , buttonInd13
+                      #---!!! Position de subNavContent : add_preexisting_ind1_categorie !!!---#
+                      )
 
-divSubNavContent2<-div(class="subNavContent",
-                       id="subNavContentInd2",
-                       buttonInd21,
-                       buttonInd22,
-                       buttonInd23,
-                       buttonInd24)
+divSubNavContent2<-div(class="subNavContent"
+                       , id="subNavContentInd2"
+                       , buttonInd21
+                       , buttonInd22
+                       , buttonInd23
+                       , buttonInd24
+                       #---!!! Position de subNavContent : add_preexisting_ind2_categorie !!!---#
+                       )
 
-divSubNavContent3<-div(class="subNavContent",
-                       id="subNavContentInd3",
-                       buttonInd31,
-                       buttonInd32,
-                       buttonInd33)
+divSubNavContent3<-div(class="subNavContent"
+                       ,id="subNavContentInd3"
+                       ,buttonInd31
+                       ,buttonInd32
+                       ,buttonInd33
+                       #---!!! Position de subNavContent : add_preexisting_ind3_categorie !!!---#
+                       )
+
+#---!!! Position de subNavContent : add_categorie !!!---#
 
 
 # Navigation des sélecteurs des sous-indicateurs de l'indicateur multiple
@@ -119,13 +135,17 @@ divSubNav3<-div(class="subNav",
                 buttonInd3,
                 divSubNavContent3)
 
+#---!!! Position de subNav : add_categorie !!!---#
+
 # Navigation des sélecteurs de l'ensemble des sélecteurs des indicateurs
-divNavBar <- div(id="navBar",
-                 divSubNav1,
-                 divSubNav2,
-                 divSubNav3,
-                 buttonInd4,
-                 buttonInd5)
+divNavBar <- div(id="navBar"
+                 , divSubNav1
+                 , divSubNav2
+                 , divSubNav3
+                 , buttonInd4
+                 , buttonInd5
+#---!!! Position de NavBar : add_newInfo_OrInd !!!---#
+                 )
 
 # Panneau de renseignements par rapport au sélecteur choisi
 divInfo_ind1 <- div(id="info_ind1",
@@ -481,8 +501,12 @@ divInfo_ind5 <- div(id="info_ind5",
                       odio ut magna pretium imperdiet eu 
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
+  
+#---!!! Position de Info_ind : add_description !!!---#
 
 # Boîte rassemblant la navigation des sélecteurs et le panneau renseignements
 divBandeauAccueil <- div(id = "bandeauAccueil",
                          divNavBar,
                          divInfo_ind1)
+
+print("fin accueil")

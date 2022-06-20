@@ -32,7 +32,7 @@ server <- function(input, output, session) {
   
   # Permet d'initialiser les indicateurs.
   data_currentInd <- reactiveValues(
-    typeInd = listTypesIndicators[[1]],
+    typeInd = typeIndTab[1,1],
     indicator = tabIndicators[1,2],
     indicatorName = tabIndicators[1,1],
     declinaison = declinaisonIndicator[1,2],
@@ -53,6 +53,11 @@ server <- function(input, output, session) {
   data_tabAccueil <- reactiveValues(
     tab = "ind1"
   );
+  
+  data_nbInd <- reactiveValues(
+    nbGeneral = getNbTypeIndInfo(),
+    nbSub = getAllNbCateg()
+  )
   
   mdpAdmin = read_file("mdpAdmin.txt")
   # gestion des carctères \\ \ 
@@ -93,7 +98,10 @@ server <- function(input, output, session) {
   popUpDataVizFct(input, output, session);
   
   # -------------------- DYNAMIQUE DE LA FONCTION RAJOUT DU MODE ADMIN -------------------- #
-  addPanelAccueilFct(input, output, session);
+  addPanelAdminFct(input, output, session);
+  
+  # -------------------- FONCTIONNALITE RAJOUT DU MODE ADMIN -------------------- #
+  addAdminFct(input, output, session, data_nbInd);
   
 # -------------------- INITIALISATION DES DONNEES -------------------- #
   # Il n'est pas nécessaire d'appeler cette fonction car l'actualisation de la 

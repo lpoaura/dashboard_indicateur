@@ -33,8 +33,8 @@ dispDatasForServerFct <- function(input, output, session)
     output$pie2 <- renderPlotly({piePlot[[3]]});
     output$pie2Copy <- renderPlotly({piePlot[[3]]});
   }
-  
-  
+
+
   # Actualisation de l'histogramme
   removeUI(selector = "#hist");
   if (histoPlot[[1]]) {

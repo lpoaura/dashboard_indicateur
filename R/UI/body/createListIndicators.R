@@ -1,6 +1,93 @@
 # Ce script permet de créer la liste des indicateurs, types d'indicateurs ainsi
 # ainsi que les liens avec les pôles, taxonomies, années.
 
+
+# Liste associée aux types d'informations
+listColTypeInfo = c("name", "id");
+typeInfoTab <- data.frame(name = "Renseignements", id = "ind1");
+newRow <- list("Mode de représentation", "ind2");
+typeInfoTab <- rbind(typeInfoTab,newRow);
+# ---!!! DERNIERE LIGNE TYPE INFORMATION !!!--- #
+
+# Liste associée aux categories d'information
+listColTypeInfo = c("name", "id", "typeInfo");
+categInfoTab <- data.frame(name = "Qui sommes-nous ?", id = "ind11", typeInfoId = "ind1");
+newRow <- list("Nos collaborateurs", "ind12", "ind1");
+categInfoTab <- rbind(categInfoTab,newRow);
+newRow <- list("Contexte des indicateurs", "ind13", "ind1");
+categInfoTab <- rbind(categInfoTab,newRow);
+newRow <- list("Histogramme", "ind21", "ind2");
+categInfoTab <- rbind(categInfoTab,newRow);
+newRow <- list("Camembert", "ind22", "ind2");
+categInfoTab <- rbind(categInfoTab,newRow);
+newRow <- list("Diagramme en bar", "ind23", "ind2");
+categInfoTab <- rbind(categInfoTab,newRow);
+newRow <- list("Cartographie", "ind24", "ind2");
+categInfoTab <- rbind(categInfoTab,newRow);
+# ---!!! DERNIERE LIGNE CATEGORIE INFORMATION !!!--- #
+
+# Fonction associées : findIdForTypeInfo, findTypeInfoForId, getNbCategInfoForType
+# et getAllNbCategInfo
+findIdForTypeInfo <- function(typeInfo) {
+  for (i in 1:nrow(typeInfoTab)) {
+    if (typeInfoTab[i,1] == typeInfo) {
+      return (typeInfoTab[i,2]);
+    }
+  }
+  print(paste("ERREUR sur le type de l'id recherché (findIdForTypeInfo) :", typeInfo));
+  return ("RIEN")
+}
+
+findTypeInfoForId <- function(id) {
+  for (i in 1:nrow(typeInfoTab)) {
+    if (typeInfoTab[i,2] == id) {
+      return (typeInfoTab[i,1]);
+    }
+  }
+  print(paste("ERREUR sur l'id du type recherché (findTypeInfoForId) :", id));
+  return ("RIEN")
+}
+
+getNbCategForType <- function(idType) {
+  nbCateg <- 0;
+  for (i in 1:nrow(categInfoTab)) {
+    if (categInfoTab[i,3] == idType) {
+      nbCateg <- nbCateg + 1;
+    }
+  }
+  if (nbCateg != 0) {
+    print("CATEG IN INFO")
+    return(nbCateg);
+  }
+  else {
+    for (i in 1:nrow(tabIndicators)) {
+      isGlobal <- findIndicateurInfoByNum(i, "isGlobal");
+      typeName <- findIndicateurInfoByNum(i, "typeInd");
+      iType <- findTypeIndNum(typeName);
+      if (typeIndTab[iType,2] == idType && isGlobal) {
+        nbCateg <- nbCateg + 1;
+      }
+    }
+    if (nbCateg != 0) {
+      print("CATEG IN IND")
+      return(nbCateg);
+    }
+    else {
+      print(paste("ERREUR possible sur l'id de type dans la recherche du nombre de catégories (getNbCategForType) :", idType));
+      return(nbCateg);
+    }
+  }
+}
+
+getAllNbCateg <- function() {
+  listNbCateg <- c();
+  nbType <- getNbTypeIndInfo();
+  for (i in 1:nbType) {
+    listNbCateg <- c(listNbCateg, getNbCategForType(paste("ind",i,sep="")));
+  }
+  return (listNbCateg);
+}
+
 # Toutes les colonnes à renseigner lors de la mise en place d'une nouvelle
 # catégorie d'indicateur
 listColumns <- c("indName", "ind", "isGlobal", "isExpert",
@@ -9,11 +96,48 @@ listColumns <- c("indName", "ind", "isGlobal", "isExpert",
                  "isAnnees")
 
 # Liste associée aux types d'indicateurs
-listTypesIndicators <- c("Indicateur de connaissance"
-                         , "Indicateurs d’état de la biodiversité"
-                         , "Indicateurs de pressions anthropiques"
-                         # ---!!! DERNIERE LIGNE TYPE INDICATEUR !!!--- #
-);
+listColTypeInd = c("name", "id");
+typeIndTab <- data.frame(name = "Indicateur de connaissance", id = "ind3");
+newRow <- list("Indicateurs d’état de la biodiversité", "ind4");
+typeIndTab <- rbind(typeIndTab,newRow);
+newRow <- list("Indicateurs de pressions anthropiques", "ind5");
+typeIndTab <- rbind(typeIndTab,newRow);
+# ---!!! DERNIERE LIGNE TYPE INDICATEUR !!!--- #
+
+# Fonction associées : findIdForTypeInfo et findTypeInfoForId
+findIdForTypeInd <- function(typeInd) {
+  for (i in 1:nrow(typeIndTab)) {
+    if (typeIndTab[i,1] == typeInd) {
+      return (typeIndTab[i,2]);
+    }
+  }
+  print(paste("ERREUR sur le type de l'id recherché (findIdForTypeInd) :", typeInd));
+  return ("RIEN")
+}
+
+findTypeIndForId <- function(id) {
+  for (i in 1:nrow(typeIndTab)) {
+    if (typeIndTab[i,2] == id) {
+      return (typeIndTab[i,1]);
+    }
+  }
+  print(paste("ERREUR sur l'id du type recherché (findTypeIndForId) :", id));
+  return ("RIEN")
+}
+
+findTypeIndNum <- function(typeInd) {
+  for (i in 1:nrow(typeIndTab)) {
+    if (typeIndTab[i,1] == typeInd) {
+      return (i);
+    }
+  }
+  print(paste("ERREUR sur le type d'indicateur d'indice recherché (findTypeIndNum) :", groupe));
+  return (-1)
+}
+
+getNbTypeIndInfo <- function() {
+  return(nrow(typeIndTab) + nrow(typeInfoTab));
+}
 
 # Liste associée aux pôles
 listDeclinaisonIndName <- c("Général",
@@ -68,36 +192,36 @@ tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Indicateur de connaissances", "connaissances", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 
-newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, TRUE, TRUE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Nombre d'espèces par taxonomie", "especesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Indicateur de connaissances par taxonomie", "connaissancesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-
-newRow <- list("Indicateur de réservoirs de biodiversité ", "revervoirBiodiv", TRUE, TRUE, "Indicateur de connaissance", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-
-
-newRow <- list("État des populations d’oiseaux communs", "oiseauxCommuns", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Populations de chiroptères", "chiropteres", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Répartition de la différence des statuts de liste rouge LRR et LRN", "listeRouge", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Proportion des listes d'espèces menacées parmi les listes régionales", "menacees", TRUE, TRUE, "Indicateurs d’état de la biodiversité", TRUE, TRUE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-
-
-newRow <- list("Pollution lumineuse", "polutLum", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-
-newRow <- list("Test", "test", FALSE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, TRUE, TRUE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Nombre d'espèces par taxonomie", "especesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Indicateur de connaissances par taxonomie", "connaissancesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# 
+# newRow <- list("Indicateur de réservoirs de biodiversité ", "revervoirBiodiv", TRUE, TRUE, "Indicateur de connaissance", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# 
+# 
+# newRow <- list("État des populations d’oiseaux communs", "oiseauxCommuns", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Populations de chiroptères", "chiropteres", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Répartition de la différence des statuts de liste rouge LRR et LRN", "listeRouge", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Proportion des listes d'espèces menacées parmi les listes régionales", "menacees", TRUE, TRUE, "Indicateurs d’état de la biodiversité", TRUE, TRUE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# 
+# 
+# newRow <- list("Pollution lumineuse", "polutLum", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# 
+# newRow <- list("Test", "test", FALSE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
 # ---!!! DERNIERE LIGNE INDICATEUR !!!--- #
 print(tabIndicators)
 

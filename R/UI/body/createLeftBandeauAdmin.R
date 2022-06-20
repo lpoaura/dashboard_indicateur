@@ -1,5 +1,7 @@
 # Création du bandeau de gauche du mode Admin
 
+print('BAdmin');
+
 # Panneau de log in
 divPanelLogIn <- div(id="panelLogIn",
                      passwordInput(inputId = "pwdInput",
@@ -41,13 +43,9 @@ divIdInd <- div(id = "identityInd",
 selectTypeIndGeneral <- tags$select(id = "selectTypeIndGeneral",
                                     "onfocus"='this.size=2;',
                                     "onblur"='this.size=1;' ,
-                                    "onchange"='this.size=1; this.blur();',
-                                    
-                                    tags$option(value = "A", "Indicateur A"),
-                                    tags$option(value = "B", "Indicateur B"),
-                                    tags$option(value = "C", "Indicateur C"))
+                                    "onchange"='this.size=1; this.blur();')
 
-selectIndDeclinaison <- tags$select(id = "selectDeclinaison",
+selectIndDeclinaison <- tags$select(id = "selectDeclinaisonAdmin",
                                     "onfocus"='this.size=2;',
                                     "onblur"='this.size=1;' ,
                                     "onchange"='this.size=1; this.blur();',
@@ -116,7 +114,8 @@ divPanelAdd <- div(id = "panelAdd",
                        divCategorieInfo,
                        divSubIndInfo,
                        divDescription,
-                       submitButton(text = "RAJOUT"))
+                       actionButton(inputId = "addAdminFctBtn",
+                                    label = "RAJOUT"))
 
 # Sélecteur d'un indicateur existant
 selectExistingInd <- tags$select(id = "selectExistingInd",
@@ -150,7 +149,8 @@ divPanelSuppress <- div(id = "panelSuppress",
                    h1("SUPPRESSION"),
                    selectExistingInd,
                    divExistingIndSumUp,
-                   submitButton(text = "SUPPRESSION"))
+                   actionButton(inputId = "suppressAdminFctBtn",
+                                label = "SUPPRESSION"))
 
 # Panneau de modification d'indicateur
 divPanelModify <- div(id = "panelModify",
@@ -160,7 +160,8 @@ divPanelModify <- div(id = "panelModify",
                       textAreaInput(inputId = "descriptionInput",
                                     label = "Description de l'indicateur :",
                                     rows = 10),
-                      submitButton(text = "MODIFICATION"))
+                      actionButton(inputId = "modifyAdminFctBtn",
+                                   label = "MODIFICATION"))
 
 # Bandeau total du mode Admin
 divBandeauAdmin <- div(id="bandeauAdmin",

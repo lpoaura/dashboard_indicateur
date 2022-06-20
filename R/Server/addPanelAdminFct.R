@@ -1,6 +1,6 @@
 # Ce fichier gère la dynamique du panneau de la fonctionnalité rajout dans le mode Admin
 
-addPanelAccueilFct <- function(input, output, session) {
+addPanelAdminFct <- function(input, output, session) {
   
   # Si modification entre information ou indicateur
   observeEvent(input$infoCheckInput, {
@@ -40,6 +40,21 @@ addPanelAccueilFct <- function(input, output, session) {
       
       insertUI(selector = "#identityInd", where = "afterEnd", ui = divCategorieInfo)
       insertUI(selector = "#categorieInfo", where ="afterEnd", ui = divDescription)
+      
+      # Remplissage des selectors de type d'information/indicateur
+      removeUI(selector = "#selectTypeIndGeneral option", multiple = TRUE);
+      if(input$infoCheckInput == "info"){
+        for (i in 1:nrow(typeInfoTab)) {
+          insertUI(selector = "#selectTypeIndGeneral",
+                   ui = tags$option(value = typeInfoTab[i,2], typeInfoTab[i,1]));
+        }
+      }
+      else{
+        for (i in 1:nrow(typeIndTab)) {
+          insertUI(selector = "#selectTypeIndGeneral",
+                   ui = tags$option(value = typeIndTab[i,2], typeIndTab[i,1]));
+        }
+      }
     }
     
     if(input$subIndInput == "sousind")
