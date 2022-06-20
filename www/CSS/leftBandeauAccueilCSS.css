@@ -190,7 +190,9 @@ sous-indicateurs apparaissent*/
 }
 
 .info >p {
-  margin: 3%;
+  margin-right: 3%;
+    margin-left: 3%;
+    font-size: 120%;
 }
 
 /* ---- Onglet recensant les collaborations ---- */

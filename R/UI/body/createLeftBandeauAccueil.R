@@ -133,32 +133,28 @@ divInfo_ind1 <- div(id="info_ind1",
                h1(class="indName",
                   "Renseignements"),
                tags$p(class="indExplanation",
-                      "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
+                      "Cet onglet rassemble toutes les informations nécessaires sur le
+                      contexte de ce dashboard : sa raison d'être, l'équipe et ses collaborateurs
+                      qui l'ont mis en place ainsi que le genre d'informations délivrées par les 
+                      indicateurs."))
 
 divInfo_ind11 <- div(id="info_ind11",
                     class="info",
                     h1(class="indName",
                        "Qui sommes-nous ?"),
                     tags$p(class="indExplanation",
-                           "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
+                           "L’Observatoire régional de la Biodiversité est un dispositif 
+                           piloté par l’État et la Région pour rassembler, diffuser et 
+                           valoriser les données et démarches en lien avec la connaissance 
+                           sur la biodiversité dans la région Auvergne-Rhône-Alpes."),
+                    br(),
+                    tags$p(class="indExplanation",
+                           "Financées par la DREAL et la Région, les missions de l’ORB 
+                           sont assurées par les animateurs des pôles thématiques 
+                           (Conservatoires Botaniques Nationaux Alpins et du Massif Central, 
+                           association Flavia APE, Ligue pour la Protection des Oiseaux et 
+                           Fédération régionale des chasseurs) avec l’appui technique de 
+                           l’Office Fançais de la Biodiversité. "))
 
 # ------- Panneau des collaborateurs --------- #
 
@@ -289,16 +285,26 @@ divInfo_ind13 <- div(id="info_ind13",
                      h1(class="indName",
                         "Contexte des indicateurs"),
                      tags$p(class="indExplanation",
-                            "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
+                            "L’Observatoire de la biodiversité est un observatoire 
+                            de l'environnement, spécifiquement destiné à l'observation 
+                            de la diversité biologique à l’échelle régionale, et à 
+                            l’évaluation des politiques engagées pour la protéger. 
+                            Son objectif est d’analyser et fournir au plus grand nombre 
+                            des informations objectives et pertinentes sur l’état de 
+                            santé de la nature en région."),
+                     br(),
+                     tags$p(class="indExplanation",
+                            "Quel est l’état de la biodiversité en Auvergne-Rhône-Alpes, comment évolue-t-elle,
+                            quel est le niveau de connaissance de la biodiversité, quels sont les principaux 
+                            facteurs influençant la biodiversité, quelles solutions sont apportées par la société, 
+                            quels moyens sont mis en œuvre pour préserver notre environnement ?"),
+                     br(),
+                     tags$p(class="indExplanation",
+                            "Pour répondre à ces questions, l’Observatoire s’appuie sur la production d’indicateurs
+                            d’état et d’évolution de la biodiversité régionale.
+                            Les informations produites par l’observatoire se destinent à la fois aux décideurs, 
+                            aux acteurs de l’environnement ou aux citoyens."))
+
 
 divInfo_ind2 <- div(id="info_ind2",
                      class="info",
