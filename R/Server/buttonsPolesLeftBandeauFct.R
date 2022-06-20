@@ -2,6 +2,7 @@
 # boutons de choix de pôles dans le bandeau de gauche de global et expert
 
 buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, data_polesButtons) {
+  # Bouton "Feu flore"
   observeEvent(input$feuFlore, {
     print("Feu flore pressed");
     
@@ -36,81 +37,9 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       stringForJS <- encodeFeux(data_polesFeux);
       session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
-    
-    # var<-as.numeric(input$feuFlore)%%2+as.numeric(input$feuInvertebre)%%2+as.numeric(input$feuVertebre)%%2;
-    # if(var==3||var==0)
-    # {
-    #   removeUI(selector = '#feuFlore>img')
-    #   insertUI(selector = '#feuFlore',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    #   
-    #   removeUI(selector = '#feuInvertebre>img')
-    #   insertUI(selector = '#feuInvertebre',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    #   
-    #   removeUI(selector = '#feuVertebre>img')
-    #   insertUI(selector = '#feuVertebre',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    # }
-    # else{
-    #   if(as.numeric(input$feuFlore)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuFlore>img')
-    #     insertUI(selector = '#feuFlore',
-    #              ui = img(src = "Resources/pictogrammes/rond_vert.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuFlore>img')
-    #     insertUI(selector = '#feuFlore',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    #   if(as.numeric(input$feuInvertebre)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuInvertebre>img')
-    #     insertUI(selector = '#feuInvertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_orange.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuInvertebre>img')
-    #     insertUI(selector = '#feuInvertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    #   if(as.numeric(input$feuVertebre)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuVertebre>img')
-    #     insertUI(selector = '#feuVertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_bleu.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuVertebre>img')
-    #     insertUI(selector = '#feuVertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    # }
-    # print(as.numeric(input$feuFlore));
   })
   
+  # Bouton "Feu invertebre"
   observeEvent(input$feuInvertebre, {
     print("Feu invertebre pressed");
     
@@ -146,82 +75,9 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       stringForJS <- encodeFeux(data_polesFeux);
       session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
-    
-    
-    # var<-as.numeric(input$feuFlore)%%2+as.numeric(input$feuInvertebre)%%2+as.numeric(input$feuVertebre)%%2;
-    # if(var==3||var==0)
-    # {
-    #   removeUI(selector = '#feuFlore>img')
-    #   insertUI(selector = '#feuFlore',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    #   
-    #   removeUI(selector = '#feuInvertebre>img')
-    #   insertUI(selector = '#feuInvertebre',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    #   
-    #   removeUI(selector = '#feuVertebre>img')
-    #   insertUI(selector = '#feuVertebre',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    # }
-    # else{
-    #   if(as.numeric(input$feuFlore)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuFlore>img')
-    #     insertUI(selector = '#feuFlore',
-    #              ui = img(src = "Resources/pictogrammes/rond_vert.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuFlore>img')
-    #     insertUI(selector = '#feuFlore',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    #   if(as.numeric(input$feuInvertebre)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuInvertebre>img')
-    #     insertUI(selector = '#feuInvertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_orange.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuInvertebre>img')
-    #     insertUI(selector = '#feuInvertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    #   if(as.numeric(input$feuVertebre)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuVertebre>img')
-    #     insertUI(selector = '#feuVertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_bleu.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuVertebre>img')
-    #     insertUI(selector = '#feuVertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    # }
-    # print(as.numeric(input$feuInvertebre));
   })
   
+  # Bouton "Feu vertebre"
   observeEvent(input$feuVertebre, {
     print("Feu vertebre pressed");
     
@@ -256,81 +112,18 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       stringForJS <- encodeFeux(data_polesFeux);
       session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
-    
-    # var<-as.numeric(input$feuFlore)%%2+as.numeric(input$feuInvertebre)%%2+as.numeric(input$feuVertebre)%%2;
-    # if(var==3||var==0)
-    # {
-    #   removeUI(selector = '#feuFlore>img')
-    #   insertUI(selector = '#feuFlore',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    #   
-    #   removeUI(selector = '#feuInvertebre>img')
-    #   insertUI(selector = '#feuInvertebre',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    #   
-    #   removeUI(selector = '#feuVertebre>img')
-    #   insertUI(selector = '#feuVertebre',
-    #            ui = img(src = "Resources/pictogrammes/rond_violet.png",
-    #                     width=15,
-    #                     height=15))
-    # }
-    # else{
-    #   if(as.numeric(input$feuFlore)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuFlore>img')
-    #     insertUI(selector = '#feuFlore',
-    #              ui = img(src = "Resources/pictogrammes/rond_vert.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuFlore>img')
-    #     insertUI(selector = '#feuFlore',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    #   if(as.numeric(input$feuInvertebre)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuInvertebre>img')
-    #     insertUI(selector = '#feuInvertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_orange.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuInvertebre>img')
-    #     insertUI(selector = '#feuInvertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    #   if(as.numeric(input$feuVertebre)%%2==1)
-    #   {
-    #     removeUI(selector = '#feuVertebre>img')
-    #     insertUI(selector = '#feuVertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_bleu.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   else{
-    #     removeUI(selector = '#feuVertebre>img')
-    #     insertUI(selector = '#feuVertebre',
-    #              ui = img(src = "Resources/pictogrammes/rond_gris.png",
-    #                       width=15,
-    #                       height=15))
-    #   }
-    #   
-    # }
-    # print(as.numeric(input$feuVertebre));
   })
+  
+  # Permet d'actualiser les nombres affichés
+  observeEvent(input$feuxActualized, {
+    if (input$feuxActualized != "noChange") {
+      dispNumbersForServerFct(input, output, session,
+                              data_polesFeux$flore, data_polesFeux$invertebre, data_polesFeux$vertebre);
+    }
+  });
 }
+
+# Les fonctions suivantes permettent d'actualiser les feux après un click
 
 # --------------- Les trois feux étaient actifs ---------------#
 allActivePolesFeux <- function(actualName, otherName1, otherName2,

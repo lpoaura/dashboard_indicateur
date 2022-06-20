@@ -39,8 +39,8 @@ server <- function(input, output, session) {
     groupe = tabGroupe[1,1],
     hasChanged = FALSE
   );
-  # Les selectors d'initialisent tout seul au début car l'indicateur "données"
-  # est sélectionné.
+  
+  # Initialisation des selectors
   initTypeIndSelectFct(input = input, output = output, session = session,
                        data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                        data_page = data_page, fromPrgm = "CREATE SERVER")
@@ -54,10 +54,31 @@ server <- function(input, output, session) {
     tab = "ind1"
   );
   
+  
+  
+  
+  # -------------------- TOUTES LES INITIALISATIONS -------------------- #
+  
+  # -------------------- INITIALISATION DES MOTS DE PASSE -------------------- #
   mdpAdmin = read_file("mdpAdmin.txt")
   # gestion des carctères \\ \ 
   mdpAdmin <- gsub("[\\]", "", mdpAdmin)
   
+  # -------------------- INITIALISATION DES SELECTORS -------------------- #
+  initTypeIndSelectFct(input = input, output = output, session = session,
+                       data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+                       data_page = data_page, fromPrgm = "CREATE SERVER");
+  
+  # -------------------- INITIALISATION DES DONNEES -------------------- #
+  dispNumbersForServerFct(input, output, session,
+                          isolate(data_polesFeux$flore),
+                          isolate(data_polesFeux$invertebre),
+                          isolate(data_polesFeux$vertebre));
+  
+  
+  
+  
+  # -------------------- TOUS LES OBSERVER -------------------- #
   
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
   buttonsNavTabFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
@@ -94,11 +115,4 @@ server <- function(input, output, session) {
   
   # -------------------- DYNAMIQUE DE LA FONCTION RAJOUT DU MODE ADMIN -------------------- #
   addPanelAccueilFct(input, output, session);
-  
-# -------------------- INITIALISATION DES DONNEES -------------------- #
-  # Il n'est pas nécessaire d'appeler cette fonction car l'actualisation de la 
-  # barre de temps (par le fait que la checkbox associée est validée) appelle
-  # déjà cette fonction.
-  # datasForServerFct(input, output, session);
-  
 }
