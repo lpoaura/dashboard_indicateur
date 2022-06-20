@@ -72,6 +72,50 @@ datasForServerFct <- function(input, output, session,
 }
 
 
+# Affichage des nombres associés aux feux
+# Création des nombres
+listPolesStr = c("'Flore et Fongus'", "'Invertébrés'", "'Vertébrés'");
+nombresDonnees <- c();
+nombresEspeces <- c();
+# !!! ATTENTION CE NE SONT PAS LES BONNES REQUETES IL SEMBLERAIT !!! #
+commandeDonnees = "SELECT SUM(nb_data_tot) FROM orb_indicateurs.mv_sraddet_ind_pole WHERE declinaison =";
+commandeEspeces = "SELECT SUM(nb_espece_dis) FROM orb_indicateurs.mv_sraddet_ind_pole WHERE declinaison =";
+for (el in listPolesStr) {
+  nombresDonnees <- c(nombresDonnees, dbGetQuery(con_gn,paste(commandeDonnees, el)));
+  nombresEspeces <- c(nombresEspeces, dbGetQuery(con_gn,paste(commandeEspeces, el)));
+}
+
+# Fonction qui s'occupe de changer le nombre affiché
+dispNumbersForServerFct <- function(input, output, session,
+                                  feuFlore, feuInvertebre, feuVertebre)
+{
+  print("Showing numbers...");
+  
+  nbrDonnees <- 0;
+  nbrEspeces <- 0;
+  
+  # Calcul des nouveaux nombres à afficher
+  if (feuFlore) {
+    nbrDonnees <- nbrDonnees + nombresDonnees[[1]];
+    nbrEspeces <- nbrEspeces + nombresEspeces[[1]];
+  }
+  if (feuInvertebre) {
+    nbrDonnees <- nbrDonnees + nombresDonnees[[2]];
+    nbrEspeces <- nbrEspeces + nombresEspeces[[2]];
+  }
+  if (feuVertebre) {
+    nbrDonnees <- nbrDonnees + nombresDonnees[[3]];
+    nbrEspeces <- nbrEspeces + nombresEspeces[[3]];
+  }
+  
+  # Changement de l'affichage
+  session$sendCustomMessage(type = 'actualizeFeuxNumbers', message = c(nbrDonnees, nbrEspeces));
+}
+
+
+
+# --------------- FONCTIONS AUXILIAIRES --------------- #
+
 # Cette fonction permet d'avoir une gamme de couleurs en fonction d'un pôle.
 # Elle est nécessaire lors de la création de certains graphiques.
 fcouleur <- function(pole){

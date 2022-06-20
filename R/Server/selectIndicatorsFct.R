@@ -39,38 +39,6 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
                        data_page, fromPrgm = "ObserveSelectInd");
   });
   
-  # observeEvent(input$selectIndicator, {
-  #   print(paste("New indicator selected : ", input$selectIndicator, sep=""));
-  #   session$sendCustomMessage(type = 'selectIndicator', message = '');
-  # });
-  # 
-  # observeEvent(input$currentInd, {
-  #   data_currentInd$indicator <- input$currentInd;
-  #   print(paste("New current indicator : ", data_currentInd$indicator, sep=""));
-  #   
-  #   # Changement des graphiques et de la carte
-  #   poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-  #   groupe <- "general";
-  #   if (poles != "general") groupe <- "pole";
-  #   datasForServerFct(input = input, output = output, session = session,
-  #                     type = data_currentInd$indicator,
-  #                     groupe = groupe, pole = poles, taxo = "Oiseaux",
-  #                     année = data_year$year);
-  #   
-  #   # Changement de la liste des indicateurs
-  #   initSelectorsFct(input, output, session,
-  #                    isolate(data_page$page), isolate(data_page$page),
-  #                    isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
-  #                    poles,
-  #                    "currentInd");
-  # });
-  # 
-  # observeEvent(input$currentIndName, {
-  #   data_currentInd$indicatorName <- input$currentIndName;
-  #   print(paste("New current indicator name : ", input$currentIndName, sep=""));
-  #   session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
-  # });
-  
   
   
   # Changement sur le select de la déclinaison (seulement expert)
@@ -102,33 +70,6 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
                           data_page, fromPrgm = "ObserveSelectInd");
   });
   
-  # observeEvent(input$currentDeclinaison, {
-  #   print(paste("New current declinaison : ", input$currentDeclinaison, sep=""));
-  #   if (input$currentDeclinaison == "general") {
-  #     data_polesButtons$flore <- TRUE;
-  #     data_polesButtons$invertebre <- TRUE;
-  #     data_polesButtons$vertebre <- TRUE;
-  #     
-  #     setPolesFct(session,data_polesButtons);
-  #   }
-  #   
-  #   # Changement des graphiques et de la carte
-  #   poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-  #   groupe <- "general";
-  #   if (poles != "general") groupe <- "pole";
-  #   # datasForServerFct(input = input, output = output, session = session,
-  #   #                   type = data_currentInd$indicator,
-  #   #                   groupe = groupe, pole = poles, taxo = "Oiseaux",
-  #   #                   année = data_year$year);
-  #   
-  #   # Changement de la liste des indicateurs
-  #   initSelectorsFct(input, output, session,
-  #                    isolate(data_page$page), isolate(data_page$page),
-  #                    isolate(data_currentInd$indicator), isolate(data_currentInd$indicatorName),
-  #                    poles,
-  #                    "currentDeclinaison");
-  # });
-  
   
   
   # Changement sur le select du (seulement expert)
@@ -158,10 +99,6 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
       dispDatasForServerFct(input, output, session);
     }
   });
-  
-  # observeEvent(input$currentGroupe, {
-  #   print(paste("New groupe : ", input$currentDeclinaison, sep=""));
-  # });
   
   
   

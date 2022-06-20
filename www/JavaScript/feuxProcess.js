@@ -50,6 +50,8 @@ $(document).ready(function () {
               color1 + ",1) 33%, rgba(" +
               color2 + ",1) 67%, rgba(" +
               color2 + ",1) 100%)";
+        
+        Shiny.setInputValue("feuxActualized", feux);
     });
   });
 });

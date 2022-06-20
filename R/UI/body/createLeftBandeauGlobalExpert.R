@@ -44,28 +44,28 @@ divChiff <- div(id = "chiffreGlobaux",
 
 # Menu déroulant des indicateurs
 selectIndicator <- tags$select(id = "selectIndicator",
-                               "onfocus"='this.size=2;',
+                               "onfocus"='this.size=5;',
                                "onblur"='this.size=1;' ,
                                "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant du type d'indicateurs
 titleSelectTypeIndicator <- tags$p(class = "titleSel","Type d'indicateurs :")
 selectTypeIndicator <- tags$select(id = "selectTypeIndicator",
-                                   "onfocus"='this.size=2;',
+                                   "onfocus"='this.size=5;',
                                    "onblur"='this.size=1;' ,
                                    "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant de la déclinaison
 titleSelectDeclinaison <- tags$p(class = "titleSel","Déclinaison :")
 selectDeclinaison <- tags$select(id = "selectDeclinaison",
-                                 "onfocus"='this.size=2;',
+                                 "onfocus"='this.size=5;',
                                  "onblur"='this.size=1;' ,
                                  "onchange"='this.size=1; this.blur();')
 
 # Menu déroulant du groupe
 titleSelectGroupe <- tags$p(id = "pTitleSelGroupe", class = "titleSel","Groupe :")
 selectGroupe <- tags$select(id = "selectGroupe",
-                            "onfocus"='this.size=2;',
+                            "onfocus"='this.size=5;',
                             "onblur"='this.size=1;' ,
                             "onchange"='this.size=1; this.blur();')
 
