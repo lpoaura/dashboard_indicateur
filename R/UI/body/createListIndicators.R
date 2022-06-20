@@ -35,19 +35,46 @@ tabGroupe <- data.frame(groupe = "RIEN",
                             isFlore = FALSE,
                             isInvertebre = FALSE,
                             isVertebre = FALSE);
-newRow <- list("all", TRUE, TRUE, TRUE);
+newRow <- list("Toutes", TRUE, TRUE, TRUE);
 tabGroupe <- rbind(tabGroupe,newRow);
-newRow <- list("test1", TRUE, FALSE, FALSE);
+# a<-dbGetQuery(con_gn, "SELECT distinct declinaison FROM orb_indicateurs.mv_sraddet_ind_taxo")
+newRow <- list("Ptéridophytes", TRUE, FALSE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
-newRow <- list("test2", FALSE, FALSE, TRUE);
+newRow <- list("Oiseaux", FALSE, FALSE, TRUE);
 tabGroupe <- rbind(tabGroupe,newRow);
-newRow <- list("test3", FALSE, TRUE, FALSE);
+newRow <- list("Bivalves", FALSE, TRUE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
-newRow <- list("test4", TRUE, FALSE, FALSE);
+newRow <- list("Gastéropodes", FALSE, TRUE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
-newRow <- list("test5", FALSE, FALSE, TRUE);
+newRow <- list("Gymnospermes", TRUE, FALSE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
-newRow <- list("test6", FALSE, FALSE, TRUE);
+newRow <- list("Autres", TRUE, TRUE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Crustacés", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Reptiles", FALSE, FALSE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Insectes", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Poissons", FALSE, FALSE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Mousses", TRUE, FALSE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Mammifères", FALSE, FALSE, TRUE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Angiospermes", TRUE, FALSE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Arachnides", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Diatomées", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Myriapodes", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Hépatiques et Anthocérotes", TRUE, FALSE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Amphibiens", FALSE, TRUE, FALSE);
+tabGroupe <- rbind(tabGroupe,newRow);
+newRow <- list("Lichens", TRUE, FALSE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
 
 

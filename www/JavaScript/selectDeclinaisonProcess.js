@@ -1,6 +1,6 @@
 /* Ce script permet de mettre à jour la valeur affichée de la déclinaison actuelle */
 
-(document).ready(function () {
+$(document).ready(function () {
 
   console.log("JQuery is ok");
   

@@ -9,12 +9,12 @@ yearsSettingsFct <- function(input, output, session, data_year, data_currentInd,
       
       # Changement des graphiques et de la carte
       poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-      groupe <- "general";
-      
-      if (poles != "general") groupe <- "pole";
+      decli <- data_currentInd$declinaison;
+      groupe <- data_currentInd$groupe;
+      if (poles != "general" && decli == "general") { decli <- "pole"; }
       datasForServerFct(input = input, output = output, session = session,
                         type = data_currentInd$indicator,
-                        groupe = groupe, pole = poles, taxo = "Oiseaux",
+                        groupe = decli, pole = poles, taxo = groupe,
                         année = data_year$year);
     }
   })
@@ -30,11 +30,12 @@ yearsSettingsFct <- function(input, output, session, data_year, data_currentInd,
       
       # Changement des graphiques et de la carte
       poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-      groupe <- "general";
-      if (poles != "general") groupe <- "pole";
+      decli <- data_currentInd$declinaison;
+      groupe <- data_currentInd$groupe;
+      if (poles != "general" && decli == "general") { decli <- "pole"; }
       datasForServerFct(input = input, output = output, session = session,
                         type = data_currentInd$indicator,
-                        groupe = groupe, pole = poles, taxo = "Oiseaux",
+                        groupe = decli, pole = poles, taxo = groupe,
                         année = data_year$year);
     }
   })

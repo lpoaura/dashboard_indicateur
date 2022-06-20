@@ -54,7 +54,7 @@ modifyIndSelectFct <- function(input, output, session,
 {
   removeUI(selector = "#selectIndicator option", multiple = TRUE)
   
-  print(paste("Changement d'indicateur from program", fromPrgm));
+  print(paste("Initialisation d'indicateur from program", fromPrgm));
   
   # Numéro de l'indicateur en cours
   numInd <- findIndicateurNum(data_currentInd$indicator);
@@ -299,8 +299,8 @@ modifyGroupeSelectFct <- function (input, output, session,
       }
       
       if (!isGroupeDispo(findGroupeNum(data_currentInd$groupe), data_polesButtons)) {
-        # Choix du groupe : cas de base "all"
-        data_currentInd$groupe <- "all";
+        # Choix du groupe : cas de base "Toutes"
+        data_currentInd$groupe <- "Toutes";
         data_currentInd$hasChanged <- TRUE;
       }
       # Cas valide : on ne change pas le groupe actuel
