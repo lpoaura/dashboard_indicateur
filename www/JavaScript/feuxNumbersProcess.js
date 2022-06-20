@@ -1,3 +1,5 @@
+/* Ce script permet de mettre à jour les nombres correspondants aux feux actifs */
+
 $(document).ready(function () {
 
   console.log("JQuery is ok");

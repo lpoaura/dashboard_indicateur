@@ -1,3 +1,5 @@
+/* Ce script permet d'initialiser l'année en cours d'obervation */
+
 $(document).ready(function () {
 
   console.log("JQuery is ok");

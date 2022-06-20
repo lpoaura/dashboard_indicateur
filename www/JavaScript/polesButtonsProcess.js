@@ -1,3 +1,5 @@
+/* Ce script permet de mettre à jour les couleurs de l'affichage des selectors */
+
 $(document).ready(function () {
 
   console.log("JQuery is ok");

@@ -1,3 +1,6 @@
+/* Ce script permet de mettre à jour les couleurs de l'affichage des nombres 
+et aussi, ensuite, les nombres en question */
+
 $(document).ready(function () {
 
   console.log("JQuery is ok");
