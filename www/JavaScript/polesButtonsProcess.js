@@ -38,12 +38,17 @@ $(document).ready(function () {
             color1 = "165, 106, 194";
             color2 = "165, 106, 194";
         }
-        document.getElementById('selectIndicator').style.background =
+        console.log("Actualize color selectors to " + polesButtons);
+        selects = document.getElementsByTagName('select');
+        for(let i=0; i<selects.length; i++) {
+          sel = selects[i];
+          sel.style.background =
               "linear-gradient(90deg, rgba(" +
               color1 + ",1) 0%, rgba(" +
               color1 + ",1) 33%, rgba(" +
               color2 + ",1) 67%, rgba(" +
               color2 + ",1) 100%)";
+        }
     });
   });
 

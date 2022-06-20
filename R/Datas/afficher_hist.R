@@ -79,12 +79,18 @@ afficher_hist<-function(groupe,pole,taxo,type)
   }
   else if (groupe == "taxo"){
     
-    count <- dbGetQuery(con_gn, "select DISTINCT annee from orb_indicateurs.mv_sraddet_ind_taxo ORDER BY annee ASC")[,1]
-    hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",taxo,"' ORDER BY annee ASC",sep = ""))[,1]
-    dataHist <- data.frame(count,hist)   
-    
-    plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))
-    print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
+    if (taxo != "all") {
+      count <- dbGetQuery(con_gn, "select DISTINCT annee from orb_indicateurs.mv_sraddet_ind_taxo ORDER BY annee ASC")[,1]
+      hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",taxo,"' ORDER BY annee ASC",sep = ""))[,1]
+      dataHist <- data.frame(count,hist)   
+      
+      plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))
+      print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
+    }
+    else {
+      isPlot <- FALSE;
+      return(list(isPlot,plot))
+    }
   }
   else {
     return(list(isPlot,plot))

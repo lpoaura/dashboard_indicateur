@@ -1,124 +1,124 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de choix de pôles dans le bandeau de settings
 
-buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year) {
+buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year, data_page) {
   
   #--------------- Bouton Fleur ---------------#
   observeEvent(input$actionButtonFlower, {
     print("Flower button pressed");
     
-    data_polesButtonsOrdered <- reactiveValues(
-      actualData = data_polesButtons$flore,
-      otherData1 = data_polesButtons$invertebre,
-      otherData2 = data_polesButtons$vertebre
-    );
-    actualName <- "fleur";
-    otherName1 <- "abeille";
-    otherName2 <- "patte";
-    actualButton <- 'Flower';
-    otherButton1 <- 'Bee';
-    otherButton2 <- 'Paw';
-    
-    processPolesButtons(actualName, otherName1, otherName2,
-                        actualButton, otherButton1, otherButton2,
-                        data_polesButtonsOrdered)
-    
-    data_polesButtons$flore <- data_polesButtonsOrdered$actualData
-    data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData1
-    data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
-    
-    actializeFeux(session, data_polesButtons, data_polesFeux);
-    
-    stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
-    
-    # Changement des graphiques et de la carte
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    groupe <- "general";
-    if (poles != "general") groupe <- "pole";
-    datasForServerFct(input = input, output = output, session = session,
-                      type = data_currentInd$indicator,
-                      groupe = groupe, pole = poles, taxo = "Oiseaux",
-                      année = data_year$year);
+    # Il faut que les poles soient disponibles pour l'indicateur actuel
+    if (findIndicateurInfo(data_currentInd$indicator, "isPoles")) {
+      data_polesButtonsOrdered <- reactiveValues(
+        actualData = data_polesButtons$flore,
+        otherData1 = data_polesButtons$invertebre,
+        otherData2 = data_polesButtons$vertebre
+      );
+      actualName <- "fleur";
+      otherName1 <- "abeille";
+      otherName2 <- "patte";
+      actualButton <- 'Flower';
+      otherButton1 <- 'Bee';
+      otherButton2 <- 'Paw';
+      
+      processPolesButtons(actualName, otherName1, otherName2,
+                          actualButton, otherButton1, otherButton2,
+                          data_polesButtonsOrdered)
+      
+      data_polesButtons$flore <- data_polesButtonsOrdered$actualData
+      data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData1
+      data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
+      
+      actializeFeux(session, data_polesButtons, data_polesFeux);
+      
+      
+      # Changement des selectors et des graphiques
+      data_currentInd$hasChanged <- TRUE;
+      modifyDecliSelectFct(input, output, session,
+                           data_currentInd, data_polesButtons,
+                           data_page, fromPrgm = "buttonFlore")
+    }
   })
   
   #--------------- Bouton Abeille ---------------#
   observeEvent(input$actionButtonBee, {
     print("Bee button pressed");
     
-    data_polesButtonsOrdered <- reactiveValues(
-      actualData = data_polesButtons$invertebre,
-      otherData1 = data_polesButtons$flore,
-      otherData2 = data_polesButtons$vertebre
-    );
-    actualName <- "abeille";
-    otherName1 <- "fleur";
-    otherName2 <- "patte";
-    actualButton <- 'Bee';
-    otherButton1 <- 'Flower';
-    otherButton2 <- 'Paw';
-    
-    processPolesButtons(actualName, otherName1, otherName2,
-                        actualButton, otherButton1, otherButton2,
-                        data_polesButtonsOrdered)
-    
-    
-    data_polesButtons$invertebre <- data_polesButtonsOrdered$actualData
-    data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
-    data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
-    
-    actializeFeux(session, data_polesButtons, data_polesFeux);
-    
-    stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
-    
-    # Changement des graphiques et de la carte
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    groupe <- "general";
-    if (poles != "general") groupe <- "pole";
-    datasForServerFct(input = input, output = output, session = session,
-                      type = data_currentInd$indicator,
-                      groupe = groupe, pole = poles, taxo = "Oiseaux",
-                      année = data_year$year);
+    # Il faut que les poles soient disponibles pour l'indicateur actuel
+    if (findIndicateurInfo(data_currentInd$indicator, "isPoles")) {
+      data_polesButtonsOrdered <- reactiveValues(
+        actualData = data_polesButtons$invertebre,
+        otherData1 = data_polesButtons$flore,
+        otherData2 = data_polesButtons$vertebre
+      );
+      actualName <- "abeille";
+      otherName1 <- "fleur";
+      otherName2 <- "patte";
+      actualButton <- 'Bee';
+      otherButton1 <- 'Flower';
+      otherButton2 <- 'Paw';
+      
+      processPolesButtons(actualName, otherName1, otherName2,
+                          actualButton, otherButton1, otherButton2,
+                          data_polesButtonsOrdered)
+      
+      
+      data_polesButtons$invertebre <- data_polesButtonsOrdered$actualData
+      data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
+      data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
+      
+      actializeFeux(session, data_polesButtons, data_polesFeux);
+      
+      stringForJS <- encodeFeux(data_polesButtons);
+      session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+      
+      
+      # Changement des selectors et des graphiques
+      data_currentInd$hasChanged <- TRUE;
+      modifyDecliSelectFct(input, output, session,
+                           data_currentInd, data_polesButtons,
+                           data_page, fromPrgm = "buttonInvertebre")
+    }
   })
   
   #--------------- Bouton Patte ---------------#
   observeEvent(input$actionButtonPaw, {
     print("Bee button pressed");
     
-    data_polesButtonsOrdered <- reactiveValues(
-      actualData = data_polesButtons$vertebre,
-      otherData1 = data_polesButtons$flore,
-      otherData2 = data_polesButtons$invertebre
-    );
-    actualName <- "patte";
-    otherName1 <- "fleur";
-    otherName2 <- "abeille";
-    actualButton <- 'Paw';
-    otherButton1 <- 'Flower';
-    otherButton2 <- 'Bee';
-    
-    processPolesButtons(actualName, otherName1, otherName2,
-                        actualButton, otherButton1, otherButton2,
-                        data_polesButtonsOrdered)
-    
-    data_polesButtons$vertebre <- data_polesButtonsOrdered$actualData
-    data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
-    data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData2
-    
-    actializeFeux(session, data_polesButtons, data_polesFeux);
-    
-    stringForJS <- encodeFeux(data_polesButtons);
-    session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
-    
-    # Changement des graphiques et de la carte
-    poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
-    groupe <- "general";
-    if (poles != "general") groupe <- "pole";
-    datasForServerFct(input = input, output = output, session = session,
-                      type = data_currentInd$indicator,
-                      groupe = groupe, pole = poles, taxo = "Oiseaux",
-                      année = data_year$year);
+    # Il faut que les poles soient disponibles pour l'indicateur actuel
+    if (findIndicateurInfo(data_currentInd$indicator, "isPoles")) {
+      data_polesButtonsOrdered <- reactiveValues(
+        actualData = data_polesButtons$vertebre,
+        otherData1 = data_polesButtons$flore,
+        otherData2 = data_polesButtons$invertebre
+      );
+      actualName <- "patte";
+      otherName1 <- "fleur";
+      otherName2 <- "abeille";
+      actualButton <- 'Paw';
+      otherButton1 <- 'Flower';
+      otherButton2 <- 'Bee';
+      
+      processPolesButtons(actualName, otherName1, otherName2,
+                          actualButton, otherButton1, otherButton2,
+                          data_polesButtonsOrdered)
+      
+      data_polesButtons$vertebre <- data_polesButtonsOrdered$actualData
+      data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
+      data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData2
+      
+      actializeFeux(session, data_polesButtons, data_polesFeux);
+      
+      stringForJS <- encodeFeux(data_polesButtons);
+      session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
+      
+      
+      # Changement des selectors et des graphiques
+      data_currentInd$hasChanged <- TRUE;
+      modifyDecliSelectFct(input, output, session,
+                           data_currentInd, data_polesButtons,
+                           data_page, fromPrgm = "buttonVertebre")
+    }
   })
 }
 
@@ -362,14 +362,14 @@ setPolesFct <- function(session, data_polesButtons) {
              ui = img(src = "Resources/pictogrammes/fleur_violet.png",
                       width=50,
                       height=50))
-    removeUI(selector = '#actionButtonFlower>img')
-    insertUI(selector = '#actionButtonFlower',
-             ui = img(src = "Resources/pictogrammes/fleur_violet.png",
+    removeUI(selector = '#actionButtonBee>img')
+    insertUI(selector = '#actionButtonBee',
+             ui = img(src = "Resources/pictogrammes/abeille_violet.png",
                       width=50,
                       height=50))
-    removeUI(selector = '#actionButtonFlower>img')
-    insertUI(selector = '#actionButtonFlower',
-             ui = img(src = "Resources/pictogrammes/fleur_violet.png",
+    removeUI(selector = '#actionButtonPaw>img')
+    insertUI(selector = '#actionButtonPaw',
+             ui = img(src = "Resources/pictogrammes/patte_violet.png",
                       width=50,
                       height=50))
   } 
@@ -406,7 +406,7 @@ setPolesFct <- function(session, data_polesButtons) {
     if (data_polesButtons$vertebre) {
       removeUI(selector = '#actionButtonPaw>img')
       insertUI(selector = '#actionButtonPaw',
-               ui = img(src = "Resources/pictogrammes/patte_violet.png",
+               ui = img(src = "Resources/pictogrammes/patte.png",
                         width=50,
                         height=50))
     } else {

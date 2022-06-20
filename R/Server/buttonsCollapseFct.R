@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonCollapseFct <- function(input, output, session, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
+buttonCollapseFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
   
   # Collapse button du bandeau de settings
   observeEvent(input$collapaseSettingsButton, {
@@ -32,13 +32,24 @@ buttonCollapseFct <- function(input, output, session, data_currentInd, data_pole
   
   observeEvent(input$uncollapaseBandeauButton, {
     print("uncollapseButton bandeau pressed");
-    removeUI(selector = '#bandeauCollapsed')
-    insertUI(selector = '#bandeauTotal',
-             ui = divBandeau)
+    removeUI(selector = '#bandeauCollapsed');
+    if (data_page$page == "global") {
+      insertUI(selector = '#bandeauTotal',
+               ui = divBandeau)
+    }
+    else {
+      insertUI(selector = '#bandeauTotal',
+               ui = divBandeauExpert)
+    }
     
-    # Permet d'initialiser les indicateurs et les pôles.
+    # Permet d'initialiser les indicateurs, les pôles et les graphiques.
     setFeuxFct(session, data_polesButtons, data_polesFeux);
-    initSelectorsFct(input, output, session, isolate(data_currentInd$indicator),isolate(data_currentInd$indicatorName));
+    session$onFlushed(function() {
+      initTypeIndSelectFct(input = input, output = output, session = session,
+                           data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+                           data_page = data_page, fromPrgm = "collapse button")
+    });
+    # dispDatasForServerFct(input, output, session);
   })
 }
 

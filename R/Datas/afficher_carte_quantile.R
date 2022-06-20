@@ -61,7 +61,18 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
   if (groupe == "general") {
   }
   else if (groupe == "taxo") {
-    commande <- paste(commande, " WHERE declinaison ='",taxo,"'",sep = "")
+    if (taxo != "all") {
+      commande <- paste(commande, " WHERE declinaison ='",taxo,"'",sep = "")
+    }
+    else {
+      map <- leaflet() %>%
+      addTiles() %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      setView( lng = 4.3871779
+               , lat = 45.439695
+               , zoom = 7.1 )
+      return(map);
+    }
   }
   else if (groupe == "pole") {
     commande <- paste(commande, " WHERE declinaison ='",pole,"'",sep = "")

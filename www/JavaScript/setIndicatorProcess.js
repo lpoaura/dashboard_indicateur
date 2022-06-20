@@ -5,9 +5,8 @@ $(document).ready(function () {
   $(function () {
     Shiny.addCustomMessageHandler(
       'setIndicator', function (indicator) {
-        let selected = document.querySelector("#selectIndicator");
-        selected.value = indicator;
-        console.log("New indicator " + indicator);
+        Shiny.setInputValue('selectIndicator', indicator);
+        console.log("New indicator set " + indicator);
     });
   });
 });

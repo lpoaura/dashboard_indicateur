@@ -3,22 +3,22 @@
 
 print("Creating datas for server...");
 
-datasForServerFct <- function(input, output, session,
-                              type = "données",
-                              groupe = "general", pole = "general", taxo = "Oiseaux",
-                              année = 0) {
-  
-  print("New datas to show...");
-  
-  
-  # Actualisation de la carte
-  mapPlot <- afficher_carte(groupe,pole,taxo,année,type);
-  output$mymap <- renderLeaflet({mapPlot});
-  
-  
+mapPlot <- leaflet() %>%
+  addTiles() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  setView(lng = 4.3871779,
+          lat = 45.439695,
+          zoom = 7.1)
+piePlot <- list(0,NULL,NULL);
+histoPlot <- list(FALSE,NULL);
+barPlot <- list(FALSE,NULL);
+
+# Affichage des données à partir des variables globales de graphique
+dispDatasForServerFct <- function(input, output, session)
+{
+  print("Re showing datas...");
   
   # Actualisation du pie chart
-  piePlot <- afficher_pie(groupe,pole,taxo,année,type);
   removeUI(selector = "#pie1");
   removeUI(selector = "#pie2");
   if (piePlot[[1]] >= 1) {
@@ -35,9 +35,7 @@ datasForServerFct <- function(input, output, session,
   }
   
   
-  
   # Actualisation de l'histogramme
-  histoPlot <- afficher_hist(groupe,pole,taxo,type);
   removeUI(selector = "#hist");
   if (histoPlot[[1]]) {
     insertUI(selector = "#histogramme",
@@ -45,6 +43,32 @@ datasForServerFct <- function(input, output, session,
     output$hist <- renderPlotly({histoPlot[[2]]});
     output$histCopy <- renderPlotly({histoPlot[[2]]});
   }
+}
+
+# Modification des variables globales des graphiques
+datasForServerFct <- function(input, output, session,
+                                 type = "données",
+                                 groupe = "general", pole = "general", taxo = "Oiseaux",
+                                 année = 0)
+{
+  print("New datas to show...");
+  # print(type)
+  # print(groupe)
+  # print(pole)
+  # print(taxo)
+  groupe <- fdecodeGroupe(groupe);
+  
+  print("Création d'une map...");
+  mapPlot <<- afficher_carte(groupe,pole,taxo,année,type);
+  output$mymap <- renderLeaflet({mapPlot});
+  
+  print("Création d'une pieChart...");
+  piePlot <<- afficher_pie(groupe,pole,taxo,année,type);
+  
+  print("Création d'un histogramme...");
+  histoPlot <<- afficher_hist(groupe,pole,taxo,type);
+  
+  dispDatasForServerFct(input, output, session);
 }
 
 
@@ -60,6 +84,7 @@ fcouleur <- function(pole){
   if (pole =="Invertébrés"){return(colors2)}
   if (pole =="Flore et Fongus"){return(colors3)}
 }
+
 
 
 # Cette fonction permet de décoder les pôles pour prendre en compte deux pôles
@@ -89,4 +114,15 @@ fdecode_poles <- function(pole) {
          }
   )
   return(list(nbPoles, pole1, pole2))
+}
+
+# Cette fonction permet de décoder le groupe transmis à la création de
+# graphiques. Utile si les information n'ont pas été modifiée au préalable.
+fdecodeGroupe <- function(groupe) {
+  switch(groupe,
+         "poles" = {
+           groupe <- "pole";
+         }
+  )
+  return(groupe)
 }
