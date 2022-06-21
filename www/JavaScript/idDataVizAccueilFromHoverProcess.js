@@ -13,6 +13,9 @@ $(document).ready(function () {
       let r1 = event.target.closest("#histogramme");
       let r2 = event.target.closest("#pie1");
       let r3 = event.target.closest("#pie2");
+      let r4 = event.target.closest("#bar");
+      let r5 = event.target.closest("#graphFournProd1");
+      let r6 = event.target.closest("#graphFournProd2");
       
       if (r1!==null) {
         /*On modifie un input R qui va être écouté par un ObserverEvent*/
@@ -27,6 +30,21 @@ $(document).ready(function () {
       else if (r3!==null) {
         /*On modifie un input R qui va être écouté par un ObserverEvent*/
         Shiny.setInputValue('idDataViz', "pie2",{priority: "event"});
+      }
+      
+      else if (r4!==null) {
+        /*On modifie un input R qui va être écouté par un ObserverEvent*/
+        Shiny.setInputValue('idDataViz', "bar",{priority: "event"});
+      }
+      
+      else if (r5!==null) {
+        /*On modifie un input R qui va être écouté par un ObserverEvent*/
+        Shiny.setInputValue('idDataViz', "graphFournProd1",{priority: "event"});
+      }
+      
+      else if (r6!==null) {
+        /*On modifie un input R qui va être écouté par un ObserverEvent*/
+        Shiny.setInputValue('idDataViz', "graphFournProd2",{priority: "event"});
       }
       
       else {

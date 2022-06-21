@@ -77,6 +77,65 @@ tabGroupe <- rbind(tabGroupe,newRow);
 newRow <- list("Lichens", TRUE, FALSE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
 
+getIsPoleGroupe <- function(taxo, pole) {
+  nPole1 <- 0;
+  nPole2 <- 0;
+  if (pole == "Flore et Fongus") {
+    nPole1 <- 2;
+    nPole2 <- 2;
+  }
+  else if (pole == "Invertébrés") {
+    nPole1 <- 3;
+    nPole2 <- 3;
+  }
+  else if (pole == "Vertébrés") {
+    nPole1 <- 4;
+    nPole2 <- 4;
+  }
+  else if (pole == "Flore Invertébrés") {
+    nPole1 <- 2;
+    nPole2 <- 3;
+  }
+  else if (pole == "Flore Vertébrés") {
+    nPole1 <- 2;
+    nPole2 <- 4;
+  }
+  else if (pole == "Invertébrés Vertébrés") {
+    nPole1 <- 3;
+    nPole2 <- 4;
+  }
+  else { return(TRUE); }
+  
+  for (i in 1:nrow(tabGroupe)) {
+    if ((tabGroupe[i,nPole1] || tabGroupe[i,nPole2]) && tabGroupe[i,1] == taxo) {
+      return(TRUE);
+    }
+  }
+  return(FALSE);
+}
+
+findPoleForTaxo <- function(taxo) {
+  for (i in 1:nrow(tabGroupe)) {
+    if (tabGroupe[i,1] == taxo) {
+      if (tabGroupe[i,2] && tabGroupe[i,3] && tabGroupe[i,4]) {
+        return("general");
+      }
+      else if (tabGroupe[i,2]) {
+        return("Flore et Fongus");
+      }
+      else if (tabGroupe[i,3]) {
+        return("Invertébrés");
+      }
+      else if (tabGroupe[i,4]) {
+        return("Vertébrés");
+      }
+      else {
+        return("none");
+      }
+    }
+  }
+  return("none");
+}
 
 # Liste associée aux indicateurs
 tabIndicators <- data.frame(indName = "Nombre de données",
@@ -121,9 +180,6 @@ tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-
-newRow <- list("Test", "test", FALSE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 # ---!!! DERNIERE LIGNE INDICATEUR !!!--- #
 print(tabIndicators)

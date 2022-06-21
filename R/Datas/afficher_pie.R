@@ -13,7 +13,7 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
   if (type == "connaissances") {
     
   }
-  # Cas par défaut : aucun histogramme à tracer
+  # Cas par défaut : aucun pieChart à tracer
   else {
     nbPlot <- 0;
     return(list(nbPlot,plot1,plot2));
@@ -23,9 +23,18 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
     base = "orb_indicateurs.ind_connaissance_pole"
   }
   else if (groupe == "taxo"){
-    base = "orb_indicateurs.ind_connaissance_taxo"
+    if (taxo != "Toutes") {
+      pole <- findPoleForTaxo(taxo);
+      listPoles <- fdecode_poles(pole);
+      base = "orb_indicateurs.ind_connaissance_taxo"
+    }
+    # Cas par défaut : aucun pieChart à tracer
+    else {
+      nbPlot <- 0;
+      return(list(nbPlot,plot1,plot2));
+    }
   }
-  # Cas par défaut : aucun histogramme à tracer
+  # Cas par défaut : aucun pieChart à tracer
   else {
     nbPlot <- 0;
     return(list(nbPlot,plot1,plot2));
@@ -42,7 +51,6 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
     
   }
   else if (groupe == "taxo") {
-    
     com_faible <- paste(com_faible, " AND declinaison ='",taxo,"'",sep = "")
     com_moyenne <- paste(com_moyenne, " AND declinaison ='",taxo,"'",sep = "")
     com_bonne <- paste(com_bonne, " AND declinaison ='",taxo,"'",sep = "")
@@ -67,7 +75,7 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
       com_elevee2 <- paste(commande,"'Ã‰levÃ©s'", " AND declinaison ='",listPoles[[3]],"'",sep = "")
     }
   }
-  # Cas par défaut : aucun histogramme à tracer
+  # Cas par défaut : aucun pieChart à tracer
   else {
     nbPlot <- 0;
     return(list(nbPlot,plot1,plot2));
@@ -89,11 +97,8 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
       com_bonne2 <- paste(com_bonne2, " AND annee_group ='",créneau,"'",sep = "")
       com_elevee2 <- paste(com_elevee2, " AND annee_group ='",créneau,"'",sep = "")
     }
-    
-    print(créneau)
   }
   
-  print (com_faible)
   faible <- dbGetQuery(con_gn, com_faible)[,1,1]
   moyenne <- dbGetQuery(con_gn, com_moyenne)[,1,1]
   bonne <- dbGetQuery(con_gn, com_bonne)[,1,1]

@@ -7,9 +7,10 @@ fcouleur_unique <- function(pole){
   colors3 <- '#6AB023'#vert
   colors4 <- '#0099D0'#bleu
   if (pole =="general"){return(colors1)}
-  if (pole =="Vertébrés"){return(colors4)}
-  if (pole =="Invertébrés"){return(colors2)}
-  if (pole =="Flore et Fongus"){return(colors3)}
+  else if (pole =="Vertébrés"){return(colors4)}
+  else if (pole =="Invertébrés"){return(colors2)}
+  else if (pole =="Flore et Fongus"){return(colors3)}
+  else {print(paste("ERREUR SUR LE POLE :", pole)); return(colors1)}
 }
 
 afficher_hist<-function(groupe,pole,taxo,type)
@@ -44,7 +45,7 @@ afficher_hist<-function(groupe,pole,taxo,type)
   
   listPoles <- fdecode_poles(pole);
   
-  if (groupe == "general"){
+  if (groupe == "general" || (groupe == "pole" && pole == "general")) {
     
     count <- dbGetQuery(con_gn, "select DISTINCT annee from orb_indicateurs.mv_sraddet_ind_pole ORDER BY annee ASC")[,1]
     
@@ -79,12 +80,12 @@ afficher_hist<-function(groupe,pole,taxo,type)
   }
   else if (groupe == "taxo"){
     
-    if (taxo != "all") {
+    if (taxo != "Toutes") {
       count <- dbGetQuery(con_gn, "select DISTINCT annee from orb_indicateurs.mv_sraddet_ind_taxo ORDER BY annee ASC")[,1]
       hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",taxo,"' ORDER BY annee ASC",sep = ""))[,1]
       dataHist <- data.frame(count,hist)   
       
-      plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(pole)))
+      plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(findPoleForTaxo(taxo))))
       print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
     }
     else {
@@ -93,6 +94,7 @@ afficher_hist<-function(groupe,pole,taxo,type)
     }
   }
   else {
+    isPlot <- FALSE;
     return(list(isPlot,plot))
     print(paste("ERREUR SUR LE GROUPE :", groupe));
   }
