@@ -278,7 +278,11 @@ modifyGroupeSelectFct <- function (input, output, session,
   
   # Page globale
   if (data_page$page == "global") {
-    data_currentInd$groupe <- "RIEN";
+    if(data_currentInd$declinaison == "taxo") {
+      data_currentInd$groupe <- "Toutes";
+    }
+    else {
+      data_currentInd$groupe <- "RIEN";}
   }
   
   # Remplissage du select de type en page expert

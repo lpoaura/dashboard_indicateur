@@ -12,6 +12,7 @@ mapPlot <- leaflet() %>%
 piePlot <- list(0,NULL,NULL);
 histoPlot <- list(FALSE,NULL);
 barPlot <- list(FALSE,NULL);
+dataFournProd <- list(0,NULL,NULL);
 
 # Affichage des données à partir des variables globales de graphique
 dispDatasForServerFct <- function(input, output, session)
@@ -43,7 +44,40 @@ dispDatasForServerFct <- function(input, output, session)
     output$hist <- renderPlotly({histoPlot[[2]]});
     output$histCopy <- renderPlotly({histoPlot[[2]]});
   }
+  
+  
+  # Actualisation du barChart
+  removeUI(selector = "#bar");
+  if (barPlot[[1]]) {
+    insertUI(selector = "#barChart",
+             ui = plotlyOutput('bar'));
+    output$bar <- renderPlotly({barPlot[[2]]});
+    output$barCopy <- renderPlotly({barPlot[[2]]});
+  }
+  
+  
+  # Actualisation des données pour les fournisseurs/producteurs
+  removeUI(selector = "#graphFournProd1");
+  removeUI(selector = "#graphFournProd2");
+  if (dataFournProd[[1]] == 1) {
+    insertUI(selector = "#dataFournProd",
+             ui = plotlyOutput('graphFournProd1'));
+    output$graphFournProd1 <- renderPlotly({dataFournProd[[2]]});
+    output$graphFournProd1Copy <- renderPlotly({dataFournProd[[2]]});
+  }
+  else if (dataFournProd[[1]] == 2) {
+    insertUI(selector = "#dataFournProd",
+             ui = plotlyOutput('graphFournProd1'));
+    output$graphFournProd1 <- renderPlotly({dataFournProd[[2]]});
+    output$graphFournProd1Copy <- renderPlotly({dataFournProd[[2]]});
+    
+    insertUI(selector = "#dataFournProd",
+             ui = plotlyOutput('graphFournProd2'));
+    output$graphFournProd2 <- renderPlotly({dataFournProd[[3]]});
+    output$graphFournProd2Copy <- renderPlotly({dataFournProd[[3]]});
+  }
 }
+
 
 # Modification des variables globales des graphiques
 datasForServerFct <- function(input, output, session,
@@ -67,6 +101,12 @@ datasForServerFct <- function(input, output, session,
   
   print("Création d'un histogramme...");
   histoPlot <<- afficher_hist(groupe,pole,taxo,type);
+  
+  print("Création d'un barChart...");
+  barPlot <<- afficher_bar(groupe,pole,type,taxo,année);
+  
+  print("Création de données pour producteur/fournisseur...");
+  dataFournProd <<- afficher_fournisseur_producteur(groupe,type);
   
   dispDatasForServerFct(input, output, session);
 }

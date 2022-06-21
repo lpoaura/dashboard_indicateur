@@ -81,7 +81,9 @@ divDataSumUp <- div(id = "dataSumUp",
 divDataViz <- div(id = "dataViz",
                   divDataSumUp,
                   divHist,
-                  divPie)
+                  divPie,
+                  divBar,
+                  divFournProd)
 
 # Zone des sélecteurs 
 divSelectArea <- div(id="selectArea",

@@ -9,4 +9,6 @@ divPie <- div(id="pieChart");
 
 divHist <- div(id="histogramme");
 
-divBar <- div(id="barChart")
+divBar <- div(id="barChart");
+
+divFournProd <- div(id="dataFournProd")

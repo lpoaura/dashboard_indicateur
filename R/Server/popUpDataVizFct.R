@@ -28,6 +28,15 @@ popUpDataVizFct <- function(input, output, session) {
       else if (input$idDataViz=="pie2"){
         insertUI(selector = "#popUpDataViz", ui = plotlyOutput('pie2Copy'))
       }
+      else if (input$idDataViz=="bar"){
+        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('barCopy'))
+      }
+      else if (input$idDataViz=="graphFournProd1"){
+        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('graphFournProd1Copy'))
+      }
+      else if (input$idDataViz=="graphFournProd2"){
+        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('graphFournProd2Copy'))
+      }
     }
   })
 }

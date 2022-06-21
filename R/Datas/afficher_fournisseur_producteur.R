@@ -1,31 +1,52 @@
 
 afficher_fournisseur_producteur<-function(groupe,type)
 {
+  nbPlot <- 2;
+  plot1 <- NULL;
+  plot2 <- NULL;
+  
   if (groupe=="fournisseur"){
     base = "orb_indicateurs.mv_sraddet_ind_meta_fournisseur"
   }
   
-  if (groupe == "producteur"){
+  else if (groupe == "producteur"){
     base = "orb_indicateurs.mv_sraddet_ind_meta_producteur"
   }
+  # Cas par défaut : aucun graphique à tracer
+  else {
+    nbPlot <- 0;
+    return(list(nbPlot,plot1,plot2));
+  } 
   
-  if (type == "nombre de données"){
-    commande = paste("SELECT nom_organisme, nb_data FROM", base)
+  if (type == "données"){
+    commande1 = paste("SELECT nom_organisme, nb_data FROM", base)
+    commande2 = paste("SELECT nom_organisme, nb FROM", base)
   }
+  # Cas par défaut : aucun graphique à tracer
+  else {
+    isPlot <- 0;
+    return(list(nbPlot,plot1,plot2));
+  } 
   
-  if (type == "nombre de jeu de données"){
-    commande = paste("SELECT nom_organisme, nb FROM", base)
-  }
   
-  tab <- dbGetQuery(con_gn, commande)
+  tab <- dbGetQuery(con_gn, commande1)
   x<-tab[,1]
   y<-tab[,2]
   data <- data.frame(x,y)
-  plot <- plot_ly(data, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
-  config(displayModeBar = F)
-  print(commande)
+  plot1 <- plot_ly(data, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
+    config(displayModeBar = F)
   
-  return(plot)
+  tab <- dbGetQuery(con_gn, commande2)
+  x<-tab[,1]
+  y<-tab[,2]
+  data <- data.frame(x,y)
+  plot2 <- plot_ly(data, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
+    config(displayModeBar = F)
+  
+  
+  print(commande1)
+  
+  return(list(nbPlot,plot1,plot2));
 }
 
 # ##Test
