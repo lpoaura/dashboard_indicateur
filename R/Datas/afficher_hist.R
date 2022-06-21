@@ -17,6 +17,7 @@ afficher_hist<-function(groupe,pole,taxo,type)
 {
   isPlot <- TRUE;
   plot <- NULL;
+  titre <- "";
   
   if ((groupe == "general")||(groupe=="pole")){
     base = "orb_indicateurs.mv_sraddet_ind_pole"
@@ -27,19 +28,21 @@ afficher_hist<-function(groupe,pole,taxo,type)
   # Cas par défaut : aucun histogramme à tracer
   else {
     isPlot <- FALSE;
-    return(list(isPlot,plot))
+    return(list(isPlot,plot,titre))
   }
   
   if (type == "données"){
     commande = paste("SELECT nb_data_tot FROM", base)
+    subTitre <- "du nombre de données";
   }
   else if (type == "especes"){
     commande = paste("SELECT nb_espece_dis FROM", base)
+    subTitre <- "du nombre d'espèces";
   }
   # Cas par défaut : aucun histogramme à tracer
   else {
     isPlot <- FALSE;
-    return(list(isPlot,plot))
+    return(list(isPlot,plot,titre))
   }
   
   
@@ -59,6 +62,7 @@ afficher_hist<-function(groupe,pole,taxo,type)
       add_trace(y = ~histInvertebres, name = 'Invertebres',marker = list(color = '#EA7200')) %>%
       layout(yaxis = list(title = 'Count'), barmode = 'stack')
     
+    titre <- paste("Évolution", subTitre, "en fonction des années"); 
   }
   
   else if (groupe == "pole") {
@@ -76,7 +80,9 @@ afficher_hist<-function(groupe,pole,taxo,type)
         add_trace(y = ~hist2, name = paste(listPoles[[3]]),marker = list(color = fcouleur_unique(listPoles[[3]]))) %>%
         layout(yaxis = list(title = 'Count'), barmode = 'stack') 
     }
-    print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
+    titre <- paste("Évolution", subTitre, "en fonction des années"); 
+    
+    # print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
   }
   else if (groupe == "taxo"){
     
@@ -86,18 +92,19 @@ afficher_hist<-function(groupe,pole,taxo,type)
       dataHist <- data.frame(count,hist)   
       
       plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(findPoleForTaxo(taxo))))
-      print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
+      titre <- paste("Évolution", subTitre, "en fonction des années"); 
+      # print(paste(commande," WHERE declinaison = '",pole,"' ORDER BY annee ASC",sep = ""))
     }
     else {
       isPlot <- FALSE;
-      return(list(isPlot,plot))
+      return(list(isPlot,plot,titre))
     }
   }
   else {
     isPlot <- FALSE;
-    return(list(isPlot,plot))
+    return(list(isPlot,plot,titre))
     print(paste("ERREUR SUR LE GROUPE :", groupe));
   }
   
-  return(list(isPlot,plot))
+  return(list(isPlot,plot,titre))
 }

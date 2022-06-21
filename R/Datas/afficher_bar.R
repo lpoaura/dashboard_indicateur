@@ -11,52 +11,59 @@ afficher_bar<-function(groupe,pole,type,taxo,année)
 {
   isPlot <- TRUE;
   plot <- NULL;
+  titre <- "";
   
   if (groupe=="pole"){
     if (pole == "general") {
-      base = "orb_indicateurs.mv_sraddet_ind_pole"
+      base = "orb_indicateurs.mv_sraddet_ind_pole";
+      subTitle <- "par pôles";
     }
     # Cas par défaut : aucun barChart à tracer
     else {
       isPlot <- FALSE;
-      return(list(isPlot,plot))
+      return(list(isPlot,plot,titre));
     }
   }
   else if (groupe == "taxo"){
     if (taxo == "Toutes") {
-      base = "orb_indicateurs.mv_sraddet_ind_taxo"
+      base = "orb_indicateurs.mv_sraddet_ind_taxo";
+      subTitle <- "par taxonomies";
     }
     # Cas par défaut : aucun barChart à tracer
     else {
       isPlot <- FALSE;
-      return(list(isPlot,plot))
+      return(list(isPlot,plot,titre));
     }
   }
   # Cas par défaut : aucun barChart à tracer
   else {
     isPlot <- FALSE;
-    return(list(isPlot,plot))
+    return(list(isPlot,plot,titre));
   }
   
   
   if (type == "données"){
     commande = paste("SELECT declinaison, sum(nb_data_tot) FROM", base)
+    subTitle <- paste("Nombre de données", subTitle);
   }
   
   else if (type == "especes"){
     commande = paste("SELECT declinaison, sum(nb_espece_dis) FROM", base)
+    subTitle <- paste("Nombre d'espèces", subTitle);
   }
   # Cas par défaut : aucun barChart à tracer
   else {
     isPlot <- FALSE;
-    return(list(isPlot,plot))
+    return(list(isPlot,plot,titre));
   }
   
   if (année != 0){
     date <- paste("WHERE annee ='",année,"'",sep = "")
+    titre <- paste(subTitle, "en", année);
   }
   else {
     date <- ""
+    titre <- paste(subTitle, "sur l'ensemble des années");
   }
   
   commande <- paste(commande,date,"group by declinaison order by declinaison asc")
@@ -84,7 +91,7 @@ afficher_bar<-function(groupe,pole,type,taxo,année)
     config(displayModeBar = F)
   print(commande)
   
-  return(list(isPlot,plot));
+  return(list(isPlot,plot,titre));
 }
 
 

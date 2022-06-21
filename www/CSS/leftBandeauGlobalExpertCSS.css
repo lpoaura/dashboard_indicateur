@@ -169,12 +169,21 @@ point d'interrogation dans un cercle*/
   padding-left: 5%;
 }
 
-#histogramme {
+/*#histogramme {
   margin-bottom: 10px;
 }
 
-#PieChart {
+#pieChart {
   margin-bottom: 10px;
+}*/
+
+.graphWithTitle {
+  margin-bottom: 15px;
+}
+
+.graphWithTitle p {
+  color: white;
+  font-size: 14px;
 }
 
 /* Pop up qui s'affiche lors du survolage des data viz */

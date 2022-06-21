@@ -9,10 +9,10 @@ mapPlot <- leaflet() %>%
   setView(lng = 4.3871779,
           lat = 45.439695,
           zoom = 7.1)
-piePlot <- list(0,NULL,NULL);
-histoPlot <- list(FALSE,NULL);
-barPlot <- list(FALSE,NULL);
-dataFournProd <- list(0,NULL,NULL);
+piePlot <- list(0,NULL,NULL,"","");
+histoPlot <- list(FALSE,NULL,"");
+barPlot <- list(FALSE,NULL,"");
+dataFournProd <- list(0,NULL,NULL,"","");
 
 # Affichage des données à partir des variables globales de graphique
 dispDatasForServerFct <- function(input, output, session)
@@ -20,59 +20,72 @@ dispDatasForServerFct <- function(input, output, session)
   print("Re showing datas...");
   
   # Actualisation du pie chart
-  removeUI(selector = "#pie1");
-  removeUI(selector = "#pie2");
+  removeUI(selector = "#pie1WithTitle");
+  removeUI(selector = "#pie2WithTitle");
   if (piePlot[[1]] >= 1) {
     insertUI(selector = "#pieChart",
-             ui = plotlyOutput('pie1'));
+             ui = div(id = "pie1WithTitle",
+                      class = "graphWithTitle",
+                      tags$p(piePlot[[4]]),
+                      plotlyOutput('pie1')));
     output$pie1 <- renderPlotly({piePlot[[2]]});
     output$pie1Copy <- renderPlotly({piePlot[[2]]});
   }
   if (piePlot[[1]] >= 2) {
     insertUI(selector = "#pieChart",
-             ui = plotlyOutput('pie2'));
+             ui = div(id = "pie2WithTitle",
+                      class = "graphWithTitle",
+                      tags$p(piePlot[[5]]),
+                      plotlyOutput('pie2')));
     output$pie2 <- renderPlotly({piePlot[[3]]});
     output$pie2Copy <- renderPlotly({piePlot[[3]]});
   }
   
   
   # Actualisation de l'histogramme
-  removeUI(selector = "#hist");
+  removeUI(selector = "#histWithTitle");
   if (histoPlot[[1]]) {
     insertUI(selector = "#histogramme",
-             ui = plotlyOutput('hist'));
+             ui = div(id = "histWithTitle",
+                      class = "graphWithTitle",
+                      tags$p(histoPlot[[3]]),
+                      plotlyOutput('hist')));
     output$hist <- renderPlotly({histoPlot[[2]]});
     output$histCopy <- renderPlotly({histoPlot[[2]]});
   }
   
   
   # Actualisation du barChart
-  removeUI(selector = "#bar");
+  removeUI(selector = "#barWithTitle");
   if (barPlot[[1]]) {
     insertUI(selector = "#barChart",
-             ui = plotlyOutput('bar'));
+             ui = div(id = "barWithTitle",
+                      class = "graphWithTitle",
+                      tags$p(barPlot[[3]]),
+                      plotlyOutput('bar')));
     output$bar <- renderPlotly({barPlot[[2]]});
     output$barCopy <- renderPlotly({barPlot[[2]]});
   }
   
   
   # Actualisation des données pour les fournisseurs/producteurs
-  removeUI(selector = "#graphFournProd1");
-  removeUI(selector = "#graphFournProd2");
-  if (dataFournProd[[1]] == 1) {
+  removeUI(selector = "#graphFournProd1WithTitle");
+  removeUI(selector = "#graphFournProd2WithTitle");
+  if (dataFournProd[[1]] >= 1) {
     insertUI(selector = "#dataFournProd",
-             ui = plotlyOutput('graphFournProd1'));
+             ui = div(id = "graphFournProd1WithTitle",
+                      class = "graphWithTitle",
+                      tags$p(dataFournProd[[4]]),
+                      plotlyOutput('graphFournProd1')));
     output$graphFournProd1 <- renderPlotly({dataFournProd[[2]]});
     output$graphFournProd1Copy <- renderPlotly({dataFournProd[[2]]});
   }
-  else if (dataFournProd[[1]] == 2) {
+  if (dataFournProd[[1]] >= 2) {
     insertUI(selector = "#dataFournProd",
-             ui = plotlyOutput('graphFournProd1'));
-    output$graphFournProd1 <- renderPlotly({dataFournProd[[2]]});
-    output$graphFournProd1Copy <- renderPlotly({dataFournProd[[2]]});
-    
-    insertUI(selector = "#dataFournProd",
-             ui = plotlyOutput('graphFournProd2'));
+             ui = div(id = "graphFournProd2WithTitle",
+                      class = "graphWithTitle",
+                      tags$p(dataFournProd[[5]]),
+                      plotlyOutput('graphFournProd2')));
     output$graphFournProd2 <- renderPlotly({dataFournProd[[3]]});
     output$graphFournProd2Copy <- renderPlotly({dataFournProd[[3]]});
   }
