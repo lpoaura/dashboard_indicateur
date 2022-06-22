@@ -111,7 +111,8 @@ span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
   background-color: #FFFFFF00;
   outline: none;
   box-shadow: none;
-  padding: 0px;
+  padding: 5px;
+  font-size: 24px;
 }
 
 #settingsCollapsed {
@@ -124,7 +125,8 @@ span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
   background-color: #FFFFFF00;
   outline: none;
   box-shadow: none;
-  padding: 0px;
+  padding: 5px;
+  font-size: 24px;
 }
 
 #settingsTotal {

@@ -17,7 +17,7 @@ popUpDataVizFct <- function(input, output, session) {
     # dans la barre de gauche et un qui s'affiche dans la pop up lorsque le premier est
     # survolé.
     if(input$idDataViz!="reset"){
-      insertUI(selector = "#bandeauTotal", ui = divPopUpDataViz)
+      insertUI(selector = "#bandeau", ui = divPopUpDataViz)
       
       if(input$idDataViz=="histogramme"){
         insertUI(selector = "#popUpDataViz", ui = plotlyOutput('histCopy'))
