@@ -33,6 +33,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       removeUI(selector = "#settings")
       removeUI(selector = "#settingsCollapsed")
       removeUI(selector = "#bandeauCarte")
+      output$mymap <- renderLeaflet({mapBase});
       removeUI(selector = "#carteBack")
     }
     if (data_page$page == "admin") {
@@ -88,6 +89,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       
       insertUI(selector = "#total",
                ui = divCarteBack)
+      output$mymap <- renderLeaflet({mapPlot});
       
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
@@ -152,6 +154,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       
       insertUI(selector = "#total",
                ui = divCarteBack)
+      output$mymap <- renderLeaflet({mapPlot});
       
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
@@ -205,7 +208,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     if(data_page$page == "global" || data_page$page == "expert") {
       removeUI(selector = "#settings")
       removeUI(selector = "#settingsCollapsed")
-      
+      output$mymap <- renderLeaflet({mapBase});
       removeUI(selector = "#carteBack")
       removeUI(selector = "#bandeauCarte")
     }

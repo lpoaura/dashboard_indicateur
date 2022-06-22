@@ -13,6 +13,16 @@ piePlot <- list(0,NULL,NULL,"","");
 histoPlot <- list(FALSE,NULL,"");
 barPlot <- list(FALSE,NULL,"");
 dataFournProd <- list(0,NULL,NULL,"","");
+mapBase <- leaflet() %>%
+  addTiles() %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  setView(lng = 4.3871779,
+          lat = 45.439695,
+          zoom = 7.1)
+piePlot <- list(0,NULL,NULL,"","");
+histoPlot <- list(FALSE,NULL,"");
+barPlot <- list(FALSE,NULL,"");
+dataFournProd <- list(0,NULL,NULL,"","");
 
 # Affichage des données à partir des variables globales de graphique
 dispDatasForServerFct <- function(input, output, session)
