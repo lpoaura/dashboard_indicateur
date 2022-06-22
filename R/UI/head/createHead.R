@@ -26,15 +26,15 @@ divGlobalButton <- div(id = "divGlobalButton",
                        passiveGlobalButton)
 divExpertButton <- div(id = "divExpertButton",
                        expertButton)
-divAdminButton <- div(id = "divAdminButton",
-                      adminButton)
+# divAdminButton <- div(id = "divAdminButton",
+#                       adminButton)
 
 # Ensemble des boutons de navigation
 ulNavigation <- tags$ul(id = "navigation",
                         divAccueilButton,
                         divGlobalButton,
-                        divExpertButton,
-                        divAdminButton)
+                        divExpertButton)#,
+                        # divAdminButton)
 
 
 # div du titre et de la navigation
