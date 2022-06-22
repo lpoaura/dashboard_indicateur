@@ -113,6 +113,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     initTypeIndSelectFct(input = input, output = output, session = session,
                          data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                          data_page = data_page, fromPrgm = "buttonGlobal")
+    
+    # if (data_page$fromPage == "accueil") {
+    #   data_page$fromPage <- "global";
+    # }
   })
   
   # Bouton "Expert"
@@ -180,6 +184,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     initTypeIndSelectFct(input = input, output = output, session = session,
                          data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                          data_page = data_page, fromPrgm = "buttonExpert")
+    
+    # if (data_page$fromPage == "accueil") {
+    #   data_page$fromPage <- "global";
+    # }
   })
   
   # Bouton "Admin"

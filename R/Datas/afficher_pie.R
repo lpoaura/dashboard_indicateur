@@ -17,6 +17,61 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
   if (type == "connaissances") {
     subTitle <- "État de la connaissance en fonction de la géographie";
   }
+  else if (type == "listeRouge") {
+    qualite_labels = c('Faible', 'Moyenne', 'Bonne','Elevee')
+    
+    if (groupe == "general"){
+      base = "orb_indicateurs.mv_sraddet_ind_lrr_general"
+      commande = paste("SELECT code_statut, count FROM ",base," ORDER BY count ASC",sep = "")
+      subTitle <- "pour l'ensemble des pôles";
+    }
+    
+    else if (groupe=="pole"){
+      if (pole != "general") {
+        base = "orb_indicateurs.mv_sraddet_ind_lrr_pole"
+        commande = paste("SELECT code_statut, count FROM ",base," WHERE declinaison ='",pole,"'"," ORDER BY count ASC",sep = "")
+        subTitle <- paste("pour le pôle", tolower(pole));
+      }
+      else {
+        base = "orb_indicateurs.mv_sraddet_ind_lrr_general"
+        commande = paste("SELECT code_statut, count FROM ",base," ORDER BY count ASC",sep = "")
+        subTitle <- "pour l'ensemble des pôles";
+      }
+    }
+    
+    else if (groupe == "taxo"){
+      base = "orb_indicateurs.mv_sraddet_ind_lrr_taxo"
+      commande = paste("SELECT code_statut, count FROM ",base," WHERE declinaison ='",taxo,"'"," ORDER BY count ASC",sep = "")
+      subTitle <- paste("pour le groupe des", tolower(taxo));
+    }
+    # Cas par défaut : aucun pieChart à tracer
+    else {
+      nbPlot <- 0;
+      return(list(nbPlot,plot1,plot2,title1,title2));
+    }
+    
+    title1 <- paste("Proportion d'èspèces sur liste rouge", subTitle);
+    
+    tab <- dbGetQuery(con_gn, commande)
+    for (i in 1:length(tab[,1])){
+      if (is.na(tab[i,1])){
+        tab<-tab[-i,]
+      }
+      
+    }
+    code_statut <- tab%>% pull(code_statut)
+    count = tab%>% pull(count)
+    print(code_statut)
+    print(count)
+    
+    df = data.frame(code_statut,count)
+    
+    plot1 <- plot_ly(data = df, labels = ~code_statut, values = ~count, type = "pie",
+                     textinfo = "percent",marker = list(line = list(color = '#FFFFFF', width = 1)),
+                     insidetextorientation = "horizontal")  %>% #layout(title = "Proportion d'èspèces sur liste rouge") %>%
+      config(displayModeBar = F)
+    return(list(nbPlot,plot1,plot2,title1,title2));
+  }
   # Cas par défaut : aucun pieChart à tracer
   else {
     nbPlot <- 0;

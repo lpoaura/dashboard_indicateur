@@ -9,6 +9,7 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
     removeUI(selector = '#settings')
     insertUI(selector = '#settingsTotal',
              ui = divSettingsCollapsed)
+    data_page$fromPage <- data_page$page;
   })
   
   observeEvent(input$uncollapaseSettingsButton, {
@@ -23,29 +24,15 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
   })
   
   # Collapse button du bandeau de gauche
-  # observeEvent(input$collapaseBandeauButton, {
-  #   print("collapseButton bandeau pressed");
-  #   removeUI(selector = '#bandeau')
-  #   insertUI(selector = '#bandeauTotal',
-  #            ui = divBandeauCollapsed)
     observeEvent(input$collapaseBandeauButton, {
       print("collapseButton bandeau pressed");
       removeUI(selector = '#bandeau')
       insertUI(selector = '#bandeauCarte',
                ui = divBandeauCollapsed)
+      data_page$fromPage <- data_page$page;
   })
   
   observeEvent(input$uncollapaseBandeauButton, {
-    # print("uncollapseButton bandeau pressed");
-    # removeUI(selector = '#bandeauCollapsed');
-    # if (data_page$page == "global") {
-    #   insertUI(selector = '#bandeauTotal',
-    #            ui = divBandeau)
-    # }
-    # else {
-    #   insertUI(selector = '#bandeauTotal',
-    #            ui = divBandeauExpert)
-    # }
     print("uncollapseButton bandeau pressed");
     removeUI(selector = '#bandeauCollapsed');
     if (data_page$page == "global") {

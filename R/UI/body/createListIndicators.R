@@ -153,6 +153,8 @@ newRow <- list("Nombre d'espèces", "especes", TRUE, TRUE, "Indicateur de connai
 tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Indicateur de connaissances", "connaissances", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Proportion d'espèces couverte par une liste rouge", "listeRouge", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
+tabIndicators <- rbind(tabIndicators,newRow);
 
 newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, TRUE, TRUE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);

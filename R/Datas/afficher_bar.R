@@ -70,11 +70,11 @@ afficher_bar<-function(groupe,pole,type,taxo,année)
   tab <- dbGetQuery(con_gn, commande)
   x<-c()
   y<-c()
-  data <- data.frame(x = "rien", y = 0)
+  data <- data.frame(y = 0, x = "rien")
   if (groupe == "taxo") {
     for (i in 1:nrow(tab)) {
       if (getIsPoleGroupe(tab[i,1], pole)) {
-        data <- rbind(data, c(tab[i,1], as.numeric(tab[i,2])));
+        data <- rbind(data, as.numeric(tab[i,2], c(tab[i,1])));
       }
     }
     data <- data[-1, ]
@@ -84,10 +84,10 @@ afficher_bar<-function(groupe,pole,type,taxo,année)
   else {
     x<-tab[,1]
     y<-tab[,2]
-    data <- data.frame(x, y)
+    data <- data.frame(y, x)
   }
   
-  plot <- plot_ly(tab, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = fcouleur_bar(groupe))) %>%
+  plot <- plot_ly(tab, x = ~y, y = ~x, type = 'bar', name = paste(groupe),marker = list(color = fcouleur_bar(groupe))) %>%
     config(displayModeBar = F)
   print(commande)
   
