@@ -169,14 +169,6 @@ point d'interrogation dans un cercle*/
   padding-left: 5%;
 }
 
-/*#histogramme {
-  margin-bottom: 10px;
-}
-
-#pieChart {
-  margin-bottom: 10px;
-}*/
-
 .graphWithTitle {
   margin-bottom: 15px;
 }
@@ -189,19 +181,84 @@ point d'interrogation dans un cercle*/
 /* Pop up qui s'affiche lors du survolage des data viz */
 #popUpDataViz {
   position:absolute;
-  top: 80px;
-  left: 200px;
-  max-height : 85%;
+  top: 10%;
+  left: 10%;
+  max-height : 80%;
+  max-width : 80%;
   
+  background-color: var(--color_bleuLPO);
   border-radius : 15px;
-  background-color : #eff0f2;
-  border:none;
-  padding : 3%;
-  padding-top : 1%;
+  /*background-color : #eff0f2;*/
+  /*border:none;*/
+  padding-top : 0%;
+  padding-bottom : 1%;
+  padding-right : 1%;
+  padding-left : 1%;
+  border: solid 10px var(--color_bleuLPO);
   z-index : 10;
   overflow-y:auto;
   box-shadow: 0px 0px 30px black;
 }
+
+#buttonCloseDiv {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+#titrePopup {
+  color: #eff0f2;
+  margin-bottom: 5px;
+  align-self: end;
+}
+
+#closePopupButton {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 24px;
+  color: #eff0f2;
+  align-self: start;
+}
+
+#histCopy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#pie1Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#pie2Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#barCopy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#graphFournProd1Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#graphFournProd2Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+/*.graphCopy {
+  height: 100%;
+  width: 100%;
+}*/
 
 /* Scroll bar du pop */
 #popUpDataViz::-webkit-scrollbar {

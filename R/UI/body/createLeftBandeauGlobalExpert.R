@@ -3,19 +3,19 @@
 # Feu du pôle flore
 actionButtonFlore <- actionButton(inputId = "feuFlore",
                                   img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      width = 15,
                                       height = 15))
 
 # Feu du pôle invertébré
 actionButtonInvertebre <- actionButton(inputId = "feuInvertebre",
                                       img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      width = 15,
                                       height = 15))
 
 # Feu du pôle vertébré
 actionButtonVertebre <- actionButton(inputId = "feuVertebre",
                                       img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      width = 15,
                                       height = 15))
 
 # Ul des feux colorés

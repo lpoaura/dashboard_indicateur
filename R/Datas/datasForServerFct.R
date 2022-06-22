@@ -29,7 +29,9 @@ dispDatasForServerFct <- function(input, output, session)
                       tags$p(piePlot[[4]]),
                       plotlyOutput('pie1')));
     output$pie1 <- renderPlotly({piePlot[[2]]});
-    output$pie1Copy <- renderPlotly({piePlot[[2]]});
+    output$pie1Copy <- renderPlotly({
+      ggplotly(piePlot[[2]]) %>% layout(height = 500, width = 1000)
+    });
   }
   if (piePlot[[1]] >= 2) {
     insertUI(selector = "#pieChart",
@@ -38,7 +40,9 @@ dispDatasForServerFct <- function(input, output, session)
                       tags$p(piePlot[[5]]),
                       plotlyOutput('pie2')));
     output$pie2 <- renderPlotly({piePlot[[3]]});
-    output$pie2Copy <- renderPlotly({piePlot[[3]]});
+    output$pie2Copy <- renderPlotly({
+      ggplotly(piePlot[[3]]) %>% layout(height = 500, width = 1000)
+    });
   }
   
   
@@ -51,7 +55,9 @@ dispDatasForServerFct <- function(input, output, session)
                       tags$p(histoPlot[[3]]),
                       plotlyOutput('hist')));
     output$hist <- renderPlotly({histoPlot[[2]]});
-    output$histCopy <- renderPlotly({histoPlot[[2]]});
+    output$histCopy <- renderPlotly({
+      ggplotly(histoPlot[[2]]) %>% layout(height = 500, width = 1000)
+    });
   }
   
   
@@ -64,7 +70,9 @@ dispDatasForServerFct <- function(input, output, session)
                       tags$p(barPlot[[3]]),
                       plotlyOutput('bar')));
     output$bar <- renderPlotly({barPlot[[2]]});
-    output$barCopy <- renderPlotly({barPlot[[2]]});
+    output$barCopy <- renderPlotly({
+      ggplotly(barPlot[[2]]) %>% layout(height = 500, width = 1000)
+    });
   }
   
   
@@ -78,7 +86,9 @@ dispDatasForServerFct <- function(input, output, session)
                       tags$p(dataFournProd[[4]]),
                       plotlyOutput('graphFournProd1')));
     output$graphFournProd1 <- renderPlotly({dataFournProd[[2]]});
-    output$graphFournProd1Copy <- renderPlotly({dataFournProd[[2]]});
+    output$graphFournProd1Copy <- renderPlotly({
+      ggplotly(dataFournProd[[2]]) %>% layout(height = 500, width = 1000)
+    });
   }
   if (dataFournProd[[1]] >= 2) {
     insertUI(selector = "#dataFournProd",
@@ -87,7 +97,9 @@ dispDatasForServerFct <- function(input, output, session)
                       tags$p(dataFournProd[[5]]),
                       plotlyOutput('graphFournProd2')));
     output$graphFournProd2 <- renderPlotly({dataFournProd[[3]]});
-    output$graphFournProd2Copy <- renderPlotly({dataFournProd[[3]]});
+    output$graphFournProd2Copy <- renderPlotly({
+      ggplotly(dataFournProd[[3]]) %>% layout(height = 500, width = 1000)
+    });
   }
 }
 
@@ -99,10 +111,6 @@ datasForServerFct <- function(input, output, session,
                                  année = 0)
 {
   print("New datas to show...");
-  # print(type)
-  # print(groupe)
-  # print(pole)
-  # print(taxo)
   groupe <- fdecodeGroupe(groupe);
   
   print("Création d'une map...");
