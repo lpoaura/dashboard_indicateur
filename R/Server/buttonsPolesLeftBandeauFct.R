@@ -158,20 +158,20 @@ othersActivePolesFeux <- function(actualName, otherName1, otherName2,
 {
   removeUI(selector = paste('#feu', actualButton, '>img', sep=""))
   insertUI(selector = paste('#feu', actualButton, sep=""),
-           ui = img(src = "Resources/pictogrammes/rond_violet.png",
+           ui = img(src = paste("Resources/pictogrammes/", actualName, ".png", sep=""),
                     width=15,
                     height=15))
   data_polesFeuxOrdered$actualData = TRUE;
   
   removeUI(selector = paste('#feu', otherButton1, '>img', sep=""))
   insertUI(selector = paste('#feu', otherButton1, sep=""),
-           ui = img(src = "Resources/pictogrammes/rond_violet.png",
+           ui = img(src = paste("Resources/pictogrammes/", otherName1, ".png", sep=""),
                     width=15,
                     height=15))
   
   removeUI(selector = paste('#feu', otherButton2, '>img', sep=""))
   insertUI(selector = paste('#feu', otherButton2, sep=""),
-           ui = img(src = "Resources/pictogrammes/rond_violet.png",
+           ui = img(src = paste("Resources/pictogrammes/", otherName2, ".png", sep=""),
                     width=15,
                     height=15))
 }
@@ -198,20 +198,20 @@ meOnlyActivePolesFeux <- function(actualName, otherName1, otherName2,
   if (data_polesButtonsOrdered$otherData1 && data_polesButtonsOrdered$otherData2) {
     removeUI(selector = paste('#feu', actualButton, '>img', sep=""))
     insertUI(selector = paste('#feu', actualButton, sep=""),
-             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+             ui = img(src = paste("Resources/pictogrammes/", actualName, ".png", sep=""),
                       width=15,
                       height=15))
     
     removeUI(selector = paste('#feu', otherButton1, '>img', sep=""))
     insertUI(selector = paste('#feu', otherButton1, sep=""),
-             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+             ui = img(src = paste("Resources/pictogrammes/", otherName1, ".png", sep=""),
                       width=15,
                       height=15))
     data_polesFeuxOrdered$otherData1 = TRUE;
     
     removeUI(selector = paste('#feu', otherButton2, '>img', sep=""))
     insertUI(selector = paste('#feu', otherButton2, sep=""),
-             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+             ui = img(src = paste("Resources/pictogrammes/" ,otherName2, ".png", sep=""),
                       width=15,
                       height=15))
     data_polesFeuxOrdered$otherData2 = TRUE;

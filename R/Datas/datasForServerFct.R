@@ -30,7 +30,7 @@ dispDatasForServerFct <- function(input, output, session)
                       plotlyOutput('pie1')));
     output$pie1 <- renderPlotly({piePlot[[2]]});
     output$pie1Copy <- renderPlotly({
-      ggplotly(piePlot[[2]]) %>% layout(height = 500, width = 1000)
+      ggplotly(piePlot[[2]]) %>% layout(height = 500, width = 1100)
     });
   }
   if (piePlot[[1]] >= 2) {
@@ -41,7 +41,7 @@ dispDatasForServerFct <- function(input, output, session)
                       plotlyOutput('pie2')));
     output$pie2 <- renderPlotly({piePlot[[3]]});
     output$pie2Copy <- renderPlotly({
-      ggplotly(piePlot[[3]]) %>% layout(height = 500, width = 1000)
+      ggplotly(piePlot[[3]]) %>% layout(height = 500, width = 1100)
     });
   }
   
@@ -56,7 +56,7 @@ dispDatasForServerFct <- function(input, output, session)
                       plotlyOutput('hist')));
     output$hist <- renderPlotly({histoPlot[[2]]});
     output$histCopy <- renderPlotly({
-      ggplotly(histoPlot[[2]]) %>% layout(height = 500, width = 1000)
+      ggplotly(histoPlot[[2]]) %>% layout(height = 500, width = 1100)
     });
   }
   
@@ -71,7 +71,7 @@ dispDatasForServerFct <- function(input, output, session)
                       plotlyOutput('bar')));
     output$bar <- renderPlotly({barPlot[[2]]});
     output$barCopy <- renderPlotly({
-      ggplotly(barPlot[[2]]) %>% layout(height = 500, width = 1000)
+      ggplotly(barPlot[[2]]) %>% layout(height = 500, width = 1100)
     });
   }
   
@@ -87,7 +87,7 @@ dispDatasForServerFct <- function(input, output, session)
                       plotlyOutput('graphFournProd1')));
     output$graphFournProd1 <- renderPlotly({dataFournProd[[2]]});
     output$graphFournProd1Copy <- renderPlotly({
-      ggplotly(dataFournProd[[2]]) %>% layout(height = 500, width = 1000)
+      ggplotly(dataFournProd[[2]]) %>% layout(height = 500, width = 1100)
     });
   }
   if (dataFournProd[[1]] >= 2) {
@@ -98,7 +98,7 @@ dispDatasForServerFct <- function(input, output, session)
                       plotlyOutput('graphFournProd2')));
     output$graphFournProd2 <- renderPlotly({dataFournProd[[3]]});
     output$graphFournProd2Copy <- renderPlotly({
-      ggplotly(dataFournProd[[3]]) %>% layout(height = 500, width = 1000)
+      ggplotly(dataFournProd[[3]]) %>% layout(height = 500, width = 1100)
     });
   }
 }

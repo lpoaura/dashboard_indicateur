@@ -156,20 +156,20 @@ othersActivePolesButtons <- function(actualName, otherName1, otherName2,
 {
   removeUI(selector = paste('#actionButton', actualButton, '>img', sep=""))
   insertUI(selector = paste('#actionButton', actualButton, sep=""),
-           ui = img(src = paste("Resources/pictogrammes/", actualName, "_violet.png", sep=""),
+           ui = img(src = paste("Resources/pictogrammes/", actualName, ".png", sep=""),
                     width=50,
                     height=50))
   data_polesButtonsOrdered$actualData = TRUE;
   
   removeUI(selector = paste('#actionButton', otherButton1, '>img', sep=""))
   insertUI(selector = paste('#actionButton', otherButton1, sep=""),
-           ui = img(src = paste("Resources/pictogrammes/", otherName1, "_violet.png", sep=""),
+           ui = img(src = paste("Resources/pictogrammes/", otherName1, ".png", sep=""),
                     width=50,
                     height=50))
   
   removeUI(selector = paste('#actionButton', otherButton2, '>img', sep=""))
   insertUI(selector = paste('#actionButton', otherButton2, sep=""),
-           ui = img(src = paste("Resources/pictogrammes/", otherName2, "_violet.png", sep=""),
+           ui = img(src = paste("Resources/pictogrammes/", otherName2, ".png", sep=""),
                     width=50,
                     height=50))
 }
@@ -194,20 +194,20 @@ meOnlyActivePolesButtons <- function(actualName, otherName1, otherName2,
 {
   removeUI(selector = paste('#actionButton', actualButton, '>img', sep=""))
   insertUI(selector = paste('#actionButton', actualButton, sep=""),
-           ui = img(src = paste("Resources/pictogrammes/", actualName, "_violet.png", sep=""),
+           ui = img(src = paste("Resources/pictogrammes/", actualName, ".png", sep=""),
                     width=50,
                     height=50))
   
   removeUI(selector = paste('#actionButton', otherButton1, '>img', sep=""))
   insertUI(selector = paste('#actionButton', otherButton1, sep=""),
-           ui = img(src = paste("Resources/pictogrammes/", otherName1, "_violet.png", sep=""),
+           ui = img(src = paste("Resources/pictogrammes/", otherName1, ".png", sep=""),
                     width=50,
                     height=50))
   data_polesButtonsOrdered$otherData1 = TRUE;
   
   removeUI(selector = paste('#actionButton', otherButton2, '>img', sep=""))
   insertUI(selector = paste('#actionButton', otherButton2, sep=""),
-           ui = img(src = paste("Resources/pictogrammes/", otherName2, "_violet.png", sep=""),
+           ui = img(src = paste("Resources/pictogrammes/", otherName2, ".png", sep=""),
                     width=50,
                     height=50))
   data_polesButtonsOrdered$otherData2 = TRUE;
@@ -224,6 +224,24 @@ otherActivePolesButtons <- function(actualName, otherName1, otherName2,
                     width=50,
                     height=50))
   data_polesButtonsOrdered$actualData = TRUE;
+  
+  # Modification : un seul pôle actif
+  if (data_polesButtonsOrdered$otherData1) {
+    removeUI(selector = paste('#actionButton', otherButton1, '>img', sep=""))
+    insertUI(selector = paste('#actionButton', otherButton1, sep=""),
+             ui = img(src = paste("Resources/pictogrammes/", otherName1, "_gris.png", sep=""),
+                      width=50,
+                      height=50))
+    data_polesButtonsOrdered$otherData1 = FALSE;
+  }
+  else {
+    removeUI(selector = paste('#actionButton', otherButton2, '>img', sep=""))
+    insertUI(selector = paste('#actionButton', otherButton2, sep=""),
+             ui = img(src = paste("Resources/pictogrammes/", otherName2, "_gris.png", sep=""),
+                      width=50,
+                      height=50))
+    data_polesButtonsOrdered$otherData2 = FALSE;
+  }
 }
 
 # --------------- Permet de process le clic sur un bouton ---------------#
@@ -359,17 +377,17 @@ setPolesFct <- function(session, data_polesButtons) {
   if (data_polesButtons$flore && data_polesButtons$invertebre && data_polesButtons$vertebre) {
     removeUI(selector = '#actionButtonFlower>img')
     insertUI(selector = '#actionButtonFlower',
-             ui = img(src = "Resources/pictogrammes/fleur_violet.png",
+             ui = img(src = "Resources/pictogrammes/fleur.png",
                       width=50,
                       height=50))
     removeUI(selector = '#actionButtonBee>img')
     insertUI(selector = '#actionButtonBee',
-             ui = img(src = "Resources/pictogrammes/abeille_violet.png",
+             ui = img(src = "Resources/pictogrammes/abeille.png",
                       width=50,
                       height=50))
     removeUI(selector = '#actionButtonPaw>img')
     insertUI(selector = '#actionButtonPaw',
-             ui = img(src = "Resources/pictogrammes/patte_violet.png",
+             ui = img(src = "Resources/pictogrammes/patte.png",
                       width=50,
                       height=50))
   } 
@@ -425,17 +443,17 @@ setFeuxFct <- function(session, data_polesButtons, data_polesFeux) {
   if (data_polesFeux$flore && data_polesFeux$invertebre && data_polesFeux$vertebre) {
     removeUI(selector = '#feuFlore>img')
     insertUI(selector = '#feuFlore',
-             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+             ui = img(src = "Resources/pictogrammes/rond_vert.png",
                       width=15,
                       height=15))
     removeUI(selector = '#feuInvertebre>img')
     insertUI(selector = '#feuInvertebre',
-             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+             ui = img(src = "Resources/pictogrammes/rond_orange.png",
                       width=15,
                       height=15))
     removeUI(selector = '#feuVertebre>img')
     insertUI(selector = '#feuVertebre',
-             ui = img(src = "Resources/pictogrammes/rond_violet.png",
+             ui = img(src = "Resources/pictogrammes/rond_bleu.png",
                       width=15,
                       height=15))
   } 

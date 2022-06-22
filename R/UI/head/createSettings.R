@@ -2,19 +2,19 @@
 
 # Setting du pole de la flore
 actionButtonFlower <- actionButton(inputId = "actionButtonFlower",
-                                   img(src = "Resources/pictogrammes/fleur_violet.png",
+                                   img(src = "Resources/pictogrammes/fleur.png",
                                        width=50,
                                        height=50))
 
 # Setting du pole des invertébrés
 actionButtonBee <- actionButton(inputId = "actionButtonBee",
-                                img(src = "Resources/pictogrammes/abeille_violet.png",
+                                img(src = "Resources/pictogrammes/abeille.png",
                                     width=50,
                                     height=50))
 
 # Setting du pole des vertébrés
 actionButtonPaw <- actionButton(inputId = "actionButtonPaw",
-                                img(src = "Resources/pictogrammes/patte_violet.png",
+                                img(src = "Resources/pictogrammes/patte.png",
                                     width=50,
                                     height=50))
 
