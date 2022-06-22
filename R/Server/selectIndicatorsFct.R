@@ -83,7 +83,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     }
     
     # Affichage des nouvelles données
-    if (data_currentInd$hasChanged) {
+    if (data_currentInd$hasChanged || data_page$fromPage == "accueil") {
       poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
       decli <- data_currentInd$declinaison;
       groupe <- data_currentInd$groupe;
@@ -151,7 +151,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
         }
         
         # Affichage des nouvelles données
-        if (data_currentInd$hasChanged) {
+        if (data_currentInd$hasChanged || data_page$fromPage == "accueil") {
           poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
           decli <- data_currentInd$declinaison;
           groupe <- data_currentInd$groupe;

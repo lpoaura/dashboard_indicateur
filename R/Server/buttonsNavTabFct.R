@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
+buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year, data_tabAccueil) {
   # Bouton "Accueil"
   observeEvent(input$accueilButton, {
     print("accueil pressed from");
@@ -42,6 +42,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     
     insertUI(selector = "#corps",
              ui = divBandeauAccueil)
+    data_tabAccueil$tab <- "ind1";
+    session$onFlushed(function() {
+      session$sendCustomMessage(type = "actualizeNewTabAccueil", message = isolate(data_tabAccueil$tab));
+    });
     
     data_page$page <- "accueil";
   })
