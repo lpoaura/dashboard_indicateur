@@ -61,9 +61,9 @@ server <- function(input, output, session) {
   # -------------------- TOUTES LES INITIALISATIONS -------------------- #
   
   # -------------------- INITIALISATION DES MOTS DE PASSE -------------------- #
-  mdpAdmin = read_file("mdpAdmin.txt")
+  # mdpAdmin = read_file("mdpAdmin.txt")
   # gestion des carctères \\ \ 
-  mdpAdmin <- gsub("[\\]", "", mdpAdmin)
+  # mdpAdmin <- gsub("[\\]", "", mdpAdmin)
   
   # -------------------- INITIALISATION DES SELECTORS -------------------- #
   # initTypeIndSelectFct(input = input, output = output, session = session,
@@ -88,7 +88,7 @@ server <- function(input, output, session) {
   buttonCollapseFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
   
   # -------------------- CHOIX DE L'ANNÉE -------------------- #
-  yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons);
+  yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons, data_page);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
   buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year, data_page);

@@ -89,7 +89,15 @@ afficher_hist<-function(groupe,pole,taxo,type)
     if (taxo != "Toutes") {
       count <- dbGetQuery(con_gn, "select DISTINCT annee from orb_indicateurs.mv_sraddet_ind_taxo ORDER BY annee ASC")[,1]
       hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",taxo,"' ORDER BY annee ASC",sep = ""))[,1]
-      dataHist <- data.frame(count,hist)   
+      
+      if (length(count) == length(hist)) {
+        dataHist <- data.frame(count,hist)
+      }
+      # Cas par défaut : aucun histogramme à tracer car pas assez de données
+      else {
+        isPlot <- FALSE;
+        return(list(isPlot,plot,titre))
+      } 
       
       plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(findPoleForTaxo(taxo))))
       titre <- paste("Évolution", subTitre, "en fonction des années"); 

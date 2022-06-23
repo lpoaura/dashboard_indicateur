@@ -7,10 +7,10 @@ $(document).ready(function () {
   $(function () {
     Shiny.addCustomMessageHandler(
       'setYear', function (currentYear) {
-        if (currentYear != 0) {
+        //if (currentYear != 0) {
           console.log("Initialisation de l'année à " + currentYear);
           Shiny.setInputValue('setYear', currentYear);
-        }
+        //}
     });
   });
 });

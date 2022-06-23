@@ -122,6 +122,7 @@ datasForServerFct <- function(input, output, session,
 {
   print("New datas to show...");
   groupe <- fdecodeGroupe(groupe);
+  type <- fdecodeType(type);
   
   print("Création d'une map...");
   mapPlot <<- afficher_carte(groupe,pole,taxo,année,type);
@@ -240,4 +241,24 @@ fdecodeGroupe <- function(groupe) {
          }
   )
   return(groupe)
+}
+
+# Cette fonction permet de décoder l'indicateur transmis à la création de
+# graphiques. Utile si les information n'ont pas été modifiée au préalable.
+fdecodeType <- function(type) {
+  switch(type,
+         "donnéesTaxo" = {
+           type <- "données";
+         },
+         "especesTaxo" = {
+           type <- "especes";
+         },
+         "connaissancesTaxo" = {
+           type <- "connaissances";
+         },
+         "connaissance" = {
+           type <- "connaissances";
+         }
+  )
+  return(type)
 }
