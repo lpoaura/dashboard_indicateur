@@ -7,6 +7,8 @@ listColTypeInfo = c("name", "id");
 typeInfoTab <- data.frame(name = "Renseignements", id = "ind1");
 newRow <- list("Mode de représentation", "ind2");
 typeInfoTab <- rbind(typeInfoTab,newRow);
+newRow <- list("Infotest", "ind6");
+typeInfoTab <- rbind(typeInfoTab,newRow);
 # ---!!! DERNIERE LIGNE TYPE INFORMATION !!!--- #
 
 # Liste associée aux categories d'information

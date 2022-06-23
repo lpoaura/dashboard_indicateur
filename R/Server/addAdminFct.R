@@ -37,8 +37,8 @@ addAdminFct <- function(input, output, session, data_nbInd) {
      else if(input$subIndInput == "categorie"){
        print("categorie");
        id <- input$selectTypeIndGeneral
-       nbTypeCurrent<-substr(id, 4, 4);
-       nbTypeCurrent <- as.numeric(nbTypeCurrent);
+       nbTypeCurrentCh<-substr(id, 4, 4);
+       nbTypeCurrent <- as.numeric(nbTypeCurrentCh);
        
        print(nbTypeCurrent);
        print(data_nbInd$nbGeneral);
@@ -49,54 +49,82 @@ addAdminFct <- function(input, output, session, data_nbInd) {
          if(data_nbInd$nbSub[[nbTypeCurrent]]==0){
            print("newcat in empty multiple ind");
            # Transformation du singleInd concerné en MultipleInd
-           customBalise <- paste('buttonInd',nbTypeCurrent,sep="");
+           customBalise <- paste('buttonInd',nbTypeCurrentCh,sep="");
+           print(customBalise);
            customBalise <- paste(customBalise,'<-actionButton(inputId="ind',sep="");
-           customBalise <- paste(customBalise,nbTypeCurrent,sep="");
+           print(customBalise);
+           customBalise <- paste(customBalise,nbTypeCurrentCh,sep="");
+           print(customBalise);
            customBalise <- paste(customBalise,'",class="singleInd",label="',sep="");
+           print(customBalise);
            customBalise <- paste(customBalise,findTypeInfoForId(id),sep="");
+           print(customBalise);
            customBalise <- paste(customBalise,'")',sep="");
+           print(customBalise);
+           customBalise <- as.character(customBalise);
+           
+           print(customBalise);
            
            
-           customMessage <- paste('buttonInd',nbTypeCurrent,sep="");
+           customMessage <- paste('buttonInd',nbTypeCurrentCh,sep="");
            customMessage <- paste(customMessage,'<-actionButton(inputId="ind',sep="");
-           customMessage <- paste(customMessage,nbTypeCurrent,sep="");
+           customMessage <- paste(customMessage,nbTypeCurrentCh,sep="");
            customMessage <- paste(customMessage,'",class="multipleInd",div(class="labelMultipleInd",id="ind',sep="");
-           customMessage <- paste(customMessage,nbTypeCurrent,sep="");
+           customMessage <- paste(customMessage,nbTypeCurrentCh,sep="");
            customMessage <- paste(customMessage,'",tags$p("',sep="");
            customMessage <- paste(customMessage,findTypeInfoForId(id),sep="");
            customMessage <- paste(customMessage,'"),icon(name = "caret-right")))');
+           customMessage <- as.character(customMessage);
+           
+           print(customMessage);
            
            script <- paste(getwd(),"/R/UI/body/createLeftBandeauAccueil.R",sep="");
            modifyScript(script, customBalise, customMessage);
+           
+           #Suppression de l'ancien bouton dans la navigation pour le remplacer par son subNav
+          customBalise2 <- paste('#---!!! Position de NavBar : modify_single_en_multiply_ind',nbTypeCurrentCh,sep="");
+          customBalise2 <- paste(customBalise2,'!!!---#',sep="");
+          #customBalise2 <- paste(customBalise2,"",sep='\n');
+          customBalise2 <- paste(customBalise2,', buttonInd',sep="");
+          customBalise2 <- paste(customBalise2,nbTypeCurrentCh,sep="");
+          
+          print(customBalise2);
+          
            
            print("transformedinMulitpleInd");
            # Une fois transformé, on crée les DOM nécessaires à un mutlipleInd et son subInd
            balise <- list("#---!!! Position de buttonInd : add_button_tab_accueil !!!---#",
                           "#---!!! Position de subNavContent : add_categorie !!!---#",
                           "#---!!! Position de subNav : add_categorie !!!---#",
+                          customBalise2,
                           "#---!!! Position de NavBar : add_newInfo_OrInd !!!---#",
                           "#---!!! Position de Info_ind : add_description !!!---#",
                           "#---!!! Position de id_tab_accueil : add_id_list !!!---#",
                           "#---!!! Position de div_tab_accueil : add_div_info_list !!!---#");
            
            for(i in 1:length(balise)){
-             autoCode <- autoMessage("info","categorie",nbTypeCurrent, data_nbInd$nbSub[[nbTypeCurrent]]+1,input$nameInput,NULL,input$descriptionInput,balise[[i]]);
+             autoCode <- autoMessage("info","categorie",nbTypeCurrentCh, data_nbInd$nbSub[[nbTypeCurrent]]+1,input$nameInput,NULL,input$descriptionInput,balise[[i]]);
+             print(i);
              if(i<6){
                script <- paste(getwd(),"/R/UI/body/createLeftBandeauAccueil.R",sep="");
              }
              else{
                script <-  paste(getwd(),"/R/Server/buttonsAccueilTabFct.R",sep="");
              }
+             
+        
              modifyScript(script, balise[[i]], autoCode);
-           }
+             
+          }
            print("done");
            data_nbInd$nbSub[[nbTypeCurrent]]<-data_nbInd$nbSub[[nbTypeCurrent]]+1;
          }
          # Le type indicdateur a déjà au moins une catégorie
          else{
           
-           customBalise <- paste("#---!!! Position de subNavContent : add_preexisting_ind",nbTypeCurrent,sep="");
+           customBalise <- paste("#---!!! Position de subNavContent : add_preexisting_ind",nbTypeCurrentCh,sep="");
            customBalise <- paste(customBalise,"_categorie !!!---#",sep="");
+           
            balise <- list("#---!!! Position de buttonInd : add_button_tab_accueil !!!---#",
                           customBalise,
                           "#---!!! Position de Info_ind : add_description !!!---#",
@@ -104,7 +132,7 @@ addAdminFct <- function(input, output, session, data_nbInd) {
                           "#---!!! Position de div_tab_accueil : add_div_info_list !!!---#");
            
            for(i in 1:length(balise)){
-             autoCode <- autoMessage("info","categorie",nbTypeCurrent, data_nbInd$nbSub[[nbTypeCurrent]]+1,input$nameInput,NULL,input$descriptionInput,balise[[i]]);
+             autoCode <- autoMessage("info","categorie",nbTypeCurrentCh, data_nbInd$nbSub[[nbTypeCurrent]]+1,input$nameInput,NULL,input$descriptionInput,balise[[i]]);
              if(i<4){
                script <- paste(getwd(),"/R/UI/body/createLeftBandeauAccueil.R",sep="");
              }
@@ -124,6 +152,7 @@ addAdminFct <- function(input, output, session, data_nbInd) {
 }
 
 autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, description, balise){
+  balise<-as.character(balise);
   if(infoCheck == "info"){
     if(subInd == "type"){
       #Création du code automatique lié à la balise
@@ -144,7 +173,11 @@ autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, descr
              },
              "#---!!! Position de NavBar : add_newInfo_OrInd !!!---#"={
                
-               autoCode <- paste(', buttonInd',nbType,sep="");
+               autoCode <- paste('#---!!! Position de NavBar : modify_single_en_multiply_ind',nbType,sep="");
+               autoCode <- paste(autoCode,'!!!---#',sep="");
+               autoCode <- paste(autoCode,"",sep="\n");
+               autoCode <- paste(autoCode,', buttonInd',sep="");
+               autoCode <- paste(autoCode,nbType,sep="");
                
                message <- paste(autoCode, "", sep="\n");
                message <- paste(message, "#---!!! Position de NavBar : add_newInfo_OrInd !!!---#",sep="");
@@ -199,6 +232,14 @@ autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, descr
     else if(subInd == "categorie"){
       customBalise <- paste("#---!!! Position de subNavContent : add_preexisting_ind",nbType);
       customBalise <- paste(customBalise,"_categorie !!!---#",sep="");
+      
+      customBalise2 <- paste('#---!!! Position de NavBar : modify_single_en_multiply_ind',nbType,sep="");
+      customBalise2 <- paste(customBalise2,'!!!---#',sep="");
+      #customBalise2 <- paste(customBalise2,"",sep='\n');
+      customBalise2 <- paste(customBalise2,', buttonInd',sep="");
+      customBalise2 <- paste(customBalise2,nbType,sep="");
+      print(customBalise2);
+      
       switch(balise,
              "#---!!! Position de buttonInd : add_button_tab_accueil !!!---#"={
                
@@ -206,6 +247,7 @@ autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, descr
                autoCode<- paste(autoCode,nbSub,sep="");
                autoCode<- paste(autoCode,'<-actionButton(inputId="ind',sep="");
                autoCode <- paste(autoCode,nbType,sep="");
+               autoCode<- paste(autoCode,nbSub,sep="");
                autoCode<- paste(autoCode,'",class="subInd",label="',sep="");
                autoCode<-paste(autoCode, nameInd,sep="");
                autoCode<- paste(autoCode, '")',sep="");
@@ -232,11 +274,12 @@ autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, descr
                autoCode <- paste(autoCode,'", buttonInd',sep="");
                autoCode <- paste(autoCode,nbType,sep="");
                autoCode <- paste(autoCode,nbSub,sep="");
+               autoCode <- paste(autoCode,"",sep="\n");
+               autoCode <- paste(autoCode,customBalise,sep="");
+               autoCode <- paste(autoCode,"",sep="\n");
                autoCode <- paste(autoCode,")",sep="");
                
                message <- paste(autoCode,"",sep="\n");
-               message <- paste(message,customBalise,sep="");
-               message <- paste(message,"",sep="\n");
                message <- paste(message,"",sep="\n");
                message <- paste(message,"#---!!! Position de subNavContent : add_categorie !!!---#",sep="");
                
@@ -255,6 +298,12 @@ autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, descr
                message <- paste(autoCode,"",sep="\n");
                message <- paste(message,"",sep="\n");
                message <- paste(message,"#---!!! Position de subNav : add_categorie !!!---#",sep="");
+               
+             },
+             customBalise2 = {
+               
+               message <-"";
+               print("heeeeere");
                
              },
              "#---!!! Position de NavBar : add_newInfo_OrInd !!!---#"={
@@ -277,8 +326,6 @@ autoMessage<-function(infoCheck, subInd, nbType, nbSub, nameInd, criteria, descr
                autoCode <- paste(autoCode,'"),tags$p(class="indExplanation","',sep="");
                autoCode <- paste(autoCode, description,sep="");
                autoCode <- paste(autoCode,'"))',sep="");
-               
-               print(autoCode);
                
                message <- paste(autoCode,"",sep="\n");
                message <- paste(message,"",sept="\n");

@@ -141,8 +141,8 @@ divSubNav3<-div(class="subNav",
 divNavBar <- div(id="navBar"
                  , divSubNav1
                  , divSubNav2
-                 , divSubNav3
-                 , buttonInd4
+                 , divSubNav3#---!!! Position de NavBar : modify_single_en_multiply_ind4 !!!---#
+                 , buttonInd4#---!!! Position de NavBar : modify_single_en_multiply_ind5 !!!---#
                  , buttonInd5
 #---!!! Position de NavBar : add_newInfo_OrInd !!!---#
                  )
