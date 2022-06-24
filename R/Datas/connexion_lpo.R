@@ -11,19 +11,8 @@
 ## utilisation des librairies "RPostgreSQL", "DBI","readr"
 print("Connection to BDD...");
 
-# pkgs <-  c("RPostgres", "RPostgreSQL", "DBI","readr")
-# 
-# # on test si les librairies sont installé sur l'environnement, si c'est pas le cas on les installes
-# if (length(setdiff(pkgs, rownames(installed.packages()))) > 0) {
-#   # installation des packages 
-#   install.packages(setdiff(pkgs, rownames(installed.packages())))  
-# } 
-# # chargement des librairies (nécéssite qu'elles soient installées) 
-# lapply(pkgs, library, character.only = TRUE)
-# rm(pkgs)
-
 # . -------------------------------------------------------------------------- =============
-# 2 - Connexion BDD postGIS ====
+# Connexion BDD postGIS ====
 # . -------------------------------------------------------------------------- =============
 
 ## Supressions de toutes les connexions précédentes

@@ -2,6 +2,12 @@
 # fait sur le select des indicateurs et les autres dans la page experte.
 
 
+# Remarque : Ce script communique énormément avec le script "modifySelectos.R".
+# Il est TRÈS fortement conseillé d'aller voir les explications en début de
+# ce dernier avant de se plonger dans celui-là.
+
+
+
 selectIndicatorsFct <- function(input, output, session, data_currentInd, data_polesButtons, data_year, data_page) {
   
   # Changement sur le select du type d'indicateur (seulement expert)
@@ -104,7 +110,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
   
   
   
-  # Lancement du changement d'indicateur si le typeIndd n'a pas changé
+  # Lancement du changement d'indicateur si un type de donnée n'a pas changé
   observeEvent(input$selectNotChanged, {
     if (input$selectNotChanged != "noChange") {
       # print(paste("New seclect not changed :", input$selectNotChanged));
@@ -156,11 +162,12 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
         }
         
         # Affichage des nouvelles données
+        # Si une donnée a été modifiée, alors on doit recalculer les graphiques,
         if (data_currentInd$hasChanged || (data_page$fromPage == "accueil" && data_page$page != "accueil")) {
           poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
           decli <- data_currentInd$declinaison;
           groupe <- data_currentInd$groupe;
-          if (poles != "general" && decli == "general") { decli <- "pole"; }
+          if (poles != "general" && decli == "general") { decli <- "pole"; } # sécurité
           datasForServerFct(input = input, output = output, session = session,
                             type = data_currentInd$indicator,
                             groupe = decli, pole = poles, taxo = groupe,
@@ -168,6 +175,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
           
           data_currentInd$hasChanged <- FALSE;
         }
+        # Sinon, on les affiche seulement.
         else {
           dispDatasForServerFct(input, output, session);
         }

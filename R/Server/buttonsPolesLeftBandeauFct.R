@@ -1,6 +1,8 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de choix de pôles dans le bandeau de gauche de global et expert
 
+# Un ensemble de fonctions permettant le process des feux se trouve à la fin.
+
 buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, data_polesButtons) {
   # Bouton "Feu flore"
   observeEvent(input$feuFlore, {
@@ -9,6 +11,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
     play <- adaptPolesFeux("flore", data_polesButtons)
     
     if (play) {
+      # Actualisation des feux en fonction du nouveau clic
       data_polesFeuxOrdered <- reactiveValues(
         actualData = data_polesFeux$flore,
         otherData1 = data_polesFeux$invertebre,
@@ -26,6 +29,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       otherButton1 <- 'Invertebre';
       otherButton2 <- 'Vertebre';
       
+      # Fonction pour actualiser les feux
       processPolesFeux(actualName, otherName1, otherName2,
                        actualButton, otherButton1, otherButton2,
                        data_polesFeuxOrdered, data_polesButtonsOrdered)
@@ -34,6 +38,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       data_polesFeux$invertebre <- data_polesFeuxOrdered$otherData1
       data_polesFeux$vertebre <- data_polesFeuxOrdered$otherData2
       
+      # Permet l'actualisation de la couleur des nombres
       stringForJS <- encodeFeux(data_polesFeux);
       session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
@@ -46,6 +51,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
     play <- adaptPolesFeux("invertebre", data_polesButtons)
     
     if (play) {
+      # Actualisation des feux en fonction du nouveau clic
       data_polesFeuxOrdered <- reactiveValues(
         actualData = data_polesFeux$invertebre,
         otherData1 = data_polesFeux$flore,
@@ -63,6 +69,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       otherButton1 <- 'Flore';
       otherButton2 <- 'Vertebre';
       
+      # Fonction pour actualiser les feux
       processPolesFeux(actualName, otherName1, otherName2,
                        actualButton, otherButton1, otherButton2,
                        data_polesFeuxOrdered, data_polesButtonsOrdered)
@@ -72,6 +79,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       data_polesFeux$flore <- data_polesFeuxOrdered$otherData1
       data_polesFeux$vertebre <- data_polesFeuxOrdered$otherData2
       
+      # Permet l'actualisation de la couleur des nombres
       stringForJS <- encodeFeux(data_polesFeux);
       session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
@@ -84,6 +92,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
     play <- adaptPolesFeux("vertebre", data_polesButtons)
     
     if (play) {
+      # Actualisation des feux en fonction du nouveau clic
       data_polesFeuxOrdered <- reactiveValues(
         actualData = data_polesFeux$vertebre,
         otherData1 = data_polesFeux$flore,
@@ -101,6 +110,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       otherButton1 <- 'Flore';
       otherButton2 <- 'Invertebre';
       
+      # Fonction pour actualiser les feux
       processPolesFeux(actualName, otherName1, otherName2,
                        actualButton, otherButton1, otherButton2,
                        data_polesFeuxOrdered, data_polesButtonsOrdered)
@@ -109,6 +119,7 @@ buttonsPolesLeftBandeauFct <- function(input, output, session, data_polesFeux, d
       data_polesFeux$flore <- data_polesFeuxOrdered$otherData1
       data_polesFeux$invertebre <- data_polesFeuxOrdered$otherData2
       
+      # Permet l'actualisation de la couleur des nombres
       stringForJS <- encodeFeux(data_polesFeux);
       session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
     }
@@ -243,8 +254,8 @@ meOnlyActivePolesFeux <- function(actualName, otherName1, otherName2,
 
 # --------------- Un autre feux était actif ---------------#
 otherActivePolesFeux <- function(actualName, otherName1, otherName2,
-                                    actualButton, otherButton1, otherButton2,
-                                    data_polesFeuxOrdered)
+                                 actualButton, otherButton1, otherButton2,
+                                 data_polesFeuxOrdered)
 {
   removeUI(selector = paste('#feu', actualButton, '>img', sep=""))
   insertUI(selector = paste('#feu', actualButton, sep=""),

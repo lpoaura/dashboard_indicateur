@@ -3,8 +3,9 @@
 # regarde l'ensemble des années
 
 yearsSettingsFct <- function(input, output, session, data_year, data_currentInd, data_polesButtons, data_page) {
+  
+  # Changement dans la scroll bar
   observeEvent(input$yearScrollBar, {
-    print(data_year$loading)
     if (!input$checkAllYears && !data_year$loading) {
       data_year$year <- input$yearScrollBar;
       
@@ -17,11 +18,13 @@ yearsSettingsFct <- function(input, output, session, data_year, data_currentInd,
                         type = data_currentInd$indicator,
                         groupe = decli, pole = poles, taxo = groupe,
                         année = data_year$year);
+      # Remarque : pas besoin de passer par les sélecteurs car on sait qu'il
+      # faut recalculer les données et qu'ils ne seront pas modifiés.
     }
   })
   
+  # Changement sur la check box
   observeEvent(input$checkAllYears, {
-    print(data_year$loading)
     if (!data_year$loading) {
         
       if (input$checkAllYears) {
@@ -39,9 +42,12 @@ yearsSettingsFct <- function(input, output, session, data_year, data_currentInd,
                         type = data_currentInd$indicator,
                         groupe = decli, pole = poles, taxo = groupe,
                         année = data_year$year);
+      # Remarque : pas besoin de passer par les sélecteurs car on sait qu'il
+      # faut recalculer les données et qu'ils ne seront pas modifiés.
     }
   })
   
+  # Permet d'initialiser les données sur la checkbox et la scrollbar
   observeEvent(input$setYear, {
     if (input$setYear != -1) {
       print(paste("Initialize year to", input$setYear));
@@ -64,6 +70,7 @@ yearsSettingsFct <- function(input, output, session, data_year, data_currentInd,
     }
   })
   
+  # Permet d'actualiser correctement l'état du loading de l'année
   observeEvent(input$endLoadingYear, {
     if (input$endLoadingYear == TRUE) {
       data_year$loading <- FALSE;
@@ -71,12 +78,12 @@ yearsSettingsFct <- function(input, output, session, data_year, data_currentInd,
   })
 }
 
+# Cette fonction permet d'initialiser les données dans re-calculer les données
 setYearsFct <- function(input, output, session, data_year) {
   data_year$loading <- TRUE;
   currentYear <- data_year$year;
   
   session$onFlushed(function() {
-    print("year set")
     session$sendCustomMessage('setYear', currentYear);
   });
 }

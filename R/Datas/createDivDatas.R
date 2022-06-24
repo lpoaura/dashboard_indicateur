@@ -2,6 +2,9 @@
 
 print("Create divs for Datas...");
 
+# Ces div seront toujours affichées dans le bandeau de gauche mais ne seront 
+# remplies que si un graphique peut être affiché.
+
 divCarte <- div(id="carte",
                 leafletOutput("mymap"));
 

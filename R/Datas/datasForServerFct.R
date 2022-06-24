@@ -3,6 +3,8 @@
 
 print("Creating datas for server...");
 
+# Variables globales des graphiques et cartes
+
 # Carte
 mapPlot <- leaflet() %>%
   addTiles() %>%
@@ -29,7 +31,8 @@ dispDatasForServerFct <- function(input, output, session)
 {
   print("Re showing datas...");
   
-  # Actualisation du pie chart
+  # Actualisation du/des pie chart (deux pie chart seuelement si deux pôles
+  # activés simultanément).
   removeUI(selector = "#pie1WithTitle");
   removeUI(selector = "#pie2WithTitle");
   if (piePlot[[1]] >= 1) {
@@ -151,10 +154,11 @@ nombresDonnees <- c();
 nombresEspeces <- c();
 # !!! ATTENTION CE NE SONT PAS LES BONNES REQUETES IL SEMBLERAIT !!! #
 commandeDonnees = "SELECT SUM(nb_data_tot) FROM orb_indicateurs.mv_sraddet_ind_pole WHERE declinaison =";
-commandeEspeces = "SELECT SUM(nb_espece_dis) FROM orb_indicateurs.mv_sraddet_ind_pole WHERE declinaison =";
+commandeEspeces = "SELECT MAX(nb_espece_dis) FROM orb_indicateurs.mv_sraddet_ind_pole WHERE declinaison =";
 for (el in listPolesStr) {
   nombresDonnees <- c(nombresDonnees, dbGetQuery(con_gn,paste(commandeDonnees, el)));
-  nombresEspeces <- c(nombresEspeces, dbGetQuery(con_gn,paste(commandeEspeces, el)));
+  # Conversion de integer664 vers integer...
+  nombresEspeces <- c(nombresEspeces, dbGetQuery(con_gn,paste(commandeEspeces, el))/1);
 }
 
 # Fonction qui s'occupe de changer le nombre affiché

@@ -1,3 +1,37 @@
+# Ce script consiste à implémenter des fonctions visant chacune à modifier le
+# contenu d'un sélecteur et éventuellement l'élément qui y est sélectionné
+# si nécessaire. On fait dans l'ordre de la page experte : le type d'indicateur
+# influence l'indicateur, qui lui même influence l'indicateur, qui lui même
+# influence la déclinaison, qui elle même décide si le sélecteur de groupe
+# apparaît ou non.
+# De plus, le pôle influe aussi sur la déclinaison et inversement, de même que
+# pour le groupe. Mais aussi, l'indicateur influence le pôle sélectionné.
+
+# Ainsi, initTypeIndSelectFct est appelé lors d'un changement de page vers
+# global ou expert. Découlera ensuite l'appel, dans cet ordre, de 
+# modifyIndSelectFct, modifyDecliSelectFct et modifyGroupeSelectFct dans tous
+# les cas. Ensuite, si il y a eu une modification d'indicateur, de déclinaison
+# ou de groupe, les données sont recalculées et ré-affichées, sinon, elle ne
+# sont que ré-affichées.
+
+# Également, si le pôle est modifié alors modifyDecliSelectFct est appelé (car
+# l'indicateur et donc son type ne peut être modifié, il y a une sécurité
+# dans buttonsPolesSettingsFct.R) et le déroulement se passe exactement de la
+# même manière à partir de là.
+
+
+# Remarque : initTypeIndSelectFct est aussi appelé lors d'un uncollapse du
+# bandeau de gauche afin de re-remplir les sélecteurs mais dans ce cas rien 
+# n'est modifié.
+
+
+# Remarque 2 : Ce script communique énormément avec le script "selectIndicatorFct.R".
+# Lorsqu'une fonction associée à un type de donnée (ex : indicateur), à la fin,
+# elle va, par javascript, appeler une fonction présente dans "selectIndicatorFct.R"
+# qui sera lié à ce même type de donnée (ex : input$selectIndicator ou 
+# selectNotChanged si l'indicateur n'a pas changé). Ainsi sera appelé la
+# prochaine étape de l'actualisation de tous les sélecteurs comme décrit
+# précédemment.
 
 
 # Fonction d'actualisation de selector de type d'indicateur
@@ -70,7 +104,7 @@ modifyIndSelectFct <- function(input, output, session,
       data_currentInd$hasChanged <- TRUE;
       
     }
-    # Rien à modifier : on conserve l'indicateur sélectionné en expert
+    # Rien à modifier : on conserve l'indicateur précédemment sélectionné en expert
     else {}
     
     # Cas particulier : indicateur "spéciaux" de taxonomie
@@ -115,6 +149,7 @@ modifyIndSelectFct <- function(input, output, session,
     }
     
     # Détermination de l'indicateur actuel
+    # Cas d'un indicateur spécial
     if (findIndicateurInfoByNum(numInd, "isExpert") == FALSE) {
       print("Special indictor from global");
       switch(data_currentInd$indicator,
@@ -135,6 +170,7 @@ modifyIndSelectFct <- function(input, output, session,
              }
       );
     }
+    # Choix de l'indicateur en fonction du type d'incicateur actuel
     else if (findIndicateurInfoByNum(numInd, "typeInd") != data_currentInd$typeInd) {
       data_currentInd$indicator <- findIndictorForType(data_currentInd$typeInd);
       data_currentInd$hasChanged <- TRUE;

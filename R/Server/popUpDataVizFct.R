@@ -9,13 +9,13 @@ popUpDataVizFct <- function(input, output, session) {
     removeUI(selector = "#popUpDataViz >div")
     removeUI(selector = "#popUpDataViz")
     
-    # Si le pop up apparaît ou est toujours en train d'apparaître, on insére les bons
-    # data viz correspondant au data viz survolé.
+    # Si le pop up apparaît ou est toujours en train d'apparaître, on insère le bon
+    # data viz correspondant au data viz cliqué.
     
     # ATTENTION : l'insertion du data Viz doit se faire avec un output qui n'est déjà
     # plot autre part. Il faut donc doubler chaque plot pour en avoir un qui s'affiche
     # dans la barre de gauche et un qui s'affiche dans la pop up lorsque le premier est
-    # survolé.
+    # cliqué.
     if(input$idDataViz!="reset"){
       insertUI(selector = "#bandeau", ui = divPopUpDataViz)
       
@@ -76,6 +76,7 @@ popUpDataVizFct <- function(input, output, session) {
     }
   });
   
+  # Bouton de fermeture du pop up
   observeEvent(input$closePopupButton, {
     removeUI(selector = "#popUpDataViz >div")
     removeUI(selector = "#popUpDataViz")

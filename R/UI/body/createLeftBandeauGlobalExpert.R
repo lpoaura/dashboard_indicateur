@@ -39,7 +39,7 @@ divChiff <- div(id = "chiffreGlobaux",
                 ulFeux,
                 tags$p("Nombre de données :"),
                 divNbData,
-                tags$p("Nombre d'espèces :"),
+                tags$p("Nombre d'espèces (au maximum sur une année) :"),
                 divNbSpecies)
 
 # Menu déroulant des indicateurs

@@ -50,8 +50,6 @@ divSettingsTotal <- div(id = "settingsTotal")
                         # divSettings)
 
 
-## Bandeau vide
-
 # Bandeau vide
 divBlankHeader <- div(id = "blankHeader")
 

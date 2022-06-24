@@ -35,6 +35,8 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
   observeEvent(input$uncollapaseBandeauButton, {
     print("uncollapseButton bandeau pressed");
     removeUI(selector = '#bandeauCollapsed');
+    
+    # On insère le bon bandeau sur la gauche en fonction de la page
     if (data_page$page == "global") {
       insertUI(selector = '#bandeauCarte',
                ui = divBandeau)
@@ -51,7 +53,6 @@ buttonCollapseFct <- function(input, output, session, data_page, data_currentInd
                            data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                            data_page = data_page, fromPrgm = "collapse button")
     });
-    # dispDatasForServerFct(input, output, session);
   })
 }
 

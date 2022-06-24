@@ -95,10 +95,9 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
                ui = divCarteBack)
       output$mymap <- renderLeaflet({mapPlot});
       
-      # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
+      # Permet d'initialiser les pôles et l'année.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
-      # dispDatasForServerFct(input, output, session);
     }
     else {
       removeUI(selector = "#selectTypeIndicator")
@@ -107,16 +106,14 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       removeUI(selector = ".titleSel", multiple = TRUE)
     }
     
+    # Actualisation de la page représentant des données
     data_page$fromPage <- data_page$page;
     data_page$page <- "global";
+    
     # Initialise les selectors
     initTypeIndSelectFct(input = input, output = output, session = session,
                          data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                          data_page = data_page, fromPrgm = "buttonGlobal")
-    
-    # if (data_page$fromPage == "accueil") {
-    #   data_page$fromPage <- "global";
-    # }
   })
   
   # Bouton "Expert"
@@ -167,8 +164,8 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
       setPolesFeuxFct(session, data_polesButtons, data_polesFeux);
-      # dispDatasForServerFct(input, output, session);
     }
+    # Insertion de tous les indicateurs dans le bandeau de la page globale.
     else {
       insertUI(selector = "#selectArea", where = "afterBegin", ui = selectTypeIndicator)
       insertUI(selector = "#selectTypeIndicator", where = "beforeBegin", ui = titleSelectTypeIndicator)
@@ -178,16 +175,14 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       insertUI(selector = "#selectGroupe", where = "beforeBegin", ui = titleSelectGroupe)
     }
     
+    # Actualisation de la page représentant des données
     data_page$fromPage <- data_page$page;
     data_page$page <- "expert";
+    
     # Initialise les selectors
     initTypeIndSelectFct(input = input, output = output, session = session,
                          data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                          data_page = data_page, fromPrgm = "buttonExpert")
-    
-    # if (data_page$fromPage == "accueil") {
-    #   data_page$fromPage <- "global";
-    # }
   })
   
   # Bouton "Admin"

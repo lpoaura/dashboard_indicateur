@@ -1,6 +1,11 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de choix de pôles dans le bandeau de settings
 
+# Un ensemble de fonctions permettant le process des boutons se trouve à la fin.
+
+# !!! --- Pour réimpémeter la possibilité d'activer deux pôles --- !!! #
+# !!! ---         se référer à "otherActivePolesFeux"          --- !!! #
+
 buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year, data_page) {
   
   #--------------- Bouton Fleur ---------------#
@@ -21,6 +26,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       otherButton1 <- 'Bee';
       otherButton2 <- 'Paw';
       
+      # Fonction pour actualiser les pôles
       processPolesButtons(actualName, otherName1, otherName2,
                           actualButton, otherButton1, otherButton2,
                           data_polesButtonsOrdered)
@@ -29,8 +35,8 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData1
       data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
       
+      # Actualisation des feux en fonction des pôles sélectionnés
       actializeFeux(session, data_polesButtons, data_polesFeux);
-      
       
       # Changement des selectors et des graphiques
       data_currentInd$hasChanged <- TRUE;
@@ -58,6 +64,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       otherButton1 <- 'Flower';
       otherButton2 <- 'Paw';
       
+      # Fonction pour actualiser les pôles
       processPolesButtons(actualName, otherName1, otherName2,
                           actualButton, otherButton1, otherButton2,
                           data_polesButtonsOrdered)
@@ -67,11 +74,8 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
       data_polesButtons$vertebre <- data_polesButtonsOrdered$otherData2
       
+      # Actualisation des feux en fonction des pôles sélectionnés
       actializeFeux(session, data_polesButtons, data_polesFeux);
-      
-      stringForJS <- encodeFeux(data_polesButtons);
-      session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
-      
       
       # Changement des selectors et des graphiques
       data_currentInd$hasChanged <- TRUE;
@@ -99,6 +103,7 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       otherButton1 <- 'Flower';
       otherButton2 <- 'Bee';
       
+      # Fonction pour actualiser les pôles
       processPolesButtons(actualName, otherName1, otherName2,
                           actualButton, otherButton1, otherButton2,
                           data_polesButtonsOrdered)
@@ -107,11 +112,12 @@ buttonsPolesSettingsFct <- function(input, output, session, data_polesButtons, d
       data_polesButtons$flore <- data_polesButtonsOrdered$otherData1
       data_polesButtons$invertebre <- data_polesButtonsOrdered$otherData2
       
+      # Actualisation des feux en fonction des pôles sélectionnés
       actializeFeux(session, data_polesButtons, data_polesFeux);
       
+      # Actualisation de la couleurs de selecterus
       stringForJS <- encodeFeux(data_polesButtons);
       session$sendCustomMessage(type = 'actualizePolesButtons', message = stringForJS);
-      
       
       # Changement des selectors et des graphiques
       data_currentInd$hasChanged <- TRUE;
@@ -214,6 +220,8 @@ meOnlyActivePolesButtons <- function(actualName, otherName1, otherName2,
 }
 
 # --------------- Un autre bouton était actif ---------------#
+# C'est cette fonction uniquement qu'il faut modifier pour réactiver la possibilité
+# d'activer deux pôles simultanément.
 otherActivePolesButtons <- function(actualName, otherName1, otherName2,
                                     actualButton, otherButton1, otherButton2,
                                     data_polesButtonsOrdered)
@@ -226,6 +234,7 @@ otherActivePolesButtons <- function(actualName, otherName1, otherName2,
   data_polesButtonsOrdered$actualData = TRUE;
   
   # Modification : un seul pôle actif
+  # On peut commenter ce if/else pour réactiver la fonctionnalité.
   if (data_polesButtonsOrdered$otherData1) {
     removeUI(selector = paste('#actionButton', otherButton1, '>img', sep=""))
     insertUI(selector = paste('#actionButton', otherButton1, sep=""),
@@ -348,7 +357,7 @@ actializeFeux <- function(session, data_polesButtons, data_polesFeux)
                       height=15))
   }
   
-  
+  # Actualise la couleur des nombres
   stringForJS <- encodeFeux(data_polesFeux);
   session$sendCustomMessage(type = 'actualizeFeux', message = stringForJS)
 }
@@ -371,7 +380,7 @@ convertPolesForRequest <- function(poleStr) {
 }
 
 # --------------- Permet de réinitialiser les couleurs de tous les feux et boutons --------------- #
-# Initialisation des boutons de pôles
+# Initialisation de la couleur des boutons de pôles
 setPolesFct <- function(session, data_polesButtons) {
   # Les 3 pôles sont allumés
   if (data_polesButtons$flore && data_polesButtons$invertebre && data_polesButtons$vertebre) {
@@ -501,6 +510,9 @@ setFeuxFct <- function(session, data_polesButtons, data_polesFeux) {
                         height=15))
     }
   }
+  
+  # Une fois initialisés, on change la couleur des éléments dans le bandeau de
+  # gauche car on sait qu'il est activé car les feux le sont aussi.
   polesButtonsStr <- encodeFeux(data_polesButtons);
   feuxStr <- encodeFeux(data_polesFeux);
   session$onFlushed(function() {
