@@ -2,12 +2,13 @@
 # onglets du mode Accueil
 
 # Listes nécessaires à la bonne indexation des panneaux infos
-listIdTabAccueil <- list("ind1","ind11","ind12","ind13","ind2","ind21","ind22","ind23","ind24","ind3",
-                         "ind31","ind32","ind33","ind4","ind5")
+listIdTabAccueil <- list("ind1","ind11","ind12","ind13","ind2","ind21","ind22",
+                         "ind23","ind3", "ind31")#,
+                         #"ind4")
 listDivTabAccueil <- list(divInfo_ind1,divInfo_ind11,divInfo_ind12,divInfo_ind13,
-                          divInfo_ind2,divInfo_ind21,divInfo_ind22,divInfo_ind23,divInfo_ind24,
-                          divInfo_ind3,divInfo_ind31,divInfo_ind32,divInfo_ind33,
-                          divInfo_ind4,divInfo_ind5)
+                          divInfo_ind2,divInfo_ind21,divInfo_ind22,divInfo_ind23,
+                          divInfo_ind3,divInfo_ind31)#,
+                          # divInfo_ind4)
 
 
 

@@ -28,59 +28,39 @@ buttonInd2<-actionButton(inputId="ind2",
                          class="multipleInd",
                          div(class="labelMultipleInd",
                              id="ind2",
-                             tags$p("Mode de représentation"),
+                             tags$p("Indicateur de connaissance"),
                              icon(name = "caret-right")))
 
 # Sélecteur de sous-indicateur
 buttonInd21<-actionButton(inputId="ind21",
                           class="subInd",
-                          label="Histogramme")
-
+                          label="Nombre de données")
 # Sélecteur de sous-indicateur
 buttonInd22<-actionButton(inputId="ind22",
                           class="subInd",
-                          label="Camembert")
-
+                          label="Nombre d'espèces")
 # Sélecteur de sous-indicateur
 buttonInd23<-actionButton(inputId="ind23",
                           class="subInd",
-                          label="Diagramme en barres")
+                          label="Indicateur de connaissances")
 
-# Sélecteur de sous-indicateur
-buttonInd24<-actionButton(inputId="ind24",
-                          class="subInd",
-                          label="Cartographie")
-
-# Sélecteur d'indicateur multiple
+# Sélecteur d'indicateur unique
 buttonInd3<-actionButton(inputId="ind3",
                          class="multipleInd",
                          div(class="labelMultipleInd",
-                             id="ind3",
-                             tags$p("Indicateur de connaissance"),
+                             id="ind2",
+                             tags$p("IIndicateurs d'état de la biodiversité"),
                              icon(name = "caret-right")))
 
 # Sélecteur de sous-indicateur
 buttonInd31<-actionButton(inputId="ind31",
                           class="subInd",
-                          label="Nombre de données")
-# Sélecteur de sous-indicateur
-buttonInd32<-actionButton(inputId="ind32",
-                          class="subInd",
-                          label="Nombre d'espèces")
-# Sélecteur de sous-indicateur
-buttonInd33<-actionButton(inputId="ind33",
-                          class="subInd",
-                          label="Indicateur de connaissances")
+                          label="Répartition des statuts de liste rouge")
 
-# Sélecteur d'indicateur unique
-buttonInd4<-actionButton(inputId="ind4",
-                         class="singleInd",
-                         label="Indicateurs d'état de la biodiversité")
-
-# Sélecteur d'indicateur unique
-buttonInd5<-actionButton(inputId="ind5",
-                         class="singleInd",
-                         label="Indicateurs de pressions anthropiques")
+# # Sélecteur d'indicateur unique
+# buttonInd4<-actionButton(inputId="ind4",
+#                          class="singleInd",
+#                          label="Indicateurs de pressions anthropiques")
 
 # Boîte rassemblant les sélecteurs des sous-indicateurs
 divSubNavContent1<-div(class="subNavContent",
@@ -90,17 +70,14 @@ divSubNavContent1<-div(class="subNavContent",
                       buttonInd13)
 
 divSubNavContent2<-div(class="subNavContent",
-                       id="subNavContentInd2",
+                       id="subNavContentIn23",
                        buttonInd21,
                        buttonInd22,
-                       buttonInd23,
-                       buttonInd24)
+                       buttonInd23)
 
 divSubNavContent3<-div(class="subNavContent",
-                       id="subNavContentInd3",
-                       buttonInd31,
-                       buttonInd32,
-                       buttonInd33)
+                       id="subNavContentIn31",
+                       buttonInd31)
 
 
 # Navigation des sélecteurs des sous-indicateurs de l'indicateur multiple
@@ -123,9 +100,8 @@ divSubNav3<-div(class="subNav",
 divNavBar <- div(id="navBar",
                  divSubNav1,
                  divSubNav2,
-                 divSubNav3,
-                 buttonInd4,
-                 buttonInd5)
+                 divSubNav3)#,
+                 # buttonInd4)
 
 # Panneau de renseignements par rapport au sélecteur choisi
 divInfo_ind1 <- div(id="info_ind1",
@@ -315,86 +291,6 @@ divInfo_ind13 <- div(id="info_ind13",
 
 
 divInfo_ind2 <- div(id="info_ind2",
-                     class="info",
-                     h1(class="indName",
-                        "Mode de représentation"),
-                     tags$p(class="indExplanation",
-                            "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
-
-divInfo_ind21 <- div(id="info_ind21",
-                    class="info",
-                    h1(class="indName",
-                       "Histogramme"),
-                    tags$p(class="indExplanation",
-                           "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
-
-divInfo_ind22 <- div(id="info_ind22",
-                     class="info",
-                     h1(class="indName",
-                        "Camembert"),
-                     tags$p(class="indExplanation",
-                            "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
-
-divInfo_ind23 <- div(id="info_ind23",
-                     class="info",
-                     h1(class="indName",
-                        "Diagrammes en barre"),
-                     tags$p(class="indExplanation",
-                            "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
-
-divInfo_ind24 <- div(id="info_ind24",
-                     class="info",
-                     h1(class="indName",
-                        "Cartographie"),
-                     tags$p(class="indExplanation",
-                            "Lorem ipsum dolor sit amet, 
-                      consectetur adipiscing elit. 
-                      Quisque sodales nunc eu egestas 
-                      dictum. Mauris maximus ante et 
-                      diam lacinia sodales. Ut 
-                      elementum tortor sed lorem commodo, 
-                      ut aliquet mauris viverra. In vel 
-                      odio ut magna pretium imperdiet eu 
-                      et erat. Curabitur ornare cursus mi,
-                      eget vulputate orci pellentesque vel."))
-
-divInfo_ind3 <- div(id="info_ind3",
                     class="info",
                     h1(class="indName",
                        "Indicateur de connaissance"),
@@ -410,7 +306,7 @@ divInfo_ind3 <- div(id="info_ind3",
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
 
-divInfo_ind31 <- div(id="info_ind31",
+divInfo_ind21 <- div(id="info_ind21",
                      class="info",
                     h1(class="indName",
                        "Nombre de données"),
@@ -426,7 +322,7 @@ divInfo_ind31 <- div(id="info_ind31",
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
 
-divInfo_ind32 <- div(id="info_ind32",
+divInfo_ind22 <- div(id="info_ind22",
                      class="info",
                     h1(class="indName",
                        "Nombre d'espèces"),
@@ -442,7 +338,7 @@ divInfo_ind32 <- div(id="info_ind32",
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
 
-divInfo_ind33 <- div(id="info_ind33",
+divInfo_ind23 <- div(id="info_ind23",
                      class="info",
                     h1(class="indName",
                        "Indicateur de connaissances"),
@@ -458,7 +354,7 @@ divInfo_ind33 <- div(id="info_ind33",
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
 
-divInfo_ind4 <- div(id="info_ind4",
+divInfo_ind3 <- div(id="info_ind3",
                     class="info",
                     h1(class="indName",
                        "Indicateurs d'état de la biodiversité"),
@@ -474,12 +370,12 @@ divInfo_ind4 <- div(id="info_ind4",
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
 
-divInfo_ind5 <- div(id="info_ind5",
-                    class="info",
-                    h1(class="indName",
-                       "Indicateurs de pressions anthropiques"),
-                    tags$p(class="indExplanation",
-                           "Lorem ipsum dolor sit amet, 
+divInfo_ind31 <- div(id="info_ind31",
+                     class="info",
+                     h1(class="indName",
+                        "Répartition de la différence des statuts de liste rouge"),
+                     tags$p(class="indExplanation",
+                            "Lorem ipsum dolor sit amet, 
                       consectetur adipiscing elit. 
                       Quisque sodales nunc eu egestas 
                       dictum. Mauris maximus ante et 
@@ -489,6 +385,22 @@ divInfo_ind5 <- div(id="info_ind5",
                       odio ut magna pretium imperdiet eu 
                       et erat. Curabitur ornare cursus mi,
                       eget vulputate orci pellentesque vel."))
+
+# divInfo_ind4 <- div(id="info_ind4",
+#                     class="info",
+#                     h1(class="indName",
+#                        "Indicateurs de pressions anthropiques"),
+#                     tags$p(class="indExplanation",
+#                            "Lorem ipsum dolor sit amet, 
+#                       consectetur adipiscing elit. 
+#                       Quisque sodales nunc eu egestas 
+#                       dictum. Mauris maximus ante et 
+#                       diam lacinia sodales. Ut 
+#                       elementum tortor sed lorem commodo, 
+#                       ut aliquet mauris viverra. In vel 
+#                       odio ut magna pretium imperdiet eu 
+#                       et erat. Curabitur ornare cursus mi,
+#                       eget vulputate orci pellentesque vel."))
 
 # Boîte rassemblant la navigation des sélecteurs et le panneau renseignements
 divBandeauAccueil <- div(id = "bandeauAccueil",

@@ -11,7 +11,7 @@ listColumns <- c("indName", "ind", "isGlobal", "isExpert",
 # Liste associée aux types d'indicateurs
 listTypesIndicators <- c("Indicateur de connaissance"
                          , "Indicateurs d’état de la biodiversité"
-                         , "Indicateurs de pressions anthropiques"
+                         # , "Indicateurs de pressions anthropiques"
                          # ---!!! DERNIERE LIGNE TYPE INDICATEUR !!!--- #
 );
 
@@ -154,8 +154,6 @@ newRow <- list("Nombre d'espèces", "especes", TRUE, TRUE, "Indicateur de connai
 tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Indicateur de connaissances", "connaissances", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Proportion d'espèces couverte par une liste rouge", "listeRouge", TRUE, TRUE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
 
 newRow <- list("Nombre de données par taxonomie", "donnéesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, TRUE, TRUE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
@@ -164,26 +162,26 @@ tabIndicators <- rbind(tabIndicators,newRow);
 newRow <- list("Indicateur de connaissances par taxonomie", "connaissancesTaxo", TRUE, FALSE, "Indicateur de connaissance", TRUE, TRUE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
 
-newRow <- list("Indicateur de réservoirs de biodiversité ", "revervoirBiodiv", TRUE, TRUE, "Indicateur de connaissance", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Indicateur de réservoirs de biodiversité ", "revervoirBiodiv", TRUE, TRUE, "Indicateur de connaissance", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
 
 
-newRow <- list("État des populations d’oiseaux communs", "oiseauxCommuns", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+# newRow <- list("État des populations d’oiseaux communs", "oiseauxCommuns", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Populations de chiroptères", "chiropteres", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+newRow <- list("Répartition des statuts de liste rouge", "listeRouge", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
 tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Populations de chiroptères", "chiropteres", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Répartition de la différence des statuts de liste rouge LRR et LRN", "listeRouge", TRUE, TRUE, "Indicateurs d’état de la biodiversité", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Proportion des listes d'espèces menacées parmi les listes régionales", "menacees", TRUE, TRUE, "Indicateurs d’état de la biodiversité", TRUE, TRUE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Proportion des listes d'espèces menacées parmi les listes régionales", "menacees", TRUE, TRUE, "Indicateurs d’état de la biodiversité", TRUE, TRUE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
 
 
-newRow <- list("Pollution lumineuse", "polutLum", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
-newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
-tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Pollution lumineuse", "polutLum", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Changement d'occupation du sol", "occupSol", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
+# newRow <- list("Pression phytosanitaire", "phytosan", TRUE, TRUE, "Indicateurs de pressions anthropiques", FALSE, FALSE, FALSE, FALSE, TRUE);
+# tabIndicators <- rbind(tabIndicators,newRow);
 # ---!!! DERNIERE LIGNE INDICATEUR !!!--- #
 print(tabIndicators)
 
