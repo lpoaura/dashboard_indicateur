@@ -95,20 +95,20 @@ afficher_fournisseur_producteur<-function(groupe,type)
   return(list(nbPlot,plot1,plot2,titre1,titre2));
 }
 
-##Test
- a="producteur"
- b="données"
- afficher_fournisseur_producteur(a,b)
- 
- ui <- fluidPage(
-   plotlyOutput('plot')
- )
- 
- 
- server <- function(input, output) {
-   output$plot <- renderPlotly({afficher_fournisseur_producteur(a,b)})
- }
- 
- shinyApp(ui=ui,server=server)
+ # ##Test
+ # a="producteur"
+ # b="données"
+ # afficher_fournisseur_producteur(a,b)
+ # 
+ # ui <- fluidPage(
+ #   plotlyOutput('plot')
+ # )
+ # 
+ # 
+ # server <- function(input, output) {
+ #   output$plot <- renderPlotly({afficher_fournisseur_producteur(a,b)})
+ # }
+ # 
+ # shinyApp(ui=ui,server=server)
 
  
