@@ -68,7 +68,7 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
     
     plot1 <- plot_ly(data = df, labels = ~code_statut, values = ~count, type = "pie",
                      textinfo = "percent",marker = list(line = list(color = '#FFFFFF', width = 1)),
-                     insidetextorientation = "horizontal")  %>% #layout(title = "Proportion d'èspèces sur liste rouge") %>%
+                     insidetextorientation = "horizontal", sort = FALSE)  %>% #layout(title = "Proportion d'èspèces sur liste rouge") %>%
       config(displayModeBar = F)
     return(list(nbPlot,plot1,plot2,title1,title2));
   }
@@ -189,7 +189,8 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
   plot1 <- plot_ly(data = df, labels = ~qualite_labels, values = ~qualite, type = "pie", hole=0.6,
                    textinfo = "percent", 
                    marker = list(colors = fcouleur(listPoles[[2]])),
-                   insidetextorientation = "horizontal")
+                   insidetextorientation = "horizontal",sort = FALSE)%>%
+    config(displayModeBar = F)
   
   if (nbPlot == 2) {
     
@@ -203,7 +204,8 @@ afficher_pie<-function(groupe,pole,taxo,année,type)
     plot2 <- plot_ly(data = df2, labels = ~qualite_labels, values = ~qualite2, type = "pie", hole=0.6,
                      textinfo = "percent", 
                      marker = list(colors = fcouleur(listPoles[[3]])),
-                     insidetextorientation = "horizontal")
+                     insidetextorientation = "horizontal",sort = FALSE)%>%
+      config(displayModeBar = F)
     
     return(list(nbPlot,plot1,plot2,title1,title2))
   }
