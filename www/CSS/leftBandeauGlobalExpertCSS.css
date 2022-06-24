@@ -56,13 +56,13 @@ body::-webkit-scrollbar-thumb {
 #affichageNbData {
   color: #FFFFFF;
   margin: 0px;
-  font-size: 85%;
+  font-size: 16px;
 }
 
 #affichageNbSpecies {
   color: #FFFFFF;
   margin: 0px;
-  font-size: 85%;
+  font-size: 16px;
 }
 
 #nombreData {
@@ -91,32 +91,50 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* Zone de sélection des indicateurs */
-#selectIndicator {
+#selectArea >select {
     width: 90%;
     padding: 5%;
-    margin-bottom: 10%;
-    font-size: 80%;
+    font-size: 16px;
     border-radius: 10px;
     outline: none;
     border: none;
     color: #FFFFFF;
-    background-color: var(--color_violet50);
+    background-color: var(--color_violet100);
+}
+
+#selectArea >p {
+  font-weight:bold;
+  text-align:center;
+  color :white;
+  margin-top : 1%;
+  margin-bottom : 0px;
+  font-size: 20px;
+}
+
+#selectArea {
+  margin-bottom: 10%;
 }
 
 /* Scroll bar du menu déroulant des indicateurs */
-#selectIndicator::-webkit-scrollbar {
+select::-webkit-scrollbar {
   width: 10px; /* width of the entire scrollbar */
 }
 
-#selectIndicator::-webkit-scrollbar-track {
+select::-webkit-scrollbar-track {
   background-color: #FFFFFF; /* color of the tracking area */
   border-radius: 10px;
 }
 
-#selectIndicator::-webkit-scrollbar-thumb {
+select::-webkit-scrollbar-thumb {
   background-color: var(--color_violet); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
   border: 3px solid white; /* creates padding around scroll thumb */
+}
+
+/* Titre du nom de l'indicateur */
+#indicatorName {
+  color; white;
+  font-size: 20px;
 }
 
 /*Les icones de la bibliothèque fa sont mis en blanc : ici le 
@@ -151,17 +169,116 @@ point d'interrogation dans un cercle*/
   padding-left: 5%;
 }
 
-#histogramme {
-  margin-bottom: 10px;
+.graphWithTitle {
+  margin-bottom: 15px;
 }
 
-#PieChart {
-  margin-bottom: 10px;
+.graphWithTitle p {
+  color: white;
+  font-size: 14px;
+}
+
+/* Pop up qui s'affiche lors du survolage des data viz */
+#popUpDataViz {
+  position:absolute;
+  top: 10%;
+  left: 10%;
+  max-height : 80%;
+  max-width : 80%;
+  
+  background-color: var(--color_bleuLPO);
+  border-radius : 15px;
+  /*background-color : #eff0f2;*/
+  /*border:none;*/
+  padding-top : 0%;
+  padding-bottom : 1%;
+  padding-right : 1%;
+  padding-left : 1%;
+  border: solid 10px var(--color_bleuLPO);
+  z-index : 10;
+  overflow-y:auto;
+  box-shadow: 0px 0px 30px black;
+}
+
+#buttonCloseDiv {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+#titrePopup {
+  color: #eff0f2;
+  margin-bottom: 5px;
+  align-self: end;
+}
+
+#closePopupButton {
+  border: none;
+  background-color: #FFFFFF00;
+  outline: none;
+  box-shadow: none;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-size: 24px;
+  color: #eff0f2;
+  align-self: start;
+}
+
+#histCopy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#pie1Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#pie2Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#barCopy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#graphFournProd1Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+#graphFournProd2Copy {
+  height: 100% !important;
+  width: 100% !important;
+}
+/*.graphCopy {
+  height: 100%;
+  width: 100%;
+}*/
+
+/* Scroll bar du pop */
+#popUpDataViz::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+#popUpDataViz::-webkit-scrollbar-track {
+  background-color: #FFFFFF; /* color of the tracking area */
+  border-radius: 10px;
+}
+
+#popUpDataViz::-webkit-scrollbar-thumb {
+  background-color: var(--color_violet); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid white; /* creates padding around scroll thumb */
 }
 
 /* Zone du bandeau qui est utilisé pour afficher des informations */
 #bandeauUtil {
-  width: 450px;
+  width: 100%;
 }
 
 
@@ -172,14 +289,21 @@ point d'interrogation dans un cercle*/
   outline: none;
   box-shadow: none;
   padding: 5px;
+  font-size: 24px;
 }
 
 /* Forme du bandeau lorsque collapsed */
 #bandeauCollapsed {
+  z-index: 2;
   display: flex;
   justify-content: center;
+  align-items: start;
   overflow-y: auto;
-  min-width: 20px;
+  width: 24px;
+  height: 100%;
+  background-color: var(--color_bleuLPO);
+  border-radius: 0 20px 20px 0;
+  padding-top: 1%;
 }
 
 #bandeauCollapsed>button {
@@ -187,16 +311,21 @@ point d'interrogation dans un cercle*/
   background-color: #FFFFFF00;
   outline: none;
   box-shadow: none;
-  padding: 0px;
+  padding: 5px;
+  font-size: 24px;
 }
 
 /* Zone générale du bandeau */
 #bandeau {
+  z-index: 2;
   display: flex;
-  width: 100%;
-  height: 100%;
   flex-direction: row;
   overflow-y: auto;
+  height: 100%;
+  width: 50%;
+  background-color: var(--color_bleuLPO);
+  border-radius: 0 20px 20px 0;
+  border: solid 10px var(--color_bleuLPO);
 }
 
 /* Scrollbar du bandeau */
@@ -215,18 +344,6 @@ point d'interrogation dans un cercle*/
   border: 3px solid white; /* creates padding around scroll thumb */
 }
 
-/* Bandeau de gauche */
-#bandeauTotal {
-  padding-top: 1%;
-  padding-bottom: 1%;
-  padding-right: 1%;
-  height: 450px;
-  max-width: 30%;
-  background-color: var(--color_bleuLPO);
-  border-radius: 0 20px 20px 0;
-  z-index: 2;
-}
-
 /* Zone de la carte */
 #carte {
   
@@ -235,4 +352,5 @@ point d'interrogation dans un cercle*/
 #bandeauCarte {
   display: flex;
   flex-direction: row;
+  height: 450px;
 }

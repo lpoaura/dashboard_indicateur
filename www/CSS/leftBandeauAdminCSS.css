@@ -1,0 +1,132 @@
+/* CSS du bandeau de gauche du mode Admin */
+
+/* Zone de login */
+#panelLogIn {
+  position:absolute;
+  top: 120px;
+  left: 400px;
+  width: 43%;
+  height: 25%;
+  
+  border-radius : 15px;
+  background-color : #eff0f2;
+  border:none;
+  padding : 3%;
+  padding-top : 1%;
+}
+
+/* Message d'alerte */
+#badPwdAlerte {
+  color : red;
+  text-align : center;
+}
+
+/* Zone totale du corps du mode Admin */
+#bandeauAdmin {
+  display:flex;
+  flex-direction:row;
+}
+
+/* Définition des onglets permettant de naviguer parmi les fonctionnalités du
+mode Admin */
+.tabAdmin {
+  border-radius: 0px 10px 10px 0px;
+  background-color: var(--color_bleuLPO_light);
+  border:none;
+  outline: none;
+  box-shadow: none;
+  padding: 10%;
+  flex-basis:100px;
+  width: 200px;
+  font-size: 150%;
+  margin-bottom:2%;
+  color:#333;
+}
+
+#addButton {
+  background-color: var(--color_bleuLPO);
+  color: white;
+  outline: none;
+  box-shadow: none;
+}
+
+#suppressButton {
+  outline: none;
+  box-shadow: none;
+}
+
+#modifyButton {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Navigation des fonctionnalités du mode Admin */
+#navOption {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Définition des panneaux correspondant à la fonctionnalité sélectionnée */
+.panelAdmin {
+  position:absolute;
+  top: 120px;
+  left: 400px;
+  width: 43%;
+  height: 75%;
+  
+  border-radius : 15px;
+  background-color : #eff0f2;
+  border:none;
+  padding : 3%;
+  padding-top : 1%;
+  overflow-y:auto;
+}
+
+.panelAdmin >h1 {
+  text-align:center;
+  padding:0px;
+}
+
+.panelAdmin::-webkit-scrollbar {
+  width: 10px; /* width of the entire scrollbar */
+}
+
+.panelAdmin::-webkit-scrollbar-track {
+ background-color: #FFFFFF; /* color of the tracking area */
+  border-radius: 10px;
+}
+
+.panelAdmin::-webkit-scrollbar-thumb {
+   background-color: var(--color_violet); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid white; /* creates padding around scroll thumb */
+}
+
+/* Texte de la zone de critères supplémentaire pour l'ajout de sous-indicateur */
+#subIndInfo >p {
+  font-weight:bold;
+  margin-top:10px;
+}
+
+#descriptionArea >p {
+  font-weight:bold;
+}
+
+#categorieInfo >p {
+  font-weight:bold;
+}
+
+/* Zone de l'identité du nouveau indicateur : nom + sous ou indicateur général */
+#identityInd {
+  display: flex;
+  flex-direction : row;
+}
+
+#infoCheckInput {
+  margin-left: 7%;
+}
+
+#nameInput {
+  margin-right: 3%;
+}
+

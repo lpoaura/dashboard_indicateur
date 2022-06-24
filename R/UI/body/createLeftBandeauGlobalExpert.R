@@ -2,20 +2,20 @@
 
 # Feu du pôle flore
 actionButtonFlore <- actionButton(inputId = "feuFlore",
-                                  img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                  img(src = "Resources/pictogrammes/rond_vert.png",
+                                      width = 15,
                                       height = 15))
 
 # Feu du pôle invertébré
 actionButtonInvertebre <- actionButton(inputId = "feuInvertebre",
-                                      img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      img(src = "Resources/pictogrammes/rond_orange.png",
+                                      width = 15,
                                       height = 15))
 
 # Feu du pôle vertébré
 actionButtonVertebre <- actionButton(inputId = "feuVertebre",
-                                      img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      img(src = "Resources/pictogrammes/rond_bleu.png",
+                                      width = 15,
                                       height = 15))
 
 # Ul des feux colorés
@@ -44,13 +44,30 @@ divChiff <- div(id = "chiffreGlobaux",
 
 # Menu déroulant des indicateurs
 selectIndicator <- tags$select(id = "selectIndicator",
-                               "onfocus"='this.size=2;',
+                               "onfocus"='this.size=5;',
                                "onblur"='this.size=1;' ,
-                               "onchange"='this.size=1; this.blur();',
-                               
-                               tags$option(value = "A", "Indicateur A"),
-                               tags$option(value = "B", "Indicateur B"),
-                               tags$option(value = "C", "Indicateur C"))
+                               "onchange"='this.size=1; this.blur();')
+
+# Menu déroulant du type d'indicateurs
+titleSelectTypeIndicator <- tags$p(class = "titleSel","Type d'indicateurs :")
+selectTypeIndicator <- tags$select(id = "selectTypeIndicator",
+                                   "onfocus"='this.size=5;',
+                                   "onblur"='this.size=1;' ,
+                                   "onchange"='this.size=1; this.blur();')
+
+# Menu déroulant de la déclinaison
+titleSelectDeclinaison <- tags$p(class = "titleSel","Déclinaison :")
+selectDeclinaison <- tags$select(id = "selectDeclinaison",
+                                 "onfocus"='this.size=5;',
+                                 "onblur"='this.size=1;' ,
+                                 "onchange"='this.size=1; this.blur();')
+
+# Menu déroulant du groupe
+titleSelectGroupe <- tags$p(id = "pTitleSelGroupe", class = "titleSel","Groupe :")
+selectGroupe <- tags$select(id = "selectGroupe",
+                            "onfocus"='this.size=5;',
+                            "onblur"='this.size=1;' ,
+                            "onchange"='this.size=1; this.blur();')
 
 # Récapitulatif de l'indicateur sélectionné
 divDataSumUp <- div(id = "dataSumUp",
@@ -64,19 +81,51 @@ divDataSumUp <- div(id = "dataSumUp",
 divDataViz <- div(id = "dataViz",
                   divDataSumUp,
                   divHist,
-                  divPie)
+                  divPie,
+                  divBar,
+                  divFournProd)
+
+# Zone des sélecteurs 
+divSelectArea <- div(id="selectArea",
+                     tags$p("Indicateur :"),
+                     selectIndicator)
+
+# Zone des sélecteurs côté expert
+divSelectAreaExpert <- div(id="selectArea",
+                           titleSelectTypeIndicator,
+                           selectTypeIndicator,
+                           tags$p("Indicateur :"),
+                           selectIndicator,
+                           titleSelectDeclinaison,
+                           selectDeclinaison,
+                           titleSelectGroupe,
+                           selectGroupe)
 
 # Zone des indicateurs et data viz
 divData <- div(id = "data",
-               selectIndicator,
+               divSelectArea,
                divDataViz)
+
+# Zone des indicateurs et data viz côté expert
+divDataExpert <- div(id = "data",
+                     divSelectAreaExpert,
+                     divDataViz)
+
+# Pop-Up du data viz survolé
+divPopUpDataViz <- div(id = "popUpDataViz")
+
 
 # Bandeau déplié 
 divBandeauUtil <- div(id = "bandeauUtil",
                       divChiff,
                       divData)
 
-# Bandeau déplié
+# Bandeau déplié côté expert
+divBandeauUtilExpert <- div(id = "bandeauUtil",
+                            divChiff,
+                            divDataExpert)
+
+# Bandeau déplié : bouton de collapse
 divBandeauUncollapsed <- div(id = "bandeauUncollapsed",
                              actionButton(inputId = "collapaseBandeauButton",
                                           icon("caret-left")))
@@ -86,20 +135,19 @@ divBandeauCollapsed <- div(id = "bandeauCollapsed",
                            actionButton(inputId = "uncollapaseBandeauButton",
                                         icon("caret-right")))
 
+# Regroupement de tout
 divBandeau <- div(id = "bandeau",
                   divBandeauUtil,
                   divBandeauUncollapsed)
-rm(divBandeauUtil, divBandeauUncollapsed)
+divBandeauExpert <- div(id = "bandeau",
+                        divBandeauUtilExpert,
+                        divBandeauUncollapsed)
+rm(divBandeauUtil, divBandeauUtilExpert, divBandeauUncollapsed)
 
 
-# Bandeau de gauche
-divBandeauTotal <- div(id = "bandeauTotal",
-                       divBandeau)
-
-# Zone de la carte
-divBandeauRightCarte <- div(id = "bandeauRightCarte")
-
+# Regroupement avec la div vide de droite
 divBandeauCarte <- div(id = "bandeauCarte",
-                       divBandeauTotal,
-                       divBandeauRightCarte)
-rm(divBandeauTotal, divBandeauRightCarte)
+                       divBandeau)
+divBandeauCarteExpert <- div(id = "bandeauCarte",
+                             divBandeauExpert)
+

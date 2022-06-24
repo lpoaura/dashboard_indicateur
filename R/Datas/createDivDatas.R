@@ -1,18 +1,14 @@
 # Ce script crée les div des données
 
-print("Create divs for Datas...")
-# divBouttons <- div(id="Boutons",
-#                    actionButton("total", "General"),
-#                    actionButton("vertebres", "Vertebres"),
-#                    actionButton("flore", "Flore"),
-#                    actionButton("invertebres", "Invertebres"))
-# ui <- fluidPage(
-# )
+print("Create divs for Datas...");
+
 divCarte <- div(id="carte",
-                leafletOutput("mymap"))
+                leafletOutput("mymap"));
 
-divHist <- div(id="histogramme",
-               plotlyOutput('hist'))
+divPie <- div(id="pieChart");
 
-divPie <- div(id="PieChart",
-              plotlyOutput('pie'))
+divHist <- div(id="histogramme");
+
+divBar <- div(id="barChart");
+
+divFournProd <- div(id="dataFournProd")

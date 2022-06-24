@@ -19,6 +19,11 @@
   width: 100%;
 }
 
+/* Corps total */
+/*#corps {
+  height: calc(100% - 240px);
+}*/
+
 /* Total des zones */
 #total {
   display: flex;
@@ -36,7 +41,31 @@ div {
   border: 1px solid;
 }*/
 
+/*.info legend leaflet-control{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}*/
 
+.leaflet-bottom.leaflet-left {
+  position: absolute;
+  top: 75%;
+  left: 65%;
+}
 
+.leaflet-bottom.leaflet-left .leaflet-control-layers {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 130px;
+}
+
+.leaflet-bottom.leaflet-left .info {
+  position: absolute;
+  top: 0%;
+  left: 130px;
+  width: 250px;
+  height: 140px;
+}
 
 

@@ -7,8 +7,28 @@ getwd() %>%
   paste0("/R/Datas/connexion_lpo.R") %>%
   source()
 
+# getwd() %>%
+#   paste0("/R/Datas/requetesSQL.R") %>%
+#   source()
+
 getwd() %>%
-  paste0("/R/Datas/requetesSQL.R") %>%
+  paste0("/R/Datas/afficher_carte.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_hist.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_pie.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_bar.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Datas/afficher_fournisseur_producteur.R") %>%
   source()
 
 getwd() %>%
@@ -33,11 +53,19 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/UI/body/createListIndicators.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/UI/body/createLeftBandeauGlobalExpert.R") %>%
   source()
 
 getwd() %>%
   paste0("/R/UI/body/createLeftBandeauAccueil.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/UI/body/createLeftBandeauAdmin.R") %>%
   source()
 
 getwd() %>%
@@ -54,11 +82,47 @@ getwd() %>%
   source()
 
 getwd() %>%
+  paste0("/R/Server/yearsSettingsFct.R") %>%
+  source()
+
+getwd() %>%
   paste0("/R/Server/buttonsPolesSettingsFct.R") %>%
   source()
 
 getwd() %>%
   paste0("/R/Server/buttonsPolesLeftBandeauFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/selectIndicatorsFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/buttonLogInAdminFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/buttonsAdminTabFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/buttonsAccueilTabFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/buttonHelpFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/popUpDataVizFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/addPanelAccueilFct.R") %>%
+  source()
+
+getwd() %>%
+  paste0("/R/Server/modifySelectors.R") %>%
   source()
 
 getwd() %>%
