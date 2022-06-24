@@ -76,6 +76,7 @@ newRow <- list("Amphibiens", FALSE, TRUE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
 newRow <- list("Lichens", TRUE, FALSE, FALSE);
 tabGroupe <- rbind(tabGroupe,newRow);
+# ---!!! DERNIERE LIGNE GROUPE !!!--- #
 
 getIsPoleGroupe <- function(taxo, pole) {
   nPole1 <- 0;
