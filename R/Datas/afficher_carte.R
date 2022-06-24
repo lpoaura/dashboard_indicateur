@@ -16,8 +16,8 @@ fcouleur_carte<-function(pole,indic,type,echelle)
   else {print(paste("ERREUR SUR LE POLE :", pole)); Palette=colors1}
   
   pal <- NULL;
-  if (type != "connaissance") {
-    if (echelle == "Quartile") {
+  if (type != "connaissances") {
+    if (echelle == "Quantile") {
       pal <- colorQuantile(
         palette = Palette,
         domain = indic)
@@ -61,10 +61,10 @@ fcouleur_carte<-function(pole,indic,type,echelle)
 
 afficher_carte<-function(groupe,pole,taxo,année,type)
 {
-  echelle <- "Quartile";
+  echelle <- "Quantile";
   map <- NULL;
   
-  if (type == "connaissance"){
+  if (type == "connaissances"){
     titre = "Indicateur d’état de connaissances"
     
     if (groupe == "general"){
@@ -81,12 +81,12 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
       map <- leaflet() %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron") %>%
-        setView( lng = 4.3871779
-                 , lat = 45.439695
+        setView( lng = 2.07983
+                 , lat = 45.67042
                  , zoom = 7.1 )
       return(map);
-    commande = paste("SELECT geom,ind_tot_group from", base)
     }
+    commande = paste("SELECT geom,ind_tot_group from", base)
   }
   else {
     if ((groupe == "general")||(groupe=="pole")){
@@ -101,8 +101,8 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
       map <- leaflet() %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron") %>%
-        setView( lng = 4.3871779
-                 , lat = 45.439695
+        setView( lng = 2.07983
+                 , lat = 45.67042
                  , zoom = 7.1 )
       return(map);
       commande = paste("SELECT geom,ind_tot_group from", base)
@@ -122,8 +122,8 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
       map <- leaflet() %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron") %>%
-        setView( lng = 4.3871779
-                 , lat = 45.439695
+        setView( lng = 2.07983
+                 , lat = 45.67042
                  , zoom = 7.1 )
       return(map);
     }
@@ -138,8 +138,8 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
       map <- leaflet() %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron") %>%
-        setView( lng = 4.3871779
-                 , lat = 45.439695
+        setView( lng = 2.07983
+                 , lat = 45.67042
                  , zoom = 7.1 )
       return(map);
     }
@@ -159,8 +159,8 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
     map <- leaflet() %>%
       addTiles() %>%
       addProviderTiles("CartoDB.Positron") %>%
-      setView( lng = 4.3871779
-               , lat = 45.439695
+      setView( lng = 2.07983
+               , lat = 45.67042
                , zoom = 7.1 )
     return(map);
   }
@@ -178,19 +178,21 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
   }
   
   
-  if (type != "connaissance"){
+  if (type != "connaissances"){
     commande <- paste(commande,"GrOUP BY geom")
   }
   print(commande)
   
+  
   #Chargement de la carte
   Carte <- st_read(con_gn, query = commande)
+  
   
   #conversion des sonnées géométriques
   poly <- st_transform(Carte[,2], "+init=epsg:4326")
   
   #Chargement des données de la cartes (nb data vertébrés entre 2021 et 2025)
-  if (type != "connaissance"){
+  if (type != "connaissances"){
     indic = Carte%>% pull(sum)
   }
   else{
@@ -199,62 +201,241 @@ afficher_carte<-function(groupe,pole,taxo,année,type)
   }
   
   
-  map <- leaflet(options = leafletOptions(7,11)) %>%
-    addTiles() %>%
-    addProviderTiles("CartoDB.Positron") %>%
-    addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Quartile")(indic),stroke = TRUE,
-                weight = 0.1, color = "black",
-                highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "quartile")%>%
-    addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Logarithmique")(indic),stroke = TRUE,
-                weight = 0.1, color = "black",
-                highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "logarithmique")%>%
-    
-    addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Numérique")(indic),stroke = TRUE,
-                weight = 0.1, color = "black",
-                highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "numerique")%>%
-    addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Intervalles")(indic),stroke = TRUE,
-                weight = 0.1, color = "black",
-                highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "intervalles")%>%
-    setView( lng = 4.3871779
-             , lat = 45.439695
-             , zoom = 7.1 )%>%
-    setMaxBounds(0,42,10,48)%>%
-    
-    addLegend("bottomright",pal = fcouleur_carte(pole,indic,type,"Quartile"), values = indic ,
-              opacity = 1, title = paste("<div>",titre,"</div><div>quartile</div>",sep = ""),
-              labFormat = function(type, cuts, p) {
-                n = length(cuts)
-                paste0(floor(cuts[-n]), " &ndash; ", floor(cuts[-1]))},group = "quartile")%>%
-    
-    addLegend("bottomright",pal = fcouleur_carte(pole,indic,type,"Logarithmique"), values = indic,
-              opacity = 1, title = paste("<div>",titre,"</div><div>logarithmique</div>",sep = ""),
-              group = "logarithmique")%>%
-    
-    addLegend("bottomright",pal = fcouleur_carte(pole,indic,type,"Numérique"), values = indic,
-              opacity = 1, title = paste("<div>",titre,"</div><div>numerique</div>",sep = ""),
-              group = "numerique")%>%
-    addLegend("bottomright",pal = fcouleur_carte(pole,indic,type,"Intervalles"), values = indic,
-              opacity = 1, title = paste("<div>",titre,"</div><div>intervalles</div>",sep = ""),
-              group = "intervalles")%>%
-    
-    addLayersControl(position = "bottomleft", baseGroups = c("quartile", "logarithmique", "numerique","intervalles"),
-                     options = layersControlOptions(collapsed = FALSE))%>%
-    htmlwidgets::onRender("
+  if (type != "connaissances"){
+
+    if (!any(duplicated(quantile(indic)))){
+      map <- leaflet(options = leafletOptions(7,11)) %>%
+        addTiles() %>%
+        addProviderTiles("CartoDB.Positron") %>%
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Quantile")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Quantile")%>%
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Logarithmique")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Logarithmique")%>%
+
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Numérique")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "numerique")%>%
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Intervalles")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "intervalles")%>%
+        setView( lng = 2.07983
+                 , lat = 45.67042
+                 , zoom = 7.1 )%>%
+        setMaxBounds(-10,39,20,51)%>%
+        
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Quantile"), values = indic ,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>Quantile</div>",sep = ""),
+                  labFormat = function(type, cuts, p) {
+                    (length(cuts)>=0)
+                    n = length(cuts)
+                    paste0(floor(cuts[-n]), " &ndash; ", floor(cuts[-1]))},group = "Quantile")%>%
+
+
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Logarithmique"), values = indic,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>Logarithmique</div>",sep = ""),
+                  group = "Logarithmique")%>%
+
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Numérique"), values = indic,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>numerique</div>",sep = ""),
+                  group = "numerique")%>%
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Intervalles"), values = indic,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>intervalles</div>",sep = ""),
+                  group = "intervalles")%>%
+
+        addLayersControl(position = "bottomleft", baseGroups = c("Quantile", "Logarithmique", "numerique","intervalles"),
+                         options = layersControlOptions(collapsed = FALSE))%>%
+        htmlwidgets::onRender("
     function(el, x) {
       var updateLegend = function () {
-          var selectedGroup = document.querySelectorAll('input:checked')[0].nextSibling.innerText.substr(1);
+          console.log('****************************************************************************');
+          if (document.querySelectorAll('input:checked').length == 2) {
+            var selectedGroup = document.querySelectorAll('input:checked')[1].nextSibling.innerText.substr(1);
+          }
+          else {
+            var selectedGroup = document.querySelectorAll('input:checked')[0].nextSibling.innerText.substr(1);
+          }
+          console.log(selectedGroup)
 
-          document.querySelectorAll('.legend').forEach(a => a.hidden=true);
+          document.querySelectorAll('.legend').forEach(l => { if (l.tagName != 'g') {l.hidden=true} } );
           document.querySelectorAll('.legend').forEach(l => {
-      console.log(l);
-      console.log(l.children[0].children[0].children[1]);
-      console.log(selectedGroup);
-            if (l.children[0].children[0].children[1].innerText == selectedGroup){l.hidden=false;l.children[0].children[0].children[1].hidden = true}
+            if (l.tagName != 'g') {
+              if (l.children[0].children[0].children[1].innerText == selectedGroup){
+                l.hidden=false;
+                l.children[0].children[0].children[1].hidden = true;
+              }
+              console.log(l.children[0].children[0].children[1]);
+            }
           });
       };
       updateLegend();
       this.on('baselayerchange', e => updateLegend());
     }")
+    }
+    else {
+      map <- leaflet(options = leafletOptions(7,11)) %>%
+        addTiles() %>%
+        addProviderTiles("CartoDB.Positron") %>%
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Logarithmique")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Logarithmique")%>%
+
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Numérique")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "numerique")%>%
+        addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Intervalles")(indic),stroke = TRUE,
+                    weight = 0.1, color = "black",
+                    highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "intervalles")%>%
+        setView( lng = 2.07983
+                 , lat = 45.67042
+                 , zoom = 7.1 )%>%
+        setMaxBounds(-10,39,20,51)%>%
+
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Logarithmique"), values = indic,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>Logarithmique</div>",sep = ""),
+                  group = "Logarithmique")%>%
+
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Numérique"), values = indic,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>numerique</div>",sep = ""),
+                  group = "numerique")%>%
+        addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Intervalles"), values = indic,
+                  opacity = 1, title = paste("<div>",titre,"</div><div>intervalles</div>",sep = ""),
+                  group = "intervalles")%>%
+
+        addLayersControl(position = "bottomleft", baseGroups = c("Logarithmique", "numerique","intervalles"),
+                         options = layersControlOptions(collapsed = FALSE))%>%
+        htmlwidgets::onRender("
+    function(el, x) {
+      var updateLegend = function () {
+          console.log('****************************************************************************');
+          if (document.querySelectorAll('input:checked').length == 2) {
+            var selectedGroup = document.querySelectorAll('input:checked')[1].nextSibling.innerText.substr(1);
+          }
+          else {
+            var selectedGroup = document.querySelectorAll('input:checked')[0].nextSibling.innerText.substr(1);
+          }
+          console.log(selectedGroup)
+
+          document.querySelectorAll('.legend').forEach(l => { if (l.tagName != 'g') {l.hidden=true} } );
+          document.querySelectorAll('.legend').forEach(l => {
+            if (l.tagName != 'g') {
+              if (l.children[0].children[0].children[1].innerText == selectedGroup){
+                l.hidden=false;
+                l.children[0].children[0].children[1].hidden = true;
+              }
+              console.log(l.children[0].children[0].children[1]);
+            }
+          });
+      };
+      updateLegend();
+      this.on('baselayerchange', e => updateLegend());
+    }")
+    }
+
+  }
+  else {
+
+    map <- leaflet(options = leafletOptions(7,11)) %>%
+      addTiles() %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Quantile")(indic),stroke = TRUE,
+                  weight = 0.1, color = "black",highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Quantile")%>%
+      addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,Quantile), values = c("Faible","Moyenne","Bonne","Elevées"), opacity = 1, title = titre)
+  }
+  
+  # if (type != "connaissance"){
+  #   
+  #   if (!any(duplicated(quantile(indic)))){
+  #     map <- leaflet(options = leafletOptions(7,11)) %>%
+  #       addTiles() %>%
+  #       addProviderTiles("CartoDB.Positron") %>%
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Quantile")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Quantile")%>%
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Logarithmique")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Logarithmique")%>%
+  #       
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Numérique")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "numerique")%>%
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Intervalles")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "intervalles")%>%
+  #       setView( lng = 4.3871779
+  #                , lat = 45.439695
+  #                , zoom = 7.1 )%>%
+  #       setMaxBounds(0,42,10,48)%>%
+  #       
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Quantile"), values = indic ,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>Quantile</div>",sep = ""),
+  #                 labFormat = function(type, cuts, p) {
+  #                   (length(cuts)>=0)
+  #                   n = length(cuts)
+  #                   paste0(floor(cuts[-n]), " &ndash; ", floor(cuts[-1]))},group = "Quantile")%>%
+  #       
+  #       
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Logarithmique"), values = indic,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>Logarithmique</div>",sep = ""),
+  #                 group = "Logarithmique")%>%
+  #       
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Numérique"), values = indic,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>numerique</div>",sep = ""),
+  #                 group = "numerique")%>%
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Intervalles"), values = indic,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>intervalles</div>",sep = ""),
+  #                 group = "intervalles")%>%
+  #       
+  #       addLayersControl(position = "bottomleft", overlayGroups = c("Quantile", "Logarithmique", "numerique","intervalles"),
+  #                        options = layersControlOptions(collapsed = FALSE))
+  #   }
+  #   else {
+  #     map <- leaflet(options = leafletOptions(7,11)) %>%
+  #       addTiles() %>%
+  #       addProviderTiles("CartoDB.Positron") %>%
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Logarithmique")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Logarithmique")%>%
+  #       
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Numérique")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "numerique")%>%
+  #       addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Intervalles")(indic),stroke = TRUE,
+  #                   weight = 0.1, color = "black",
+  #                   highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "intervalles")%>%
+  #       setView( lng = 4.3871779
+  #                , lat = 45.439695
+  #                , zoom = 7.1 )%>%
+  #       setMaxBounds(0,42,10,48)%>%
+  #       
+  #       
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Logarithmique"), values = indic,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>Logarithmique</div>",sep = ""),
+  #                 group = "Logarithmique")%>%
+  #       
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Numérique"), values = indic,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>numerique</div>",sep = ""),
+  #                 group = "numerique")%>%
+  #       addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,"Intervalles"), values = indic,
+  #                 opacity = 1, title = paste("<div>",titre,"</div><div>intervalles</div>",sep = ""),
+  #                 group = "intervalles")%>%
+  #       
+  #       addLayersControl(position = "bottomleft", overlayGroups = c("Logarithmique", "numerique","intervalles"),
+  #                        options = layersControlOptions(collapsed = FALSE))
+  #     
+  #   }
+  #   
+  # }
+  # else {
+  #   
+  #   map <- leaflet(options = leafletOptions(7,11)) %>%
+  #     addTiles() %>%
+  #     addProviderTiles("CartoDB.Positron") %>%
+  #     addPolygons(data =poly ,label = ~(indic), smoothFactor = 3, fillOpacity = 0.7,fillColor = ~fcouleur_carte(pole,indic,type,"Quantile")(indic),stroke = TRUE,
+  #                 weight = 0.1, color = "black",highlightOptions = highlightOptions(fillColor = "red",fillOpacity=1), group = "Quantile")%>%
+  #     addLegend("bottomleft",pal = fcouleur_carte(pole,indic,type,Quantile), values = c("Faible","Moyenne","Bonne","Elevées"), opacity = 1, title = titre)
+  # }
   
   return(map)
 }

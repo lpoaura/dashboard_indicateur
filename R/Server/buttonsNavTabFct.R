@@ -1,7 +1,7 @@
 # Ce fichier crée une fonction qui sera appelée dans le server pour gérer les
 # boutons de navigation entre les pages
 
-buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year) {
+buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year, data_tabAccueil) {
   # Bouton "Accueil"
   observeEvent(input$accueilButton, {
     print("accueil pressed from");
@@ -33,6 +33,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       removeUI(selector = "#settings")
       removeUI(selector = "#settingsCollapsed")
       removeUI(selector = "#bandeauCarte")
+      output$mymap <- renderLeaflet({mapBase});
       removeUI(selector = "#carteBack")
     }
     if (data_page$page == "admin") {
@@ -41,6 +42,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     
     insertUI(selector = "#corps",
              ui = divBandeauAccueil)
+    data_tabAccueil$tab <- "ind1";
+    session$onFlushed(function() {
+      session$sendCustomMessage(type = "actualizeNewTabAccueil", message = isolate(data_tabAccueil$tab));
+    });
     
     data_page$page <- "accueil";
   })
@@ -88,6 +93,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       
       insertUI(selector = "#total",
                ui = divCarteBack)
+      output$mymap <- renderLeaflet({mapPlot});
       
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
@@ -107,6 +113,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     initTypeIndSelectFct(input = input, output = output, session = session,
                          data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                          data_page = data_page, fromPrgm = "buttonGlobal")
+    
+    # if (data_page$fromPage == "accueil") {
+    #   data_page$fromPage <- "global";
+    # }
   })
   
   # Bouton "Expert"
@@ -152,6 +162,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
       
       insertUI(selector = "#total",
                ui = divCarteBack)
+      output$mymap <- renderLeaflet({mapPlot});
       
       # Permet d'initialiser les indicateurs, les pôles, l'année et les graphiques.
       setYearsFct(input, output, session, data_year);
@@ -173,6 +184,10 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     initTypeIndSelectFct(input = input, output = output, session = session,
                          data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
                          data_page = data_page, fromPrgm = "buttonExpert")
+    
+    # if (data_page$fromPage == "accueil") {
+    #   data_page$fromPage <- "global";
+    # }
   })
   
   # Bouton "Admin"
@@ -205,7 +220,7 @@ buttonsNavTabFct <- function(input, output, session, data_page, data_currentInd,
     if(data_page$page == "global" || data_page$page == "expert") {
       removeUI(selector = "#settings")
       removeUI(selector = "#settingsCollapsed")
-      
+      output$mymap <- renderLeaflet({mapBase});
       removeUI(selector = "#carteBack")
       removeUI(selector = "#bandeauCarte")
     }

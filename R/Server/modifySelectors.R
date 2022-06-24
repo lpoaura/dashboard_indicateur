@@ -282,7 +282,8 @@ modifyGroupeSelectFct <- function (input, output, session,
       data_currentInd$groupe <- "Toutes";
     }
     else {
-      data_currentInd$groupe <- "RIEN";}
+      data_currentInd$groupe <- "RIEN";
+    }
   }
   
   # Remplissage du select de type en page expert

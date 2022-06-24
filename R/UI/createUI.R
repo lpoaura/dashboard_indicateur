@@ -4,7 +4,7 @@ print("Creating UI...")
 
 # Div du corps de l'architecture
 divCorps <- div(id = "corps",
-                 divBandeauCarte)
+                divBandeauAccueilInit);
 
 # Carte en background
 divCarteBack <- div(id = "carteBack",
@@ -12,7 +12,7 @@ divCarteBack <- div(id = "carteBack",
 
 # Page entière globale
 divTotal <- div(id = "total",
-                divCarteBack,
+                # divCarteBack,
                 divEnTete,
                 divCorps)
 

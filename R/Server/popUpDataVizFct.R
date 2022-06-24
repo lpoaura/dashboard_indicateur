@@ -17,26 +17,67 @@ popUpDataVizFct <- function(input, output, session) {
     # dans la barre de gauche et un qui s'affiche dans la pop up lorsque le premier est
     # survolé.
     if(input$idDataViz!="reset"){
-      insertUI(selector = "#bandeauTotal", ui = divPopUpDataViz)
+      insertUI(selector = "#bandeau", ui = divPopUpDataViz)
       
       if(input$idDataViz=="histogramme"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('histCopy'))
+        insertUI(selector = "#popUpDataViz", ui = div(id = "graphCopy",
+                                                      div(id = "buttonCloseDiv",
+                                                          tags$p(id = "titrePopup",
+                                                                 histoPlot[[3]]),
+                                                          actionButton(inputId = "closePopupButton",
+                                                                       icon("window-close"))),
+                                                      plotlyOutput('histCopy')));
       }
       else if (input$idDataViz=="pie1"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('pie1Copy'))
+        insertUI(selector = "#popUpDataViz", ui = div(id = "graphCopy",
+                                                      div(id = "buttonCloseDiv",
+                                                          tags$p(id = "titrePopup",
+                                                                 piePlot[[4]]),
+                                                          actionButton(inputId = "closePopupButton",
+                                                                       icon("window-close"))),
+                                                      plotlyOutput('pie1Copy')));
       }
       else if (input$idDataViz=="pie2"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('pie2Copy'))
+        insertUI(selector = "#popUpDataViz", ui =div(id = "graphCopy",
+                                                     div(id = "buttonCloseDiv",
+                                                         tags$p(id = "titrePopup",
+                                                                piePlot[[5]]),
+                                                         actionButton(inputId = "closePopupButton",
+                                                                      icon("window-close"))),
+                                                     plotlyOutput('pie2Copy')));
       }
       else if (input$idDataViz=="bar"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('barCopy'))
+        insertUI(selector = "#popUpDataViz", ui = div(id = "graphCopy",
+                                                      div(id = "buttonCloseDiv",
+                                                          tags$p(id = "titrePopup",
+                                                                 barPlot[[3]]),
+                                                          actionButton(inputId = "closePopupButton",
+                                                                       icon("window-close"))),
+                                                      plotlyOutput('barCopy')));
       }
       else if (input$idDataViz=="graphFournProd1"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('graphFournProd1Copy'))
+        insertUI(selector = "#popUpDataViz", ui = div(id = "graphCopy",
+                                                      div(id = "buttonCloseDiv",
+                                                          tags$p(id = "titrePopup",
+                                                                 dataFournProd[[4]]),
+                                                          actionButton(inputId = "closePopupButton",
+                                                                       icon("window-close"))),
+                                                      plotlyOutput('graphFournProd1Copy')));
       }
       else if (input$idDataViz=="graphFournProd2"){
-        insertUI(selector = "#popUpDataViz", ui = plotlyOutput('graphFournProd2Copy'))
+        insertUI(selector = "#popUpDataViz", ui = div(id = "graphCopy",
+                                                      div(id = "buttonCloseDiv",
+                                                          tags$p(id = "titrePopup",
+                                                                 dataFournProd[[5]]),
+                                                          actionButton(inputId = "closePopupButton",
+                                                                       icon("window-close"))),
+                                                      plotlyOutput('graphFournProd2Copy')));
       }
     }
-  })
+  });
+  
+  observeEvent(input$closePopupButton, {
+    removeUI(selector = "#popUpDataViz >div")
+    removeUI(selector = "#popUpDataViz")
+  });
 }

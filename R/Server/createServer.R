@@ -6,8 +6,8 @@ server <- function(input, output, session) {
   
   # reactiveValues permettant de se rappeler de la page précédente.
   data_page <- reactiveValues(
-    page = "global",
-    fromPage = "global"
+    page = "accueil",
+    fromPage = "accueil"
   );
   
   # reactiveValues permettant de mémoriser l'année à oberver.
@@ -51,8 +51,9 @@ server <- function(input, output, session) {
   );
   
   data_tabAccueil <- reactiveValues(
-    tab = "ind1"
+    tab = "ind13"
   );
+  session$sendCustomMessage(type = "actualizeNewTabAccueil", message = isolate(data_tabAccueil$tab));
   
   
   
@@ -60,20 +61,20 @@ server <- function(input, output, session) {
   # -------------------- TOUTES LES INITIALISATIONS -------------------- #
   
   # -------------------- INITIALISATION DES MOTS DE PASSE -------------------- #
-  mdpAdmin = read_file("mdpAdmin.txt")
+  # mdpAdmin = read_file("mdpAdmin.txt")
   # gestion des carctères \\ \ 
-  mdpAdmin <- gsub("[\\]", "", mdpAdmin)
+  # mdpAdmin <- gsub("[\\]", "", mdpAdmin)
   
   # -------------------- INITIALISATION DES SELECTORS -------------------- #
-  initTypeIndSelectFct(input = input, output = output, session = session,
-                       data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
-                       data_page = data_page, fromPrgm = "CREATE SERVER");
+  # initTypeIndSelectFct(input = input, output = output, session = session,
+  #                      data_currentInd = data_currentInd, data_polesButtons = data_polesButtons,
+  #                      data_page = data_page, fromPrgm = "CREATE SERVER");
   
   # -------------------- INITIALISATION DES DONNEES -------------------- #
-  dispNumbersForServerFct(input, output, session,
-                          isolate(data_polesFeux$flore),
-                          isolate(data_polesFeux$invertebre),
-                          isolate(data_polesFeux$vertebre));
+  # dispNumbersForServerFct(input, output, session,
+  #                         isolate(data_polesFeux$flore),
+  #                         isolate(data_polesFeux$invertebre),
+  #                         isolate(data_polesFeux$vertebre));
   
   
   
@@ -81,13 +82,13 @@ server <- function(input, output, session) {
   # -------------------- TOUS LES OBSERVER -------------------- #
   
   # -------------------- BOUTONS DE NAVIGATION -------------------- #
-  buttonsNavTabFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
+  buttonsNavTabFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year, data_tabAccueil);
   
   # -------------------- BOUTONS DE COLLAPSE/UNCOLLAPSE -------------------- #
   buttonCollapseFct(input, output, session, data_page, data_currentInd, data_polesButtons, data_polesFeux, data_year);
   
   # -------------------- CHOIX DE L'ANNÉE -------------------- #
-  yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons);
+  yearsSettingsFct(input, output, session, data_year, data_currentInd, data_polesButtons, data_page);
   
   # -------------------- BOUTONS DE CHOIX DE PÔLE -------------------- #
   buttonsPolesSettingsFct(input, output, session, data_polesButtons, data_polesFeux, data_currentInd, data_year, data_page);

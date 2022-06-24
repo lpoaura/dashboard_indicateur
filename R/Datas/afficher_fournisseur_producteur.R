@@ -40,15 +40,15 @@ afficher_fournisseur_producteur<-function(groupe,type)
   tab <- dbGetQuery(con_gn, commande1)
   x<-tab[,1]
   y<-tab[,2]
-  data <- data.frame(x,y)
-  plot1 <- plot_ly(data, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
+  data <- data.frame(y,x)
+  plot1 <- plot_ly(data, x = ~y, y = ~x, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
     config(displayModeBar = F)
   
   tab <- dbGetQuery(con_gn, commande2)
   x<-tab[,1]
   y<-tab[,2]
-  data <- data.frame(x,y)
-  plot2 <- plot_ly(data, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
+  data <- data.frame(y,x)
+  plot2 <- plot_ly(data, x = ~y, y = ~x, type = 'bar', name = paste(groupe),marker = list(color = '#8031A7')) %>%
     config(displayModeBar = F)
   
   

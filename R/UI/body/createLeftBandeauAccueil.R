@@ -494,3 +494,9 @@ divInfo_ind5 <- div(id="info_ind5",
 divBandeauAccueil <- div(id = "bandeauAccueil",
                          divNavBar,
                          divInfo_ind1)
+
+
+# div à afficher lors du lancement de l'application
+divBandeauAccueilInit <- div(id = "bandeauAccueil",
+                             divNavBar,
+                             divInfo_ind13)

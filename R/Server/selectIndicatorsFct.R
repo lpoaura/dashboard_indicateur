@@ -29,9 +29,11 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     # print(paste("New indicator selected :", data_currentInd$indicator));
     
     data_currentInd$indicatorName <- findIndicateurInfo(data_currentInd$indicator, "indName");
-    session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
     
-    session$sendCustomMessage(type = 'showIndicator', message = data_currentInd$indicator);
+    if (data_page$page == "expert" || data_page$page == "global") {
+      session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
+      session$sendCustomMessage(type = 'showIndicator', message = data_currentInd$indicator);
+    }
     
     # Reset du select de déclinaison
     modifyDecliSelectFct(input, output, session,
@@ -83,7 +85,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
     }
     
     # Affichage des nouvelles données
-    if (data_currentInd$hasChanged) {
+    if (data_currentInd$hasChanged || (data_page$fromPage == "accueil" && data_page$page != "accueil")) {
       poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
       decli <- data_currentInd$declinaison;
       groupe <- data_currentInd$groupe;
@@ -122,9 +124,12 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
                            data_page, fromPrgm = "ObserveSelectTypeInd Not Changed");
       }
       else if (input$selectNotChanged == "indicator") {
-        # print(paste("Current indicator :", data_currentInd$indicator));
         
-        session$sendCustomMessage(type = 'showIndicator', message = data_currentInd$indicator);
+        # print(paste("Current indicator :", data_currentInd$indicator));
+        if (data_page$page == "expert" || data_page$page == "global") {
+          session$sendCustomMessage(type = 'updateIndicatorName', message = data_currentInd$indicatorName);
+          session$sendCustomMessage(type = 'showIndicator', message = data_currentInd$indicator);
+        }
         
         # Reset de la déclinaison
         modifyDecliSelectFct(input, output, session,
@@ -151,7 +156,7 @@ selectIndicatorsFct <- function(input, output, session, data_currentInd, data_po
         }
         
         # Affichage des nouvelles données
-        if (data_currentInd$hasChanged) {
+        if (data_currentInd$hasChanged || (data_page$fromPage == "accueil" && data_page$page != "accueil")) {
           poles <- convertPolesForRequest(encodeFeux(data_polesButtons));
           decli <- data_currentInd$declinaison;
           groupe <- data_currentInd$groupe;

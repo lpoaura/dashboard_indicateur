@@ -106,16 +106,25 @@ span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
   width: 100%;
 }
 
+#settingsUncollapsed {
+  height: 32px;
+  width: 100%;
+}
+
 #settingsUncollapsed>button {
   border: none;
   background-color: #FFFFFF00;
   outline: none;
   box-shadow: none;
-  padding: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 5px;
+  padding-right: 0px;
+  font-size: 24px;
 }
 
 #settingsCollapsed {
-  min-height: 20px;
+  height: 32px;
   width: 100%;
 }
 
@@ -124,7 +133,11 @@ span.irs--shiny .irs-handle.state_hover, .irs--shiny .irs-handle:hover{
   background-color: #FFFFFF00;
   outline: none;
   box-shadow: none;
-  padding: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 5px;
+  padding-right: 0px;
+  font-size: 24px;
 }
 
 #settingsTotal {

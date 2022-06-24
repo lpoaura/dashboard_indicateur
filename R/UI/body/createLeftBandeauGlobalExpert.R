@@ -2,20 +2,20 @@
 
 # Feu du pôle flore
 actionButtonFlore <- actionButton(inputId = "feuFlore",
-                                  img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                  img(src = "Resources/pictogrammes/rond_vert.png",
+                                      width = 15,
                                       height = 15))
 
 # Feu du pôle invertébré
 actionButtonInvertebre <- actionButton(inputId = "feuInvertebre",
-                                      img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      img(src = "Resources/pictogrammes/rond_orange.png",
+                                      width = 15,
                                       height = 15))
 
 # Feu du pôle vertébré
 actionButtonVertebre <- actionButton(inputId = "feuVertebre",
-                                      img(src = "Resources/pictogrammes/rond_violet.png",
-                                      with = 15,
+                                      img(src = "Resources/pictogrammes/rond_bleu.png",
+                                      width = 15,
                                       height = 15))
 
 # Ul des feux colorés
@@ -145,23 +145,9 @@ divBandeauExpert <- div(id = "bandeau",
 rm(divBandeauUtil, divBandeauUtilExpert, divBandeauUncollapsed)
 
 
-# Bandeau de gauche
-divBandeauTotal <- div(id = "bandeauTotal",
-                       divBandeau)
-
-# Bandeau de gauche côté expert
-divBandeauTotalExpert <- div(id = "bandeauTotal",
-                       divBandeauExpert)
-
-# Zone pour observer la carte
-divBandeauRightCarte <- div(id = "bandeauRightCarte")
-
 # Regroupement avec la div vide de droite
 divBandeauCarte <- div(id = "bandeauCarte",
-                       divBandeauTotal,
-                       divBandeauRightCarte)
+                       divBandeau)
 divBandeauCarteExpert <- div(id = "bandeauCarte",
-                             divBandeauTotalExpert,
-                             divBandeauRightCarte)
-rm(divBandeauTotal, divBandeauTotalExpert, divBandeauRightCarte)
+                             divBandeauExpert)
 

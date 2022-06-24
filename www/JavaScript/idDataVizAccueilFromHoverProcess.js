@@ -5,7 +5,7 @@ $(document).ready(function () {
   console.log("JQuery is ok");
   
   $(function () {
-      const onHover = (event) => {
+      const onClick = (event) => {
       
       /* On regarde si le DOM pointé par la souris ne possède pas un parent proche
       dont l'id correspond à l'id du DOM qui englobe l'entièreté du dataViz. Si c'est le cas,
@@ -57,6 +57,6 @@ $(document).ready(function () {
         }
       }
     }
-    window.addEventListener('mouseover', onHover);
+    window.addEventListener('click', onClick);
     });
   });

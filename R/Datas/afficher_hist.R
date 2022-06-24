@@ -60,7 +60,7 @@ afficher_hist<-function(groupe,pole,taxo,type)
     plot <- plot_ly(dataHist, x = ~count, y = ~histFlore, type = 'bar', name = 'Flore et Fongus',marker = list(color = '#399E69')) %>%
       add_trace(y = ~histVertebres, name = 'Vertebres',marker = list(color = '#0099D0')) %>%
       add_trace(y = ~histInvertebres, name = 'Invertebres',marker = list(color = '#EA7200')) %>%
-      layout(yaxis = list(title = 'Count'), barmode = 'stack')
+      layout(barmode = 'stack')
     
     titre <- paste("Évolution", subTitre, "en fonction des années"); 
   }
@@ -78,7 +78,7 @@ afficher_hist<-function(groupe,pole,taxo,type)
       dataHist <- data.frame(count,hist, hist2) 
       plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(listPoles[[2]]),marker = list(color = fcouleur_unique(listPoles[[2]]))) %>%
         add_trace(y = ~hist2, name = paste(listPoles[[3]]),marker = list(color = fcouleur_unique(listPoles[[3]]))) %>%
-        layout(yaxis = list(title = 'Count'), barmode = 'stack') 
+        layout(yaxis = list(title = 'Années'), x, barmode = 'stack') 
     }
     titre <- paste("Évolution", subTitre, "en fonction des années"); 
     
@@ -89,7 +89,15 @@ afficher_hist<-function(groupe,pole,taxo,type)
     if (taxo != "Toutes") {
       count <- dbGetQuery(con_gn, "select DISTINCT annee from orb_indicateurs.mv_sraddet_ind_taxo ORDER BY annee ASC")[,1]
       hist <- dbGetQuery(con_gn, paste(commande," WHERE declinaison = '",taxo,"' ORDER BY annee ASC",sep = ""))[,1]
-      dataHist <- data.frame(count,hist)   
+      
+      if (length(count) == length(hist)) {
+        dataHist <- data.frame(count,hist)
+      }
+      # Cas par défaut : aucun histogramme à tracer car pas assez de données
+      else {
+        isPlot <- FALSE;
+        return(list(isPlot,plot,titre))
+      } 
       
       plot <- plot_ly(dataHist, x = ~count, y = ~hist, type = 'bar', name = paste(pole),marker = list(color = fcouleur_unique(findPoleForTaxo(taxo))))
       titre <- paste("Évolution", subTitre, "en fonction des années"); 

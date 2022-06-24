@@ -21,20 +21,20 @@ titre <- titlePanel(title = "Indicateurs de la biodiversité AURA",
 
 # div qui contiennent les boutons de navigation
 divAccueilButton <- div(id = "divAccueilButton",
-                        accueilButton)
+                        passiveAccueilButton)
 divGlobalButton <- div(id = "divGlobalButton",
-                       passiveGlobalButton)
+                       globalButton)
 divExpertButton <- div(id = "divExpertButton",
                        expertButton)
-divAdminButton <- div(id = "divAdminButton",
-                      adminButton)
+# divAdminButton <- div(id = "divAdminButton",
+#                       adminButton)
 
 # Ensemble des boutons de navigation
 ulNavigation <- tags$ul(id = "navigation",
                         divAccueilButton,
                         divGlobalButton,
-                        divExpertButton,
-                        divAdminButton)
+                        divExpertButton)#,
+                        # divAdminButton)
 
 
 # div du titre et de la navigation
@@ -46,8 +46,8 @@ divTitleNav <- div(id = "logoTitleNav",
 ## div qui contient le bandeau de settings total
 
 # div settings
-divSettingsTotal <- div(id = "settingsTotal",
-                        divSettings)
+divSettingsTotal <- div(id = "settingsTotal")
+                        # divSettings)
 
 
 ## Bandeau vide

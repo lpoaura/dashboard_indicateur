@@ -4,7 +4,10 @@ fcouleur_bar <- function(groupe){
   colors3 <- '#6AB023'#vert
   colors4 <- '#0099D0'#bleu
   if (groupe =="taxo"){return(colors1)}
-  if (groupe =="pole"){return(c(colors3,colors2,colors4))}
+  else if (groupe =="flore"){return(colors3)}
+  else if (groupe =="invertebre"){return(colors2)}
+  else if (groupe =="vertebre"){return(colors4)}
+  else if (groupe =="pole" || groupe == "general"){return(c(colors3,colors2,colors4))}
 }
 
 afficher_bar<-function(groupe,pole,type,taxo,année)
@@ -34,6 +37,10 @@ afficher_bar<-function(groupe,pole,type,taxo,année)
       isPlot <- FALSE;
       return(list(isPlot,plot,titre));
     }
+  }
+  else if (groupe == "general"){
+    base = "orb_indicateurs.mv_sraddet_ind_pole";
+    subTitle <- "par pôles";
   }
   # Cas par défaut : aucun barChart à tracer
   else {
@@ -68,26 +75,39 @@ afficher_bar<-function(groupe,pole,type,taxo,année)
   
   commande <- paste(commande,date,"group by declinaison order by declinaison asc")
   tab <- dbGetQuery(con_gn, commande)
-  x<-c()
-  y<-c()
-  data <- data.frame(x = "rien", y = 0)
+  data <- data.frame(y = 0, x = "rien")
   if (groupe == "taxo") {
     for (i in 1:nrow(tab)) {
       if (getIsPoleGroupe(tab[i,1], pole)) {
-        data <- rbind(data, c(tab[i,1], as.numeric(tab[i,2])));
+        newRow <- list(tab[i,2], tab[i,1]);
+        data <- rbind(data, newRow);
       }
     }
     data <- data[-1, ]
-    x<-data[,1]
-    y<-as.numeric(data[,2])
+    y<-data[,1]
+    x<-data[,2]
   }
   else {
-    x<-tab[,1]
     y<-tab[,2]
-    data <- data.frame(x, y)
+    x<-tab[,1]
+    data <- data.frame(y, x)
   }
   
-  plot <- plot_ly(tab, x = ~x, y = ~y, type = 'bar', name = paste(groupe),marker = list(color = fcouleur_bar(groupe))) %>%
+  # Choix de la couleur du graphique
+  if (pole == "Flore et Fongus") {
+    groupeCouleur <- "flore";
+  }
+  else if (pole == "Invertébrés") {
+    groupeCouleur <- "invertebre";
+  }
+  else if (pole == "Vertébrés") {
+    groupeCouleur <- "vertebre";
+  }
+  else {
+    groupeCouleur <- groupe;
+  }
+  
+  plot <- plot_ly(tab, x = ~y, y = ~x, type = 'bar', name = paste(groupe),marker = list(color = fcouleur_bar(groupeCouleur))) %>%
     config(displayModeBar = F)
   print(commande)
   

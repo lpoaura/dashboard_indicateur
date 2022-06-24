@@ -39,10 +39,23 @@ buttonHelpFct <- function(input, output, session, data_page, data_tabAccueil, da
     
     data_page$page <- "accueil";
     
+    indName <- data_currentInd$indicatorName;
+    if (indName == "Nombre de données par taxonomie") {
+      indName <- "Nombre de données";
+    }
+    else if (indName == "Nombre d'espèces par taxonomie") {
+      indName <- "Nombre d'espèces";
+    }
+    else if (indName == "Indicateur de connaissances par taxonomie") {
+      indName <- "Indicateur de connaissances";
+    }
+    else {
+      indName <- indName;
+    }
 
     session$onFlushed(function() {
       # Récupération de l'id de l'indicateur pour lequel on demande une aide
-      session$sendCustomMessage(type = 'getIdIndicatorAccueil', message = isolate(data_currentInd$indicatorName));
+      session$sendCustomMessage(type = 'getIdIndicatorAccueil', message = indName);
     })
   });
   
